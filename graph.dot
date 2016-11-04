@@ -1,0 +1,11 @@
+digraph G {
+	node [shape="box"];
+	edge [arrowhead=none,arrowtail=none];
+	{
+		edge[headlabel="n",taillabel="1"];
+		Факультет->Группа->Аккаунт->RoleAssignment;
+		Факультет->Кафедра->Предмет;
+		Кафедра->Аккаунт;
+		Роль->RoleAssignment;
+	}
+}

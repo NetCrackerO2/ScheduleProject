@@ -1,2 +1,6 @@
 # ScheduleProject
-General project. 
+General project.
+
+## Hierarchy
+
+![Class hierarchy](graph.dot.png)
