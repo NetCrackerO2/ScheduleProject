@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package professorstudent;
-
 /**
  *
  * @author Александр
@@ -40,5 +39,4 @@ public class Account {
     public void setName(String name){
         this.name = name;
     }
-    
 }
