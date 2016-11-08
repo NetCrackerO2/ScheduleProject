@@ -1,7 +1,8 @@
-package Subject;
+package subject;
 
 
-import Cathedra.Cathedra;
+import cathedra.Cathedra;
+
 
 /**
  * @author AsGreyWolf
@@ -15,15 +16,15 @@ public class SubjectImpl implements Subject {
         this.name = name;
     }
 
-	@Override
-	public Cathedra getCathedra() {
-		return cathedra;
-	}
+    @Override
+    public Cathedra getCathedra() {
+        return cathedra;
+    }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+    @Override
+    public String getName() {
+        return name;
+    }
 
 
 }

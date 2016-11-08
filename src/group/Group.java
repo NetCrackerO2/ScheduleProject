@@ -1,7 +1,7 @@
-package Group;
+package group;
 
 
-import Faculty.Faculty;
+import faculty.Faculty;
 
 
 /**

@@ -1,7 +1,7 @@
-import Faculty.Faculty;
-import Faculty.FacultyImpl;
-import Group.Group;
-import Group.GroupsManager;
+import faculty.Faculty;
+import faculty.FacultyImpl;
+import group.Group;
+import group.GroupsManager;
 
 
 public class Main {

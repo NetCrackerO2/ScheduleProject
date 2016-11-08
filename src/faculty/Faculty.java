@@ -1,6 +1,6 @@
-package Faculty;
+package faculty;
 
 // Для теста
 public interface Faculty {
-    public int getNumber();
+    int getNumber();
 }

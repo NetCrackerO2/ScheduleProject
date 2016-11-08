@@ -1,4 +1,4 @@
-package Faculty;
+package faculty;
 
 // Для теста
 public class FacultyImpl implements Faculty{

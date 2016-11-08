@@ -1,11 +1,14 @@
-package Subject;
+package subject;
 
-import Cathedra.Cathedra;
+
+import cathedra.Cathedra;
+
 
 /**
  * @author AsGreyWolf
  */
 public interface Subject {
     Cathedra getCathedra();
+
     String getName();
 }

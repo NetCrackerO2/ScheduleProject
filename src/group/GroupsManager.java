@@ -1,7 +1,7 @@
-package Group;
+package group;
 
 
-import Faculty.Faculty;
+import faculty.Faculty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,8 +103,8 @@ public class GroupsManager {
      * @return Список групп из переданного факультета
      */
     public List<Group> getGroupsInFaculty(Faculty faculty) {
-        List<Group> groupsInFaculty = groupsList.stream().filter(currentGroup -> currentGroup.getFaculty() == faculty).collect(Collectors.toList());
-
-        return groupsInFaculty;
+        return groupsList.stream().filter(
+                currentGroup -> currentGroup.getFaculty() == faculty
+        ).collect(Collectors.toList());
     }
 }
