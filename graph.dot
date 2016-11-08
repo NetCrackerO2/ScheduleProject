@@ -3,9 +3,11 @@ digraph G {
 	edge [arrowhead=none,arrowtail=none];
 	{
 		edge[headlabel="n",taillabel="1"];
-		Факультет->Группа->Аккаунт->RoleAssignment;
-		Факультет->Кафедра->Предмет;
-		Кафедра->Аккаунт;
-		Роль->RoleAssignment;
+		RoleAssignment->{Аккаунт,Роль};
+	}
+	{
+		edge[headlabel="1",taillabel="n"];
+		Аккаунт->{Группа,Кафедра}->Факультет;
+		Предмет->Кафедра;
 	}
 }
