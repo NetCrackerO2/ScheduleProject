@@ -1,15 +1,15 @@
 digraph G {
 	node [shape="box"];
-	edge [arrowhead=none,arrowtail=none];
 	{
-		edge[headlabel="n",taillabel="1"];
-		Кафедра->{Аккаунт,Предмет,Факультет};
+		edge[xlabel="n",];
+		Кафедра->{Аккаунт,Предмет};
+	}
+	{
+		edge[xlabel="1"];
+		Кафедра->Факультет;
 		Группа->Факультет;
 		Аккаунт->{Кафедра,Группа,RoleAssignment};
 		RoleAssignment->{Аккаунт,Роль};
 		Предмет->Кафедра;
-	}
-	{
-		edge[headlabel="1",taillabel="n"];
 	}
 }
