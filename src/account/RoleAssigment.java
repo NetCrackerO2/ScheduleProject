@@ -3,19 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package professorstudent;
+package account;
 
 /**
  *
  * @author Александр
  */
-public class Role {
-    private String role;
-    
-    public String getRole(){
-        return this.role;
-    }
-    public void setRole(String role){
+public class RoleAssigment {
+    private Account account;
+    private Role role;
+    public RoleAssigment(Account account, Role role){
+        this.account = account;
         this.role = role;
     }
     

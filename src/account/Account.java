@@ -1,5 +1,5 @@
 
-package professorstudent;
+package account;
 
 
 import cathedra.Cathedra;

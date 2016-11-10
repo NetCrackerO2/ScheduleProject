@@ -1,7 +1,7 @@
 package cathedra;
 
 
-import professorstudent.Account;
+import account.Account;
 import subject.*;
 import faculty.*;
 
