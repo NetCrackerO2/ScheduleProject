@@ -4,6 +4,8 @@ import faculty.Faculty;
 import faculty.FacultyImpl;
 import group.Group;
 import group.GroupsManager;
+import subject.Subject;
+import subject.SubjectManager;
 
 
 public class Main {
@@ -18,6 +20,8 @@ public class Main {
 
         Group[] groups = new Group[10];
         GroupsManager groupsManager = GroupsManager.getInstance();
+
+        SubjectManager subjectManager = SubjectManager.getInstance();
 
 
         // Распределяем группы по факультетам и кафедрам
@@ -78,7 +82,37 @@ public class Main {
         for (int i = 0; i < 10; i++)
             accounts[i] = new Account("" + i, groupsManager.getGroup(1004));
 
-        //...
+        // Тестируем предметы
+        Subject[] subjects = new Subject[10];
+        for (int i = 0; i < 10; i++)
+            subjects[i] = subjectManager.getNewSubject(i < 5 ? cathedra1 : cathedra2, "" + i);
 
+        System.out.println("Предметы из кафедры \"" + cathedra1.getName() + "\":");
+        subjectManager.getSubjectsByCathedra(cathedra1).stream().forEach(
+                (needSubject) -> System.out.println(needSubject.getName())
+        );
+        System.out.println("");
+
+        System.out.println("Предметы из кафедры \"" + cathedra2.getName() + "\":");
+        subjectManager.getSubjectsByCathedra(cathedra2).stream().forEach(
+                (needSubject) -> System.out.println(needSubject.getName())
+        );
+        System.out.println("");
+
+        System.out.println("Удаляем предмет \"" + subjects[3].getName() + "\"");
+        subjectManager.removeSubject(subjects[3]);
+        System.out.println("Все предметы:");
+        subjectManager.getAllSubjects().stream().forEach(
+                (needSubject) -> System.out.println(needSubject.getName())
+        );
+        System.out.println("");
+
+        System.out.print("Кафедра предмета \"" + subjects[5].getName() + "\": ");
+        System.out.println(subjects[5].getCathedra().getName());
+        System.out.println("");
+
+        System.out.print("Получаем предмет \"" + subjects[7].getName() + "\" по имени: ");
+        System.out.println(subjectManager.getSubject(cathedra2, "7").getName());
+        System.out.println("");
     }
 }

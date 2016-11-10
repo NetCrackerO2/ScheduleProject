@@ -39,7 +39,7 @@ public class SubjectManager {
      */
     public Subject getNewSubject(Cathedra cathedra, String name) {
         if (list.stream().anyMatch(current -> current.getName().equals(name) && current.getCathedra().equals(cathedra)))
-            throw new IllegalArgumentException("subject already exists");
+            throw new IllegalArgumentException("Subject already exists");
         Subject result = new SubjectImpl(cathedra, name);
         list.add(result);
         return result;
@@ -48,11 +48,11 @@ public class SubjectManager {
     /**
      * Remove subject from Manager
      *
-     * @param group
+     * @param subject
      */
-    public void removeSubject(Subject group) {
-        if (!list.remove(group))
-            throw new NoSuchElementException("subject not found!");
+    public void removeSubject(Subject subject) {
+        if (!list.remove(subject))
+            throw new NoSuchElementException("Subject not found!");
     }
 
     /**
@@ -66,7 +66,7 @@ public class SubjectManager {
         for (Subject current : list)
             if (current.getCathedra().equals(cathedra) && current.getName().equals(name))
                 return current;
-        throw new NoSuchElementException("subject not found!");
+        throw new NoSuchElementException("Subject not found!");
     }
 
     /**
