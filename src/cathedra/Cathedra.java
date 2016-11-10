@@ -23,14 +23,7 @@ public class Cathedra {
         this.name=name;
         this.faculty=faculty;
     }
-   
-    public String getName() {
-        return this.name;
-    }
-    public void setName(String name) {
-        this.name=name;
-    }
-    
+      
     public void setFaculty(Faculty faculty) {
         this.faculty=faculty;
     }
