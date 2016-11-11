@@ -1,10 +1,10 @@
 digraph G {
 	node [shape="box"];
 	{
-		edge[xlabel="n",];
+		edge[label="n",];
 	}
 	{
-		edge[xlabel="1"];
+		edge[label="1"];
 		Кафедра->Факультет;
 		Группа->{Факультет,Кафедра};
 		Аккаунт->Группа;
