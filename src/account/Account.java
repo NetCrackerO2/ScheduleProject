@@ -2,7 +2,6 @@
 package account;
 
 
-
 import group.*;
 
 
@@ -13,7 +12,7 @@ public class Account {
     private String name;
     private Group group;
 
-    public Account(String name, Group group) {
+    protected Account(String name, Group group) {
         this.name = name;
         this.group = group;
     }

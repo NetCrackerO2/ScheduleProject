@@ -31,9 +31,8 @@ public class AccountManager {
     }
 
     /**
-     * Factory method to get new subject instance
+     * Factory method to get new account instance
      *
-     * 
      * @param name
      * @param group
      * @return account instance
@@ -47,9 +46,9 @@ public class AccountManager {
     }
 
     /**
-     * Remove subject from Manager
+     * Remove account from Manager
      *
-     * @param subject
+     * @param account
      */
     public void removeAccount(Account account) {
         if (!list.remove(account))
@@ -59,10 +58,9 @@ public class AccountManager {
     /**
      * Get already generated account by name and group
      *
-     * 
      * @param name
      * @param group
-     * @return subject instance
+     * @return account instance
      */
     public Account getAccount(String name, Group group) {
         for (Account current : list)
@@ -84,7 +82,7 @@ public class AccountManager {
     /**
      * Get all account instances
      *
-     * @return list of subject
+     * @return list of account
      */
     public List<Account> getAllAccounts() {
         return new ArrayList<Account>(list);
