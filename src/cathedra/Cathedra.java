@@ -24,8 +24,8 @@ public class Cathedra {
         this.faculty=faculty;
     }
       
-    public void setFaculty(Faculty faculty) {
-        this.faculty=faculty;
+    public String getName() {
+        return this.name;
     }
     
     public Faculty getFaculty() {
