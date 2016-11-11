@@ -2,7 +2,6 @@ digraph G {
 	node [shape="box"];
 	{
 		edge[xlabel="n",];
-		Кафедра->{Аккаунт,Предмет};
 	}
 	{
 		edge[xlabel="1"];
