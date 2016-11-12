@@ -9,6 +9,8 @@ import group.GroupsManager;
 import subject.Subject;
 import subject.SubjectManager;
 
+import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -45,10 +47,6 @@ public class Main {
         Subject[] subjects = new Subject[10];
         for (int i = 0; i < 10; i++)
             subjects[i] = subjectManager.getNewSubject(i < 5 ? cathedra1 : cathedra2, "" + i);
-
-
-
-
 
         // Тестируем группы ///////////////////////////////////////////////
         // Вывод всех групп
@@ -223,5 +221,12 @@ public class Main {
         System.out.println(subjectManager.getSubject(cathedra2, "7").getName());
         System.out.println("");
         //////////////////////////////////////////////////////////////////////////////
+
+
+        Command[] commands = new Command[1];
+        commands[0] = new ViewListGroupsCommand();
+
+        Scanner s = new Scanner(System.in);
+        commands[s.nextInt()].activate();
     }
 }
