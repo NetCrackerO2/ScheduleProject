@@ -1,4 +1,11 @@
-public class ViewListGroupsCommand extends Command {
+package MVC.Commands;
+
+
+import MVC.Command;
+import MVC.View;
+
+
+public class ViewListGroupsCommand implements Command {
 
     public ViewListGroupsCommand() {
     }

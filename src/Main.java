@@ -1,3 +1,6 @@
+import MVC.Commands.AddNewGroupCommand;
+import MVC.Controller;
+import MVC.Commands.ViewListGroupsCommand;
 import account.Account;
 import account.AccountManager;
 import cathedra.Cathedra;
@@ -48,7 +51,7 @@ public class Main {
 
 
 
-        
+
         Controller controller = new Controller();
         controller.addCommand(new ViewListGroupsCommand());
         controller.addCommand(new AddNewGroupCommand());

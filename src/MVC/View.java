@@ -1,3 +1,6 @@
+package MVC;
+
+
 import group.GroupsManager;
 
 import java.util.List;

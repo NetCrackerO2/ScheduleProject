@@ -1,3 +1,8 @@
+package MVC.Commands;
+
+
+import MVC.Command;
+import MVC.View;
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
 import faculty.FacultyImpl;
@@ -6,7 +11,7 @@ import group.GroupsManager;
 import java.util.Scanner;
 
 
-public class AddNewGroupCommand extends Command {
+public class AddNewGroupCommand implements Command {
 
     @Override
     public void activate() {
