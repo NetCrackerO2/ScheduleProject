@@ -1,6 +1,6 @@
-import MVC.Commands.AddNewGroupCommand;
-import MVC.Controller;
-import MVC.Commands.ViewListGroupsCommand;
+import mvc.Commands.AddNewGroupCommand;
+import mvc.Controller;
+import mvc.Commands.ViewListGroupsCommand;
 import account.Account;
 import account.AccountManager;
 import cathedra.Cathedra;

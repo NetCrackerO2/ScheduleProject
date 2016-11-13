@@ -1,8 +1,8 @@
-package MVC.Commands;
+package mvc.Commands;
 
 
-import MVC.Command;
-import MVC.View;
+import mvc.Command;
+import mvc.View;
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
 import faculty.FacultyImpl;

@@ -1,8 +1,8 @@
-package MVC.Commands;
+package mvc.Commands;
 
 
-import MVC.Command;
-import MVC.View;
+import mvc.Command;
+import mvc.View;
 
 
 public class ViewListGroupsCommand implements Command {
