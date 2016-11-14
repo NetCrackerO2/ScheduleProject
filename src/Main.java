@@ -55,7 +55,8 @@ public class Main {
         Controller controller = new Controller();
         controller.addCommand(new ViewListGroupsCommand());
         controller.addCommand(new AddNewGroupCommand());
-
+        controller.addCommand(new ViewListSubjectsCommand());
+        controller.addCommand(new AddNewSubjectCommand());
         controller.start();
     }
 }
