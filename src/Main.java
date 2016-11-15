@@ -54,9 +54,11 @@ public class Main {
         controller.addCommand(new ViewListGroupsCommand());
         controller.addCommand(new ViewListSubjectsCommand());
         controller.addCommand(new ViewListCathedraCommand());
+        controller.addCommand(new ViewListFacultiesCommand());
         controller.addCommand(new AddNewCathedraCommand());
         controller.addCommand(new AddNewGroupCommand());
         controller.addCommand(new AddNewSubjectCommand());
+        controller.addCommand(new AddNewFacultyCommand());
         
         controller.start();
     }
