@@ -1,6 +1,7 @@
 package mvc;
 
 
+import cathedra.CathedraManager;
 import group.GroupsManager;
 
 import java.util.List;
@@ -12,6 +13,11 @@ public class View {
         GroupsManager.getInstance().getAllGroups().stream().forEach(
                 (needGroup) -> System.out.println(needGroup.getNumber())
         );
+        System.out.println("");
+    }
+    public static void writeAllCathedra(){
+        System.out.println("Список всех кафедр: ");
+        CathedraManager.getInstance().getAllCathedra().stream().forEach((needCathedra) -> System.out.println(needCathedra.getName()));
         System.out.println("");
     }
 

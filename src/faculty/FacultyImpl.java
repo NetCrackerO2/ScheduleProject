@@ -10,5 +10,5 @@ public class FacultyImpl implements Faculty{
 
     public int getNumber(){
         return number;
-    }
+    }    
 }
