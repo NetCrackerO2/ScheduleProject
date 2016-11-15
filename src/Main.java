@@ -33,7 +33,6 @@ public class Main {
         Group[] groups = new Group[10];
         for (int i = 0; i < 10; i++)
             groups[i] = groupsManager.getNewGroup(
-                    i % 2 == 0 ? faculty1 : faculty2,
                     i % 2 == 0 ? cathedra2 : cathedra1,
                     i + 1000
             );

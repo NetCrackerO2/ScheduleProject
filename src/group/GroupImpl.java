@@ -2,26 +2,27 @@ package group;
 
 
 import cathedra.Cathedra;
-import faculty.Faculty;
+
+import java.util.NoSuchElementException;
 
 
 /**
  * @author temon137
  */
 public class GroupImpl implements Group {
-    private Faculty faculty;
+    /*private Faculty faculty;*/
     private Cathedra cathedra;
     private int number;
     //------------
 
 
-    protected GroupImpl(Faculty faculty, Cathedra cathedra, int number) {
-        this.faculty = faculty;
+    protected GroupImpl(/*Faculty faculty, */Cathedra cathedra, int number) {
+        /*this.faculty = faculty;*/
         this.cathedra = cathedra;
         this.number = number;
     }
 
-    @Override
+    /*@Override
     public Faculty getFaculty() {
         return faculty;
     }
@@ -29,7 +30,7 @@ public class GroupImpl implements Group {
     @Override
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
-    }
+    }*/
 
     @Override
     public Cathedra getCathedra() {
@@ -48,7 +49,13 @@ public class GroupImpl implements Group {
 
     @Override
     public void setNumber(int number) {
-        this.number = number;
+        try {
+            GroupsManager.getInstance().getGroup(number);
+        } catch (NoSuchElementException e) {
+            this.number = number;
+        }
+
+        throw new IllegalArgumentException("Группа с таким номером уже существует!");
     }
     //============
 
