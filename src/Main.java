@@ -1,8 +1,5 @@
-import mvc.Commands.AddNewGroupCommand;
+import mvc.Commands.*;
 import mvc.Controller;
-import mvc.Commands.ViewListGroupsCommand;
-import mvc.Commands.ViewListCathedraCommand;
-import mvc.Commands.AddNewCathedraCommand;
 import account.Account;
 import account.AccountManager;
 import cathedra.Cathedra;
@@ -28,9 +25,9 @@ public class Main {
 
         // Распределяем кафедры по факультетам
         Cathedra cathedra1, cathedra2, cathedra3;
-        cathedra1 = cathedraManager.addNewCathedra(faculty1, "Phisics");
-        cathedra2 = cathedraManager.addNewCathedra(faculty2, "IT");
-        cathedra3 = cathedraManager.addNewCathedra(faculty2, "Garbage");
+        cathedra1 = cathedraManager.addNewCathedra("Phisics");
+        cathedra2 = cathedraManager.addNewCathedra("IT");
+        cathedra3 = cathedraManager.addNewCathedra("Garbage");
 
         // Распределяем группы по факультетам и кафедрам
         Group[] groups = new Group[10];
@@ -56,11 +53,11 @@ public class Main {
 
         Controller controller = new Controller();
         controller.addCommand(new ViewListGroupsCommand());
-        controller.addCommand(new AddNewGroupCommand());
         controller.addCommand(new ViewListSubjectsCommand());
-        controller.addCommand(new AddNewSubjectCommand());
-        controller.addCommand(new AddNewCathedraCommand());
         controller.addCommand(new ViewListCathedraCommand());
+        controller.addCommand(new AddNewCathedraCommand());
+        controller.addCommand(new AddNewGroupCommand());
+        controller.addCommand(new AddNewSubjectCommand());
         
         controller.start();
     }

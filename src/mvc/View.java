@@ -1,8 +1,10 @@
 package mvc;
 
 
+import cathedra.Cathedra;
 import cathedra.CathedraManager;
 import group.GroupsManager;
+import subject.SubjectManager;
 
 import java.util.List;
 
@@ -13,6 +15,15 @@ public class View {
         GroupsManager.getInstance().getAllGroups().stream().forEach(
                 (needGroup) -> System.out.println(needGroup.getNumber())
         );
+        System.out.println("");
+    }
+    public static void writeAllSubjects() {
+        System.out.println("Список всех предметов:");
+        for(Cathedra cathedra : CathedraManager.getInstance().getAllCathedra()) {
+            System.out.println(cathedra.getName()+": ");
+            SubjectManager.getInstance().getSubjectsByCathedra(cathedra).stream().forEach(
+                    subj->System.out.println("   "+subj.getName()));
+        }
         System.out.println("");
     }
     public static void writeAllCathedra(){

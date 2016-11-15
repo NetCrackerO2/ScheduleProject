@@ -1,4 +1,4 @@
-﻿package mvc.Commands;
+package mvc.Commands;
 
 import mvc.Command;
 import mvc.View;

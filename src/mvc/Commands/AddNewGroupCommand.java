@@ -28,7 +28,7 @@ public class AddNewGroupCommand implements Command {
         }
 
         FacultyImpl faculty = new FacultyImpl(13);
-        Cathedra cathedra = CathedraManager.getInstance().addNewCathedra(faculty, "test");
+        Cathedra cathedra = CathedraManager.getInstance().addNewCathedra("test");
 
         try {
             GroupsManager.getInstance().getNewGroup(
