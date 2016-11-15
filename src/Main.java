@@ -25,9 +25,9 @@ public class Main {
 
         // Распределяем кафедры по факультетам
         Cathedra cathedra1, cathedra2, cathedra3;
-        cathedra1 = cathedraManager.addNewCathedra("Phisics");
-        cathedra2 = cathedraManager.addNewCathedra("IT");
-        cathedra3 = cathedraManager.addNewCathedra("Garbage");
+        cathedra1 = cathedraManager.addNewCathedra(faculty1,"Phisics");
+        cathedra2 = cathedraManager.addNewCathedra(faculty2,"IT");
+        cathedra3 = cathedraManager.addNewCathedra(faculty2,"Garbage");
 
         // Распределяем группы по факультетам и кафедрам
         Group[] groups = new Group[10];

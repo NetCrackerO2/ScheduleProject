@@ -2,6 +2,8 @@ package cathedra;
 
 
 
+import faculty.Faculty;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -38,13 +40,14 @@ public class CathedraManager {
     /**
      * Factory method to get new cathedra instance
      *
+     * @param faculty
      * @param name
      * @return cathedra instance
      */
-    public Cathedra addNewCathedra(String name) {
-        if (list.stream().anyMatch(current -> current.getName().equals(name)))
+    public Cathedra addNewCathedra(Faculty faculty, String name) {
+        if (list.stream().anyMatch(current -> current.getFaculty().equals(faculty) && current.getName().equals(name)))
             throw new IllegalArgumentException("Cathedra already exist");
-        Cathedra newCathedra = new Cathedra(name);
+        Cathedra newCathedra = new Cathedra(faculty, name);
         list.add(newCathedra);
         return newCathedra;
     }
@@ -60,7 +63,7 @@ public class CathedraManager {
     }
 
     /**
-     * Get cathedra by name
+     * Get cathedra by faculty and name
      *
      * @param name
      * @return cathedra instance
@@ -70,6 +73,16 @@ public class CathedraManager {
             if (current.getName().equals(name))
                 return current;
         throw new NoSuchElementException("Cathedra not found");
+    }
+
+    /**
+     * Get cathedra list by faculty
+     *
+     * @param faculty
+     * @return list of cathedra
+     */
+    public List<Cathedra> getListCathedra(Faculty faculty) {
+        return list.stream().filter(current -> current.getFaculty().equals(faculty)).collect(Collectors.toList());
     }
 
     /**

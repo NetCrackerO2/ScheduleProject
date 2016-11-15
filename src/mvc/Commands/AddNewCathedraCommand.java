@@ -20,10 +20,10 @@ public class AddNewCathedraCommand implements Command{
             return;
         }
         
-        //FacultyImpl faculty = new FacultyImpl(11);
+        FacultyImpl faculty = new FacultyImpl(11);
         
         try{
-            CathedraManager.getInstance().addNewCathedra(name);
+            CathedraManager.getInstance().addNewCathedra(faculty,name);
         }
         catch (Exception e) {
             View.writeError(e.getMessage());

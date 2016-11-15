@@ -14,14 +14,20 @@ import faculty.Faculty;
  */
 public class Cathedra {
     private String name;
+    private Faculty faculty;
 
 
-    protected Cathedra(String name) {
+    protected Cathedra(Faculty faculty, String name) {
         this.name = name;
+        this.faculty = faculty;
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public Faculty getFaculty() {
+        return this.faculty;
     }
 
 }
