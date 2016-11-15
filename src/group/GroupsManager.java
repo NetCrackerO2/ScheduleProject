@@ -2,7 +2,6 @@ package group;
 
 
 import cathedra.Cathedra;
-import faculty.Faculty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,16 +37,15 @@ public class GroupsManager {
     }
 
     /**
-     * @param faculty Факулльтет, которому будет принадлежать новая группа
      * @param number  Номер новой группы
      * @return Объект новой группы
      * @throws IllegalArgumentException Если группа с номером number уже существует
      */
-    public Group getNewGroup(Faculty faculty, Cathedra cathedra, int number) {
+    public Group getNewGroup(Cathedra cathedra, int number) {
         if (groupsList.stream().anyMatch(currentGroup -> currentGroup.getNumber() == number))
             throw new IllegalArgumentException("Группа с таким номером уже существует!");
 
-        Group newGroup = new GroupImpl(faculty, cathedra, number);
+        Group newGroup = new GroupImpl(cathedra, number);
         groupsList.add(newGroup);
         return newGroup;
     }
@@ -97,16 +95,6 @@ public class GroupsManager {
      */
     public List<Group> getAllGroups() {
         return new ArrayList<Group>(groupsList);
-    }
-
-    /**
-     * @param faculty Объект факультета, для которого происходит поиск содержащихся в нём групп
-     * @return Список групп из переданного факультета
-     */
-    public List<Group> getGroupsByFaculty(Faculty faculty) {
-        return groupsList.stream().filter(
-                currentGroup -> currentGroup.getFaculty() == faculty
-        ).collect(Collectors.toList());
     }
 
     /**

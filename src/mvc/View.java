@@ -3,6 +3,8 @@ package mvc;
 
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
+import faculty.Faculty;
+import faculty.FacultyManager;
 import group.GroupsManager;
 import subject.SubjectManager;
 
@@ -29,6 +31,11 @@ public class View {
     public static void writeAllCathedra(){
         System.out.println("Список всех кафедр: ");
         CathedraManager.getInstance().getAllCathedra().stream().forEach((needCathedra) -> System.out.println(needCathedra.getName()));
+        System.out.println("");
+    }
+    public static void writeAllFaculties(){
+        System.out.println("Список всех факультетов: ");
+        FacultyManager.getInstance().getAllFaculty().stream().forEach((faculty) -> System.out.println(faculty.getNumber()));
         System.out.println("");
     }
 

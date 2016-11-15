@@ -2,16 +2,15 @@ package group;
 
 
 import cathedra.Cathedra;
-import faculty.Faculty;
 
 
 /**
  * @author temon137
  */
 public interface Group {
-    Faculty getFaculty();
+    /*Faculty getFaculty();
 
-    void setFaculty(Faculty faculty);
+    void setFaculty(Faculty faculty);*/
 
     Cathedra getCathedra();
 
