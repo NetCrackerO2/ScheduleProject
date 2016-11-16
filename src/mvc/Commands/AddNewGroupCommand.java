@@ -1,13 +1,13 @@
 package mvc.Commands;
 
 
-import mvc.Command;
-import mvc.View;
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
-import faculty.FacultyImpl;
 import group.GroupsManager;
+import mvc.Command;
+import mvc.View;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 
@@ -27,12 +27,19 @@ public class AddNewGroupCommand implements Command {
             return;
         }
 
-        FacultyImpl faculty = new FacultyImpl(13);
-        Cathedra cathedra = CathedraManager.getInstance().addNewCathedra(faculty,"test");
+        Cathedra cathedra = null;
+        View.writeMessage("Введите название кафедры группы: ");
+        String cathedraName = scanner.nextLine();
+        try{
+            cathedra = CathedraManager.getInstance().getCathedra(cathedraName);
+        }
+        catch (NoSuchElementException e){
+            View.writeError("Кафедра с таким именем не найдена!");
+            return;
+        }
 
         try {
             GroupsManager.getInstance().getNewGroup(
-                    faculty,
                     cathedra,
                     number
             );
