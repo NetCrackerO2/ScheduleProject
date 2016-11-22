@@ -33,7 +33,11 @@ public class Account {
         return this.name;
     }
 
-    public void setName(String name) {
+    public boolean setName(String name) {
+        if(AccountManager.getInstance().isExist(name))
+            return false;
+
         this.name = name;
+        return true;
     }
 }
