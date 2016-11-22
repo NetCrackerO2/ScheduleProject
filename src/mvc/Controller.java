@@ -32,7 +32,6 @@ public class Controller {
         while (!isStop) {
             View.writeAllCommands(commandsList);
 
-
             try {
                 readCommand = scanner.nextLine();
                 currentCommand = Integer.parseInt(readCommand);
@@ -51,9 +50,30 @@ public class Controller {
                 continue;
             }
 
-            activateCommand(currentCommand);
+            try {
+                activateCommand(currentCommand);
+            } catch (Exception e) {
+                View.writeError(e.getMessage());
+            }
         }
 
-        scanner.close();
+    }
+
+    public static int readInt() {
+        Scanner scanner = new Scanner(System.in);
+        int number;
+
+        try {
+            number = scanner.nextInt();
+        } catch (Exception e) {
+            throw new RuntimeException("Некорректный ввод числа.");
+        }
+
+        return number;
+    }
+
+    public static String readString() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
 }

@@ -12,6 +12,10 @@ public class Account {
     private String name;
     private Group group;
 
+    protected Account(String name) {
+        this(name, null);
+    }
+
     protected Account(String name, Group group) {
         this.name = name;
         this.group = group;

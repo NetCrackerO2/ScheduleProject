@@ -48,19 +48,16 @@ public class Main {
             subjects[i] = subjectManager.getNewSubject(i < 5 ? cathedra1 : cathedra2, "" + i);
 
 
-
-
         Controller controller = new Controller();
+        controller.addCommand(new FullAccountsCommand());
         controller.addCommand(new ViewListGroupsCommand());
         controller.addCommand(new ViewListSubjectsCommand());
         controller.addCommand(new ViewListCathedraCommand());
         controller.addCommand(new ViewListFacultiesCommand());
-        controller.addCommand(new ViewListAccountsCommand());
         controller.addCommand(new AddNewCathedraCommand());
         controller.addCommand(new AddNewGroupCommand());
         controller.addCommand(new AddNewSubjectCommand());
         controller.addCommand(new AddNewFacultyCommand());
-        controller.addCommand(new AddNewAccountCommand());
 
         controller.start();
     }

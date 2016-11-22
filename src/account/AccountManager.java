@@ -30,6 +30,16 @@ public class AccountManager {
         return instance;
     }
 
+
+    public Account getNewAccount(String name){
+        if(isExist(name))
+            throw new IllegalArgumentException("Account already exists");
+
+        Account result = new Account(name);
+        list.add(result);
+        return result;
+    }
+
     /**
      * Factory method to get new account instance
      *
@@ -40,6 +50,7 @@ public class AccountManager {
     public Account getNewAccount(String name, Group group) {
         if (list.stream().anyMatch(current -> current.getName().equals(name) && current.getGroup().equals(group)))
             throw new IllegalArgumentException("Account already exists");
+
         Account result = new Account(name, group);
         list.add(result);
         return result;
@@ -55,6 +66,13 @@ public class AccountManager {
             throw new NoSuchElementException("Account not found!");
     }
 
+    public Account getAccount(String name) {
+        for (Account current : list)
+            if (current.getName().equals(name))
+                return current;
+        return null;
+    }
+
     /**
      * Get already generated account by name and group
      *
@@ -66,7 +84,11 @@ public class AccountManager {
         for (Account current : list)
             if (current.getGroup().equals(group) && current.getName().equals(name))
                 return current;
-        throw new NoSuchElementException("Account not found!");
+        return null;
+    }
+
+    public boolean isExist(String name){
+        return list.stream().anyMatch((account)->(account.getName().equals(name)));
     }
 
     /**
