@@ -53,6 +53,7 @@ public class GroupImpl implements Group {
             GroupsManager.getInstance().getGroup(number);
         } catch (NoSuchElementException e) {
             this.number = number;
+            return;
         }
 
         throw new IllegalArgumentException("Группа с таким номером уже существует!");

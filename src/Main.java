@@ -58,6 +58,7 @@ public class Main {
         controller.addCommand(new AddNewGroupCommand());
         controller.addCommand(new AddNewSubjectCommand());
         controller.addCommand(new AddNewFacultyCommand());
+        controller.addCommand(new EditGroupCommand());
 
         controller.start();
     }
