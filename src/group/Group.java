@@ -20,7 +20,8 @@ public interface Group {
 
     void setNumber(int number);
 
-    int getProfessionCode();
+    int getReceiptYear();
 
-    void setProfessionCode(int professionCode);
+    void setReceiptYear(int year);
+
 }

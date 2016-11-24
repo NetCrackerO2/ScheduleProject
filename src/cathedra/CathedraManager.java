@@ -45,7 +45,7 @@ public class CathedraManager {
      * @return cathedra instance
      */
     public Cathedra addNewCathedra(Faculty faculty, String name) {
-        if (list.stream().anyMatch(current -> current.getFaculty().equals(faculty) && current.getName().equals(name)))
+        if (list.stream().anyMatch(current -> current.getName().equals(name)))
             throw new IllegalArgumentException("Cathedra already exist");
         Cathedra newCathedra = new Cathedra(faculty, name);
         list.add(newCathedra);
@@ -93,4 +93,13 @@ public class CathedraManager {
     public ArrayList<Cathedra> getAllCathedra() {
         return new ArrayList<Cathedra>(list);
     }
+
+    public void setCathedra(String oldNameCathedra,String newNameCathedra ,Faculty faculty) {
+        if (list.stream().anyMatch(s->s.getName().equals(newNameCathedra)))
+            throw new IllegalArgumentException("Cathedra already exist");
+        Cathedra temp=getCathedra(oldNameCathedra);
+        temp.setName(newNameCathedra);
+        temp.setFaculty(faculty);
+    }
+
 }
