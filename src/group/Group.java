@@ -19,4 +19,9 @@ public interface Group {
     int getNumber();
 
     void setNumber(int number);
+
+    int getReceiptYear();
+
+    void setReceiptYear(int year);
+
 }

@@ -1,3 +1,4 @@
+import faculty.FacultyManager;
 import mvc.Commands.*;
 import mvc.Controller;
 import account.Account;
@@ -47,6 +48,8 @@ public class Main {
         for (int i = 0; i < 10; i++)
             subjects[i] = subjectManager.getNewSubject(i < 5 ? cathedra1 : cathedra2, "" + i);
 
+        faculty1=FacultyManager.getInstance().addNewFaculty(1);
+        CathedraManager.getInstance().addNewCathedra(faculty1,"Test");
 
         Controller controller = new Controller();
         controller.addCommand(new FullAccountsCommand());
@@ -59,6 +62,8 @@ public class Main {
         controller.addCommand(new AddNewSubjectCommand());
         controller.addCommand(new AddNewFacultyCommand());
         controller.addCommand(new EditGroupCommand());
+        controller.addCommand(new EditCathedraCommand());
+        controller.addCommand(new RemoveGroupCommand());
 
         controller.start();
     }
