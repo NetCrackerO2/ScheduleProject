@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 public class GroupImpl implements Group {
     /*private Faculty faculty;*/
     private Cathedra cathedra;
-    private int number,receiptYear;
+    private int number,receiptYear,professionCode;
     //------------
 
 
@@ -68,6 +68,11 @@ public class GroupImpl implements Group {
 
         throw new IllegalArgumentException("Группа с таким номером уже существует!");
     }
+
+    public int getProfessionCode(){return professionCode;}
+
+    public void setProfessionCode(int professionCode){this.professionCode = professionCode;}
+
     //============
 
 

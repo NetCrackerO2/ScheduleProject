@@ -62,6 +62,19 @@ public class CathedraManager {
             throw new NoSuchElementException("Cathedra not found");
     }
 
+    public void removeCathedra(String name) {
+        Cathedra removedCathedra;
+
+        try {
+            removedCathedra = list.stream().filter(
+                    currentCathedra -> currentCathedra.getName() == name
+            ).findFirst().get();
+        } catch (NoSuchElementException exc) {
+            throw exc;
+        }
+
+        list.remove(removedCathedra);
+    }
     /**
      * Get cathedra by faculty and name
      *

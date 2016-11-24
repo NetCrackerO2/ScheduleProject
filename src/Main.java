@@ -64,6 +64,7 @@ public class Main {
         controller.addCommand(new EditGroupCommand());
         controller.addCommand(new EditCathedraCommand());
         controller.addCommand(new RemoveGroupCommand());
+        controller.addCommand(new RemoveCathedraCommand());
 
         controller.start();
     }
