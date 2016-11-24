@@ -19,4 +19,8 @@ public interface Group {
     int getNumber();
 
     void setNumber(int number);
+
+    int getProfessionCode();
+
+    void setProfessionCode(int professionCode);
 }

@@ -13,6 +13,7 @@ public class GroupImpl implements Group {
     /*private Faculty faculty;*/
     private Cathedra cathedra;
     private int number;
+    private int professionCode;
     //------------
 
 
@@ -58,6 +59,10 @@ public class GroupImpl implements Group {
 
         throw new IllegalArgumentException("Группа с таким номером уже существует!");
     }
+
+    public int getProfessionCode(){return professionCode;}
+
+    public void setProfessionCode(int professionCode){this.professionCode = professionCode;}
     //============
 
 
