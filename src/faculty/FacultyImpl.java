@@ -2,7 +2,7 @@ package faculty;
 
 // Для теста
 public class FacultyImpl implements Faculty{
-    int number;
+    private int number;
 
     public FacultyImpl(int number){
         this.number = number;

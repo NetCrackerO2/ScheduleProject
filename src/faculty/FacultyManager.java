@@ -69,7 +69,10 @@ public class FacultyManager {
         throw new NoSuchElementException("Faculty not found");
     }
 
-   
+    public boolean isExist(int number) {
+        return list.stream().anyMatch((current) -> (current.getNumber() == number));
+    }
+
     /**
      * Get all faculty instance
      *

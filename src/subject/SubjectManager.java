@@ -55,6 +55,13 @@ public class SubjectManager {
             throw new NoSuchElementException("Subject not found!");
     }
 
+    public Subject getSubject(String name) {
+        for (Subject current : list)
+            if (current.getName().equals(name))
+                return current;
+        throw new NoSuchElementException("Subject not found!");
+    }
+
     /**
      * Get already generated subject by cathedra and name
      *
@@ -62,11 +69,20 @@ public class SubjectManager {
      * @param name
      * @return subject instance
      */
-    public Subject getSubject(Cathedra cathedra, String name) {
+    public Subject getSubject(String name, Cathedra cathedra) {
         for (Subject current : list)
             if (current.getCathedra().equals(cathedra) && current.getName().equals(name))
                 return current;
         throw new NoSuchElementException("Subject not found!");
+    }
+
+    public boolean isExist(String name) {
+        return list.stream().anyMatch((current) -> (current.getName() == name));
+    }
+
+    public boolean isExist(String name, Cathedra cathedra) {
+        return list.stream()
+                .anyMatch((current) -> (current.getName() == name && current.getCathedra().equals(cathedra)));
     }
 
     /**

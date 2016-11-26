@@ -90,6 +90,22 @@ public class GroupsManager {
         throw new NoSuchElementException("Группы с таким номером не существует!");
     }
 
+    public Group getGroup(int number, Cathedra cathedra) {
+        for (Group current : groupsList)
+            if (current.getCathedra().equals(cathedra) && current.getNumber() == number)
+                return current;
+        return null;
+    }
+
+    public boolean isExist(int number) {
+        return groupsList.stream().anyMatch((current) -> (current.getNumber() == number));
+    }
+
+    public boolean isExist(int number, Cathedra cathedra) {
+        return groupsList.stream()
+                .anyMatch((current) -> (current.getNumber() == number && current.getCathedra().equals(cathedra)));
+    }
+
     /**
      * @return Список всех существующих групп
      */

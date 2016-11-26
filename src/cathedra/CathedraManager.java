@@ -75,14 +75,19 @@ public class CathedraManager {
         throw new NoSuchElementException("Cathedra not found");
     }
 
-    /**
-     * Get cathedra list by faculty
-     *
-     * @param faculty
-     * @return list of cathedra
-     */
-    public List<Cathedra> getListCathedra(Faculty faculty) {
-        return list.stream().filter(current -> current.getFaculty().equals(faculty)).collect(Collectors.toList());
+    public Cathedra getCathedra(String name, Faculty faculty) {
+        for (Cathedra current : list)
+            if (current.getFaculty().equals(faculty) && current.getName().equals(name))
+                return current;
+        return null;
+    }
+
+    public boolean isExist(String name) {
+        return list.stream().anyMatch((current) -> (current.getName().equals(name)));
+    }
+
+    public boolean isExist(String name, Faculty faculty) {
+        return list.stream().anyMatch((current) -> (current.getName() == name && current.getFaculty().equals(faculty)));
     }
 
     /**
@@ -92,5 +97,9 @@ public class CathedraManager {
      */
     public ArrayList<Cathedra> getAllCathedra() {
         return new ArrayList<Cathedra>(list);
+    }
+
+    public List<Cathedra> getCathedraByFaculty(Faculty faculty) {
+        return list.stream().filter(current -> current.getFaculty() == faculty).collect(Collectors.toList());
     }
 }
