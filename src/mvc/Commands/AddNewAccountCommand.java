@@ -20,6 +20,6 @@ public class AddNewAccountCommand implements Command {
 
     @Override
     public String getTitle() {
-        return "CMD_NEW_ACCOUNT";
+        return "CMD_ACCOUNT_NEW";
     }
 }

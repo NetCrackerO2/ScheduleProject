@@ -30,22 +30,36 @@ public class Localization {
         language.put("CATHEDRA_REQUEST", "Введите название кафедры: ");
         language.put("FACULTY_REQUEST", "Введите номер факультета: ");
         language.put("NEW_ACCOUNT_NAME_REQUEST", "Введите ФИО нового аккаунта: ");
-        language.put("NEW_GROUP_REQUEST", "Введите номер новой группы: ");
-        language.put("NEW_CATHEDRA_REQUEST", "Введите название новой кафедры: ");
-        language.put("NEW_FACULTY_REQUEST", "Введите номер нового факультета: ");
-        language.put("NEW_SUBJECT_REQUEST", "Введите название нового предмета: ");
+        language.put("NEW_GROUP_REQUEST", "Введите новый номер группы: ");
+        language.put("NEW_CATHEDRA_REQUEST", "Введите новое название кафедры: ");
+        language.put("NEW_FACULTY_REQUEST", "Введите новый номер факультета: ");
+        language.put("NEW_SUBJECT_REQUEST", "Введите новое название предмета: ");        
 
         language.put("CMD_QUIT", "Выход");
         language.put("CMD_ACCOUNT_BIND_TO_GROUP", "Привязать аккаунт к группе.");
-        language.put("CMD_NEW_ACCOUNT", "Добавить аккаунт.");
-        language.put("CMD_NEW_GROUP", "Добавить новую группу.");
-        language.put("CMD_NEW_FACULTY", "Добавить новый факультет.");
-        language.put("CMD_NEW_CATHEDRA", "Добавить новую кафедру.");
+        language.put("CMD_ACCOUNT_UNBIND_TO_GROUP", "Удалить аккаунт из группы.");
+        language.put("CMD_ACCOUNT_NEW", "Добавить аккаунт.");
+        language.put("CMD_ACCOUNT_LIST", "Вывод всех аккаунтов.");
+        language.put("CMD_GROUP_NEW", "Добавить новую группу.");
+        language.put("CMD_GROUP_EDIT", "Изменить группу.");
+        language.put("CMD_GROUP_REMOVE", "Удалить группу.");
+        language.put("CMD_GROUP_LIST", "Вывод всех групп.");
+        language.put("CMD_FACULTY_NEW", "Добавить новый факультет.");
+        language.put("CMD_FACULTY_LIST", "Вывод всех факультетов.");
+        language.put("CMD_CATHEDRA_NEW", "Добавить новую кафедру.");
+        language.put("CMD_CATHEDRA_EDIT", "Изменить кафедру.");
+        language.put("CMD_CATHEDRA_REMOVE", "Удалить кафедру.");
+        language.put("CMD_CATHEDRA_LIST", "Вывод всех кафедр.");
+        language.put("CMD_SUBJECT_NEW", "Добавить новый предмет.");
+        language.put("CMD_SUBJECT_LIST", "Вывод всех предметов.");
 
         language.put("ERR_INVALID_NUMBER", "Некорректный ввод числа.");
         language.put("ERR_ELEMENT_NOT_EXISTS", "Элемент не существует.");
         language.put("ERR_ELEMENT_ALREADY_EXISTS", "Элемент уже существует.");
         language.put("ERR_ACCOUNT_ALREADY_BOUND_TO_GROUP", "Аккаунт уже привязан к группе.");
+        language.put("ERR_ACCOUNT_NOT_BOUND_TO_GROUP", "Аккаунт не привязан к группе.");
+        language.put("ERR_ELEMENT_NOT_EDITED", "Элемент не был изменен.");
+        language.put("ERR_ELEMENT_NOT_REMOVED", "Элемент не был удален.");
     }
 
     public static Localization getInstance() {

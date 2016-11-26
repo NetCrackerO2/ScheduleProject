@@ -17,6 +17,6 @@ public class AddNewCathedraCommand implements Command {
 
     @Override
     public String getTitle() {
-        return "CMD_NEW_CATHEDRA";
+        return "CMD_CATHEDRA_NEW";
     }
 }

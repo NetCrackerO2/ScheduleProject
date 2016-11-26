@@ -9,11 +9,11 @@ public class ViewListFacultiesCommand implements Command {
 
     @Override
     public void activate() {
-        View.writeAllFaculties();
+        View.request("FACULTY_LIST");
     }
 
     @Override
     public String getTitle() {
-        return "Вывод всех факультетов";
+        return "CMD_FACULTY_LIST";
     }
 }

@@ -6,11 +6,11 @@ import mvc.View;
 public class ViewListCathedraCommand implements Command{
     @Override
     public void activate(){
-        View.writeAllCathedra();
+        View.request("CATHEDRA_LIST");
     }
 
     @Override
     public String getTitle(){
-        return "Список всех кафедр";
+        return "CMD_CATHEDRA_LIST";
     }
 }

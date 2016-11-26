@@ -84,6 +84,21 @@ public class View {
         case "SUBJECT":
             writeAllSubjects();
 
+        case "ACCOUNT_LIST":
+            writeAllAccounts();
+            return;
+        case "GROUP_LIST":
+            writeAllGroups();
+            return;
+        case "CATHEDRA_LIST":
+            writeAllCathedra();
+            return;
+        case "FACULTY_LIST":
+            writeAllFaculties();
+            return;
+        case "SUBJECT_LIST":
+            writeAllSubjects();
+            return;
         }
         print(key + "_REQUEST");
     }

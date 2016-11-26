@@ -15,7 +15,7 @@ public class AddNewFacultyCommand implements Command {
 
     @Override
     public String getTitle() {
-        return "CMD_NEW_FACULTY";
+        return "CMD_FACULTY_NEW";
     }
 
 }

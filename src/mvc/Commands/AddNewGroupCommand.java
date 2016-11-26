@@ -26,6 +26,6 @@ public class AddNewGroupCommand implements Command {
 
     @Override
     public String getTitle() {
-        return "CMD_NEW_GROUP";
+        return "CMD_GROUP_NEW";
     }
 }
