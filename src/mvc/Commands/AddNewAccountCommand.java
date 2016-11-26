@@ -12,10 +12,10 @@ public class AddNewAccountCommand implements Command {
     public void activate() {
         String accountName = Controller.getStringResponse("NEW_ACCOUNT");
 
-        if(AccountManager.getInstance().isExist(accountName))
+        if (AccountManager.getInstance().isExist(accountName))
             throw new ElementAlreadyExistsException();
-        else
-            AccountManager.getInstance().getNewAccount(accountName);
+
+        AccountManager.getInstance().getNewAccount(accountName);
     }
 
     @Override

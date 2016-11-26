@@ -1,27 +1,27 @@
 package mvc.Commands;
 
+
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
 import group.GroupsManager;
 import mvc.Command;
 import mvc.Controller;
-import java.util.NoSuchElementException;
+
 
 public class AddNewGroupCommand implements Command {
 
     @Override
     public void activate() {
-        int number = Controller.getIntResponse("NEW_GROUP");
+        int groupNumber = Controller.getIntResponse("NEW_GROUP");
+        if (GroupsManager.getInstance().isExist(groupNumber))
+            throw new ElementAlreadyExistsException();
 
         String cathedraName = Controller.getStringResponse("CATHEDRA");
-        Cathedra cathedra = null;
-        try {
-            cathedra = CathedraManager.getInstance().getCathedra(cathedraName);
-        } catch (NoSuchElementException e) {
+        if (!CathedraManager.getInstance().isExist(cathedraName))
             throw new ElementNotExistsException();
-        }
 
-        GroupsManager.getInstance().getNewGroup(cathedra, number);
+        Cathedra cathedra = CathedraManager.getInstance().getCathedra(cathedraName);
+        GroupsManager.getInstance().getNewGroup(cathedra, groupNumber);
     }
 
     @Override

@@ -1,12 +1,13 @@
 package mvc.Commands;
 
-import java.util.NoSuchElementException;
 import cathedra.CathedraManager;
 import group.Group;
 import group.GroupsManager;
 import mvc.Command;
 import mvc.Controller;
 import mvc.View;
+
+import java.util.NoSuchElementException;
 
 public class EditGroupCommand implements Command {
 

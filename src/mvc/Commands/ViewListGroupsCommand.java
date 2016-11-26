@@ -6,10 +6,6 @@ import mvc.View;
 
 
 public class ViewListGroupsCommand implements Command {
-
-    public ViewListGroupsCommand() {
-    }
-
     @Override
     public void activate() {
         View.request("GROUP_LIST");

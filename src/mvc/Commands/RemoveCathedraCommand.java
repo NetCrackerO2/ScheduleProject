@@ -1,17 +1,20 @@
 package mvc.Commands;
 
+
 import cathedra.CathedraManager;
 import mvc.Command;
 import mvc.Controller;
-import java.util.NoSuchElementException;
+
 
 public class RemoveCathedraCommand implements Command {
     @Override
     public void activate() {
-        try {
-            CathedraManager.getInstance().removeCathedra(Controller.getStringResponse("CATHEDRA"));
-        } catch (NoSuchElementException ex) {
+        String cathedraName = Controller.getStringResponse("CATHEDRA");
+        if (!CathedraManager.getInstance().isExist(cathedraName))
             throw new ElementNotExistsException();
+
+        try {
+            CathedraManager.getInstance().removeCathedra(cathedraName);
         } catch (Exception ex) {
             throw new ElementNotRemovedException();
         }

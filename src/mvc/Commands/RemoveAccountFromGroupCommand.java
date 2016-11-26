@@ -12,14 +12,12 @@ public class RemoveAccountFromGroupCommand implements Command {
     @Override
     public void activate() {
         String accountFIO = Controller.getStringResponse("ACCOUNT");
-        if (!AccountManager.getInstance().isExist(accountFIO)) {
+        if (!AccountManager.getInstance().isExist(accountFIO))
             throw new ElementNotExistsException();
-        }
-        Account needAccount = AccountManager.getInstance().getAccount(accountFIO);
 
-        if (needAccount.getGroup() == null) {
+        Account needAccount = AccountManager.getInstance().getAccount(accountFIO);
+        if (needAccount.getGroup() == null)
             throw new RuntimeException("ERR_ACCOUNT_NOT_BOUND_TO_GROUP");
-        }
 
         needAccount.setGroup(null);
     }

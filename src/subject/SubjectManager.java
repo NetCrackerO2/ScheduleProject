@@ -6,6 +6,7 @@ import cathedra.Cathedra;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -77,12 +78,12 @@ public class SubjectManager {
     }
 
     public boolean isExist(String name) {
-        return list.stream().anyMatch((current) -> (current.getName() == name));
+        return list.stream().anyMatch((current) -> (Objects.equals(current.getName(), name)));
     }
 
     public boolean isExist(String name, Cathedra cathedra) {
         return list.stream()
-                .anyMatch((current) -> (current.getName() == name && current.getCathedra().equals(cathedra)));
+                .anyMatch((current) -> (Objects.equals(current.getName(), name) && current.getCathedra().equals(cathedra)));
     }
 
     /**

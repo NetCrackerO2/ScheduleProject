@@ -6,10 +6,6 @@ import mvc.View;
 
 
 public class ViewListAccountsCommand implements Command {
-
-    public ViewListAccountsCommand() {
-    }
-
     @Override
     public void activate() {
         View.request("ACCOUNT_LIST");

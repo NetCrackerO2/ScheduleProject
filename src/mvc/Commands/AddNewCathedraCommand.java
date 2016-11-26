@@ -1,18 +1,24 @@
 package mvc.Commands;
 
+
 import cathedra.CathedraManager;
+import faculty.FacultyManager;
 import mvc.Command;
 import mvc.Controller;
-import faculty.FacultyImpl;
+
 
 public class AddNewCathedraCommand implements Command {
     @Override
     public void activate() {
-        String name = Controller.getStringResponse("NEW_CATHEDRA");
+        String cathedraName = Controller.getStringResponse("NEW_CATHEDRA");
+        if (CathedraManager.getInstance().isExist(cathedraName))
+            throw new ElementAlreadyExistsException();
 
-        FacultyImpl faculty = new FacultyImpl(11);
+        int facultyNumber = Controller.getIntResponse("FACULTY");
+        if (!FacultyManager.getInstance().isExist(facultyNumber))
+            throw new ElementNotExistsException();
 
-        CathedraManager.getInstance().addNewCathedra(faculty, name);
+        CathedraManager.getInstance().addNewCathedra(FacultyManager.getInstance().getFaculty(facultyNumber), cathedraName);
     }
 
     @Override

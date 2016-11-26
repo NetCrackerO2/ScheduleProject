@@ -1,16 +1,18 @@
 package mvc.Commands;
 
+
 import mvc.Command;
 import mvc.View;
 
-public class ViewListCathedraCommand implements Command{
+
+public class ViewListCathedraCommand implements Command {
     @Override
-    public void activate(){
+    public void activate() {
         View.request("CATHEDRA_LIST");
     }
 
     @Override
-    public String getTitle(){
+    public String getTitle() {
         return "CMD_CATHEDRA_LIST";
     }
 }

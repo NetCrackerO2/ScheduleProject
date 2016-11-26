@@ -1,7 +1,8 @@
 package mvc.Commands;
 
+
 public class ElementAlreadyExistsException extends RuntimeException {
-    public ElementAlreadyExistsException(){
+    public ElementAlreadyExistsException() {
         super("ERR_ELEMENT_ALREADY_EXISTS");
     }
 }

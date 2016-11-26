@@ -1,20 +1,21 @@
 package mvc.Commands;
 
+
 import group.GroupsManager;
 import mvc.Command;
 import mvc.Controller;
-import java.util.NoSuchElementException;
 
-/**
- * Created by Dmi3 on 24.11.2016.
- */
+
 public class RemoveGroupCommand implements Command {
     @Override
     public void activate() {
-        try {
-            GroupsManager.getInstance().removeGroup(Controller.getIntResponse("GROUP"));
-        } catch (NoSuchElementException ex) {
+        int groupNumber = Controller.getIntResponse("GROUP");
+        if (!GroupsManager.getInstance().isExist(groupNumber)) {
             throw new ElementNotExistsException();
+        }
+
+        try {
+            GroupsManager.getInstance().removeGroup(groupNumber);
         } catch (Exception ex) {
             throw new ElementNotRemovedException();
         }
