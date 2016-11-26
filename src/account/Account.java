@@ -26,6 +26,9 @@ public class Account {
     }
 
     public void setGroup(Group group) {
+        if (!GroupManager.getInstance().isExist(group.getNumber()))
+            throw new IllegalArgumentException("Группы с таким номером не существует.");
+
         this.group = group;
     }
 
@@ -33,11 +36,10 @@ public class Account {
         return this.name;
     }
 
-    public boolean setName(String name) {
-        if(AccountManager.getInstance().isExist(name))
-            return false;
+    public void setName(String name) {
+        if (AccountManager.getInstance().isExist(name))
+            throw new IllegalArgumentException("Аккаунт с таким именем уже существует.");
 
         this.name = name;
-        return true;
     }
 }

@@ -2,7 +2,7 @@ package mvc.Commands;
 
 import cathedra.CathedraManager;
 import group.Group;
-import group.GroupsManager;
+import group.GroupManager;
 import mvc.Command;
 import mvc.Controller;
 import mvc.View;
@@ -15,7 +15,7 @@ public class EditGroupCommand implements Command {
 	public void activate() {
 		int groupNum = Controller.getIntResponse("GROUP");
 		try {
-			Group group = GroupsManager.getInstance().getGroup(groupNum);
+			Group group = GroupManager.getInstance().getGroup(groupNum);
 			try {
 				group.setNumber(Controller.getIntResponse("NEW_GROUP"));
 			} catch (Exception e) {

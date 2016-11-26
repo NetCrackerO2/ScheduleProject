@@ -31,8 +31,8 @@ public class AccountManager {
     }
 
 
-    public Account getNewAccount(String name){
-        if(isExist(name))
+    public Account getNewAccount(String name) {
+        if (isExist(name))
             throw new IllegalArgumentException("Account already exists");
 
         Account result = new Account(name);
@@ -70,6 +70,7 @@ public class AccountManager {
         for (Account current : list)
             if (current.getName().equals(name))
                 return current;
+        
         throw new NoSuchElementException("Account not found");
     }
 
@@ -84,11 +85,12 @@ public class AccountManager {
         for (Account current : list)
             if (current.getGroup().equals(group) && current.getName().equals(name))
                 return current;
+
         throw new NoSuchElementException("Account not found");
     }
 
-    public boolean isExist(String name){
-        return list.stream().anyMatch((account)->(account.getName().equals(name)));
+    public boolean isExist(String name) {
+        return list.stream().anyMatch((account) -> (account.getName().equals(name)));
     }
 
     /**

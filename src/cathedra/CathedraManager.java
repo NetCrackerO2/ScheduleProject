@@ -1,7 +1,6 @@
 package cathedra;
 
 
-
 import faculty.Faculty;
 
 import java.util.ArrayList;
@@ -9,18 +8,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  * @author Dmi3
  */
 public class CathedraManager {
     private static CathedraManager instance;
-    private List<Cathedra> list = new ArrayList<Cathedra>();
+    private List<Cathedra> list = new ArrayList<>();
 
     private CathedraManager() {
 
@@ -47,7 +41,7 @@ public class CathedraManager {
     public Cathedra addNewCathedra(Faculty faculty, String name) {
         if (list.stream().anyMatch(current -> current.getName().equals(name)))
             throw new IllegalArgumentException("Cathedra already exist");
-        Cathedra newCathedra = new Cathedra(faculty, name);
+        Cathedra newCathedra = new CathedraImpl(faculty, name);
         list.add(newCathedra);
         return newCathedra;
     }
@@ -75,6 +69,7 @@ public class CathedraManager {
 
         list.remove(removedCathedra);
     }
+
     /**
      * Get cathedra by faculty and name
      *
@@ -100,7 +95,7 @@ public class CathedraManager {
     }
 
     public boolean isExist(String name, Faculty faculty) {
-        return list.stream().anyMatch((current) -> (current.getName() == name && current.getFaculty().equals(faculty)));
+        return list.stream().anyMatch((current) -> (current.getName().equals(name) && current.getFaculty().equals(faculty)));
     }
 
     /**
@@ -109,13 +104,13 @@ public class CathedraManager {
      * @return list of cathedra
      */
     public ArrayList<Cathedra> getAllCathedra() {
-        return new ArrayList<Cathedra>(list);
+        return new ArrayList<>(list);
     }
 
-    public void setCathedra(String oldNameCathedra,String newNameCathedra ,Faculty faculty) {
-        if (list.stream().anyMatch(s->s.getName().equals(newNameCathedra)))
+    public void setCathedra(String oldNameCathedra, String newNameCathedra, Faculty faculty) {
+        if (list.stream().anyMatch(s -> s.getName().equals(newNameCathedra)))
             throw new IllegalArgumentException("Cathedra already exist");
-        Cathedra temp=getCathedra(oldNameCathedra);
+        Cathedra temp = getCathedra(oldNameCathedra);
         temp.setName(newNameCathedra);
         temp.setFaculty(faculty);
     }

@@ -3,7 +3,7 @@ package mvc.Commands;
 
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
-import group.GroupsManager;
+import group.GroupManager;
 import mvc.Command;
 import mvc.Controller;
 
@@ -13,7 +13,7 @@ public class AddNewGroupCommand implements Command {
     @Override
     public void activate() {
         int groupNumber = Controller.getIntResponse("NEW_GROUP");
-        if (GroupsManager.getInstance().isExist(groupNumber))
+        if (GroupManager.getInstance().isExist(groupNumber))
             throw new ElementAlreadyExistsException();
 
         String cathedraName = Controller.getStringResponse("CATHEDRA");
@@ -21,7 +21,7 @@ public class AddNewGroupCommand implements Command {
             throw new ElementNotExistsException();
 
         Cathedra cathedra = CathedraManager.getInstance().getCathedra(cathedraName);
-        GroupsManager.getInstance().getNewGroup(cathedra, groupNumber);
+        GroupManager.getInstance().getNewGroup(cathedra, groupNumber);
     }
 
     @Override

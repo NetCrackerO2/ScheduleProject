@@ -10,5 +10,9 @@ import cathedra.Cathedra;
 public interface Subject {
     Cathedra getCathedra();
 
+    void setCathedra(Cathedra cathedra);
+
     String getName();
+
+    void setName(String name);
 }

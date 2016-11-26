@@ -1,7 +1,7 @@
 package mvc.Commands;
 
 
-import group.GroupsManager;
+import group.GroupManager;
 import mvc.Command;
 import mvc.Controller;
 
@@ -10,12 +10,12 @@ public class RemoveGroupCommand implements Command {
     @Override
     public void activate() {
         int groupNumber = Controller.getIntResponse("GROUP");
-        if (!GroupsManager.getInstance().isExist(groupNumber)) {
+        if (!GroupManager.getInstance().isExist(groupNumber)) {
             throw new ElementNotExistsException();
         }
 
         try {
-            GroupsManager.getInstance().removeGroup(groupNumber);
+            GroupManager.getInstance().removeGroup(groupNumber);
         } catch (Exception ex) {
             throw new ElementNotRemovedException();
         }

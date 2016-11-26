@@ -64,7 +64,7 @@ public class Controller {
 
         return number;
     }
-    
+
     public static String getStringResponse(String request) {
         View.request(request);
         @SuppressWarnings("resource")

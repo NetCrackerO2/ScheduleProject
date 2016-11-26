@@ -3,7 +3,7 @@ package mvc;
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
 import faculty.FacultyManager;
-import group.GroupsManager;
+import group.GroupManager;
 import subject.SubjectManager;
 import account.AccountManager;
 
@@ -20,7 +20,7 @@ public class View {
 
     private static void writeAllGroups() {
         println("GROUP_LIST");
-        GroupsManager.getInstance().getAllGroups().stream()
+        GroupManager.getInstance().getAllGroups().stream()
                 .forEach((needGroup) -> System.out.println(needGroup.getNumber()));
         println("");
     }

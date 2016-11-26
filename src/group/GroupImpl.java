@@ -2,44 +2,31 @@ package group;
 
 
 import cathedra.Cathedra;
-
-import java.util.NoSuchElementException;
+import cathedra.CathedraManager;
 
 
 /**
  * @author temon137
  */
 public class GroupImpl implements Group {
-    /*private Faculty faculty;*/
     private Cathedra cathedra;
-    private int number,receiptYear,professionCode;
-    //------------
+    private int number, receiptYear, professionCode;
 
 
-    protected GroupImpl(/*Faculty faculty, */Cathedra cathedra, int number) {
-        /*this.faculty = faculty;*/
+    protected GroupImpl(Cathedra cathedra, int number) {
         this.cathedra = cathedra;
         this.number = number;
     }
 
-    /*@Override
-    public Faculty getFaculty() {
-        return faculty;
-    }
 
     @Override
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }*/
-
-    @Override
-    public int getReceiptYear(){
+    public int getReceiptYear() {
         return this.receiptYear;
     }
 
     @Override
-    public void setReceiptYear(int year){
-        this.receiptYear=year;
+    public void setReceiptYear(int year) {
+        this.receiptYear = year;
     }
 
     @Override
@@ -49,6 +36,9 @@ public class GroupImpl implements Group {
 
     @Override
     public void setCathedra(Cathedra cathedra) {
+        if (!CathedraManager.getInstance().isExist(cathedra.getName()))
+            throw new IllegalArgumentException("Такой кафедры не существует.");
+
         this.cathedra = cathedra;
     }
 
@@ -59,21 +49,19 @@ public class GroupImpl implements Group {
 
     @Override
     public void setNumber(int number) {
-        try {
-            GroupsManager.getInstance().getGroup(number);
-        } catch (NoSuchElementException e) {
-            this.number = number;
-            return;
-        }
+        if (GroupManager.getInstance().isExist(number))
+            throw new IllegalArgumentException("Группа с таким номером уже существует!");
 
-        throw new IllegalArgumentException("Группа с таким номером уже существует!");
+        this.number = number;
     }
 
-    public int getProfessionCode(){return professionCode;}
+    @Override
+    public int getProfessionCode() {
+        return professionCode;
+    }
 
-    public void setProfessionCode(int professionCode){this.professionCode = professionCode;}
-
-    //============
-
-
+    @Override
+    public void setProfessionCode(int professionCode) {
+        this.professionCode = professionCode;
+    }
 }

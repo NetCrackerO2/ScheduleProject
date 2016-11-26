@@ -9,16 +9,13 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 
-/**
- * @author temon137
- */
-public class GroupsManager {
-    private static GroupsManager instance;
+public class GroupManager {
+    private static GroupManager instance;
     private List<Group> groupsList;
     //-------------
 
 
-    private GroupsManager() {
+    private GroupManager() {
         groupsList = new ArrayList<Group>();
     }
     //=============
@@ -29,15 +26,15 @@ public class GroupsManager {
      *
      * @return Объект GroupsManager
      */
-    public static GroupsManager getInstance() {
+    public static GroupManager getInstance() {
         if (instance == null)
-            instance = new GroupsManager();
+            instance = new GroupManager();
 
         return instance;
     }
 
     /**
-     * @param number  Номер новой группы
+     * @param number Номер новой группы
      * @return Объект новой группы
      * @throws IllegalArgumentException Если группа с номером number уже существует
      */

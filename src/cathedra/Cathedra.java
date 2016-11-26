@@ -3,39 +3,14 @@ package cathedra;
 
 import faculty.Faculty;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- * @author Dmi3
- */
-public class Cathedra {
-    private String name;
-    private Faculty faculty;
+public interface Cathedra {
 
+    String getName();
 
-    protected Cathedra(Faculty faculty, String name) {
-        this.name = name;
-        this.faculty = faculty;
-    }
+    Faculty getFaculty();
 
-    public String getName() {
-        return this.name;
-    }
+    void setName(String name);
 
-    public Faculty getFaculty() {
-        return this.faculty;
-    }
-
-    public void setName(String name) {
-        this.name=name;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty=faculty;
-    }
-
+    void setFaculty(Faculty faculty);
 }
