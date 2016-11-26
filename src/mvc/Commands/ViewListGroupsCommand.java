@@ -12,11 +12,11 @@ public class ViewListGroupsCommand implements Command {
 
     @Override
     public void activate() {
-        View.writeAllGroups();
+        View.request("GROUP_LIST");
     }
 
     @Override
     public String getTitle() {
-        return "Вывод всех групп";
+        return "CMD_GROUP_LIST";
     }
 }

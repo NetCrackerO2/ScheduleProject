@@ -12,34 +12,28 @@ public class EditGroupCommand implements Command {
 
 	@Override
 	public void activate() {
-		View.writeReadGroupNumber();
-		int groupNum = Controller.readInt();
+		int groupNum = Controller.getIntResponse("GROUP");
 		try {
 			Group group = GroupsManager.getInstance().getGroup(groupNum);
-
-			View.writeMessage("Введите новый номер группы ("+group.getNumber()+"): ");
 			try {
-				group.setNumber(Controller.readInt());
+				group.setNumber(Controller.getIntResponse("NEW_GROUP"));
 			} catch (Exception e) {
-				View.writeError("Номер группы не был изменен: "+e.getMessage());
+			    View.setStatus(new ElementNotEditedException());
 			}
-			
-			View.writeMessage("Введите новое название кафедры группы ("+group.getCathedra().getName()+"): ");
-			String cathedraName = Controller.readString();
+			String cathedraName = Controller.getStringResponse("CATHEDRA");
 			try {
 				group.setCathedra(CathedraManager.getInstance().getCathedra(cathedraName));
 			} catch (Exception e) {
-				View.writeError("Кафедра не была изменена: "+e.getMessage());
+			    View.setStatus(new ElementNotEditedException());
 			}
 		} catch (NoSuchElementException e) {
-			View.writeElementDoesNotExists();
+		    throw new ElementNotExistsException();
 		}
-
 	}
 
 	@Override
 	public String getTitle() {
-		return "Изменить группу";
+		return "CMD_GROUP_EDIT";
 	}
 
 }

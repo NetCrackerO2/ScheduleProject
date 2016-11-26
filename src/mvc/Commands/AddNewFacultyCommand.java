@@ -1,41 +1,21 @@
 package mvc.Commands;
 
-import java.util.Scanner;
-
 import faculty.FacultyManager;
 import mvc.Command;
-import mvc.View;
+import mvc.Controller;
 
 public class AddNewFacultyCommand implements Command {
 
-	@SuppressWarnings("resource")
-	@Override
-	public void activate() {
-		Scanner scanner = new Scanner(System.in);
-        int number = 0;
+    @Override
+    public void activate() {
+        int number = Controller.getIntResponse("NEW_FACULTY");
 
-        View.writeMessage("Введите номер нового факультета: ");
+        FacultyManager.getInstance().addNewFaculty(number);
+    }
 
-        try {
-            number = Integer.parseInt(scanner.nextLine());
-        } catch (Exception e) {
-            View.writeError("Некорректный ввод номера факультета.");
-            return;
-        }
-
-        try {
-            FacultyManager.getInstance().addNewFaculty(number);
-        } catch (Exception e) {
-            View.writeError(e.getMessage());
-            return;
-        }
-
-        View.writeMessage("Факультет добавлен.\n");
-	}
-
-	@Override
-	public String getTitle() {
-        return "Добавить новый факультет";
-	}
+    @Override
+    public String getTitle() {
+        return "CMD_FACULTY_NEW";
+    }
 
 }

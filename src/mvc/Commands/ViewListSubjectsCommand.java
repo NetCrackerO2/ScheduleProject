@@ -16,12 +16,12 @@ public class ViewListSubjectsCommand implements Command {
 
     @Override
     public void activate() {
-        View.writeAllSubjects();
+        View.request("SUBJECT_LIST");
     }
 
     @Override
     public String getTitle() {
-        return "Вывести все предметы";
+        return "CMD_SUBJECT_LIST";
     }
     
 }

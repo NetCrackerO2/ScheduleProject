@@ -7,12 +7,9 @@ package mvc.Commands;
 
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
-import faculty.Faculty;
-import faculty.FacultyImpl;
-import java.util.Scanner;
+import java.util.NoSuchElementException;
 import mvc.Command;
-import mvc.View;
-import subject.Subject;
+import mvc.Controller;
 import subject.SubjectManager;
 
 /**
@@ -23,47 +20,22 @@ public class AddNewSubjectCommand implements Command {
 
     @Override
     public void activate() {
-        Scanner scanner = new Scanner(System.in);
-        String str;
-        int numberCath=0;
-        int i=0;
-        
-        View.writeMessage("Выберите кафедру: \n");
-        
-        for(Cathedra cathedra: CathedraManager.getInstance().getAllCathedra())
-            System.out.println((i++)+") "+cathedra.getName());
-            System.out.println("Ваш выбор: ");
+        String cathedraName = Controller.getStringResponse("CATHEDRA");
+        Cathedra cathedra = null;
         try {
-            numberCath = Integer.parseInt(scanner.nextLine());
-        } catch (Exception e) {
-            View.writeError("Некорректный ввод данных");
-            return;
-        }
-       
-
-        View.writeMessage("Введите название нового предмета: \n");
-
-        try {
-            str = scanner.nextLine();
-        } catch (Exception e) {
-            View.writeError("Некорректное название предмета.");
-            return;
-        }
-        
-        Cathedra cathedra=CathedraManager.getInstance().getAllCathedra().get(numberCath);
-        try {
-            SubjectManager.getInstance().getNewSubject(cathedra, str);
-        } catch (Exception e) {
-            View.writeError(e.getMessage());
-            return;
+            cathedra = CathedraManager.getInstance().getCathedra(cathedraName);
+        } catch (NoSuchElementException e) {
+            throw new ElementNotExistsException();
         }
 
-        View.writeMessage("Предмет добавлен.\n");
+        String str = Controller.getStringResponse("NEW_SUBJECT");
+
+        SubjectManager.getInstance().getNewSubject(cathedra, str);
     }
 
     @Override
     public String getTitle() {
-        return "Добавить новый предмет";
+        return "CMD_SUBJECT_NEW";
     }
-    
+
 }

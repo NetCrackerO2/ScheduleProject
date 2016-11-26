@@ -1,6 +1,5 @@
 package mvc;
 
-
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
 import faculty.FacultyManager;
@@ -10,90 +9,109 @@ import account.AccountManager;
 
 import java.util.List;
 
-
 public class View {
-    public static void writeAllGroups() {
-        System.out.println("Список всех групп:");
-        GroupsManager.getInstance().getAllGroups().stream().forEach(
-                (needGroup) -> System.out.println(needGroup.getNumber())
-        );
-        System.out.println("");
+    private static void print(String key) {
+        System.out.print(Localization.getInstance().getString(key));
     }
 
-    public static void writeAllSubjects() {
-        System.out.println("Список всех предметов:");
+    private static void println(String key) {
+        System.out.println(Localization.getInstance().getString(key));
+    }
+
+    private static void writeAllGroups() {
+        println("GROUP_LIST");
+        GroupsManager.getInstance().getAllGroups().stream()
+                .forEach((needGroup) -> System.out.println(needGroup.getNumber()));
+        println("");
+    }
+
+    private static void writeAllSubjects() {
+        println("SUBJECT_LIST");
         for (Cathedra cathedra : CathedraManager.getInstance().getAllCathedra()) {
             System.out.println(cathedra.getName() + ": ");
-            SubjectManager.getInstance().getSubjectsByCathedra(cathedra).stream().forEach(
-                    subj -> System.out.println("   " + subj.getName()));
+            SubjectManager.getInstance().getSubjectsByCathedra(cathedra).stream()
+                    .forEach(subj -> System.out.println("   " + subj.getName()));
         }
-        System.out.println("");
+        println("");
     }
 
-    public static void writeAllCathedra() {
-        System.out.println("Список всех кафедр: ");
-        CathedraManager.getInstance().getAllCathedra().stream().forEach((needCathedra) -> System.out.println(needCathedra.getName()));
-        System.out.println("");
+    private static void writeAllCathedra() {
+        println("CATHEDRA_LIST");
+        CathedraManager.getInstance().getAllCathedra().stream()
+                .forEach((needCathedra) -> System.out.println(needCathedra.getName()));
+        println("");
     }
 
-    public static void writeAllFaculties() {
-        System.out.println("Список всех факультетов: ");
-        FacultyManager.getInstance().getAllFaculty().stream().forEach((faculty) -> System.out.println(faculty.getNumber()));
-        System.out.println("");
+    private static void writeAllFaculties() {
+        println("FACULTY_LIST");
+        FacultyManager.getInstance().getAllFaculty().stream()
+                .forEach((faculty) -> System.out.println(faculty.getNumber()));
+        println("");
     }
 
-    public static void writeAllAccounts() {
-        System.out.println("Список всех аккаунтов: ");
-        AccountManager.getInstance().getAllAccounts().stream().forEach(
-                (account) -> {
-                    System.out.println("ФИО: " + account.getName());
-                    System.out.println("Группа: " + (account.getGroup() != null ? account.getGroup().getNumber() : "null") + "\n");
-                }
-        );
-        System.out.println("");
+    private static void writeAllAccounts() {
+        println("ACCOUNT_LIST");
+        AccountManager.getInstance().getAllAccounts().stream().forEach((account) -> {
+            print("ACCOUNT_LIST_NAME");
+            System.out.println(account.getName());
+            print("ACCOUNT_LIST_GROUP");
+            System.out.println((account.getGroup() != null ? account.getGroup().getNumber() : "null") + "\n");
+        });
+        println("");
     }
 
-    public static void writeAllCommands(List<Command> commandsList) {
+    public static void writeAllCommands(List<Command> commandsList) { // TODO:
+                                                                      // private
         int i = 0;
 
-        System.out.println("");
+        println("");
         for (Command command : commandsList) {
-            System.out.print(i++);
-            System.out.print(") ");
-            System.out.println(command.getTitle());
+            println((i++) + ") " + command.getTitle());
         }
-        System.out.println(i + ") Выход.");
-        System.out.print("Ваш выбор: ");
+        println(i + ") CMD_QUIT");
     }
 
+    public static void request(String key) {
+        switch (key) {
+        case "ACCOUNT":
+            writeAllAccounts();
+            break;
+        case "GROUP":
+            writeAllGroups();
+            break;
+        case "CATHEDRA":
+            writeAllCathedra();
+            break;
+        case "FACULTY":
+            writeAllFaculties();
+            break;
+        case "SUBJECT":
+            writeAllSubjects();
+            break;
 
-    public static void writeReadAccountFIO() {
-        System.out.print("Введите ФИО аккаунта: ");
+        case "ACCOUNT_LIST":
+            writeAllAccounts();
+            return;
+        case "GROUP_LIST":
+            writeAllGroups();
+            return;
+        case "CATHEDRA_LIST":
+            writeAllCathedra();
+            return;
+        case "FACULTY_LIST":
+            writeAllFaculties();
+            return;
+        case "SUBJECT_LIST":
+            writeAllSubjects();
+            return;
+        }
+        print(key + "_REQUEST");
     }
 
-    public static void writeReadGroupNumber() {
-        System.out.print("Введите номер группы: ");
-    }
-
-    public static void writeElementAlreadyExists() {
-        System.out.println("Такой элемент уже существует.");
-    }
-
-    public static void writeElementDoesNotExists() {
-        System.out.println("Такой элемент не существует.");
-    }
-
-    public static void writeOperationCompletedSuccessfully() {
-        System.out.println("Операция успешно завершена.");
-    }
-
-
-    public static void writeError(String errorMessage) {
-        System.out.println(errorMessage);
-    }
-
-    // костыль
-    public static void writeMessage(String message) {
-        System.out.print(message);
+    public static void setStatus(Exception e) {
+        if (e != null)
+            println("STATUS_ERROR: " + e.getMessage());
+        else
+            println("STATUS_SUCCESS");
     }
 }

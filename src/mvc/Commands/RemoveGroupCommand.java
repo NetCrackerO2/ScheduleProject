@@ -3,8 +3,6 @@ package mvc.Commands;
 import group.GroupsManager;
 import mvc.Command;
 import mvc.Controller;
-import mvc.View;
-
 import java.util.NoSuchElementException;
 
 /**
@@ -13,22 +11,17 @@ import java.util.NoSuchElementException;
 public class RemoveGroupCommand implements Command {
     @Override
     public void activate() {
-        View.writeMessage("Введите номер группы: ");
         try {
-            GroupsManager.getInstance().removeGroup(Controller.readInt());
+            GroupsManager.getInstance().removeGroup(Controller.getIntResponse("GROUP"));
+        } catch (NoSuchElementException ex) {
+            throw new ElementNotExistsException();
+        } catch (Exception ex) {
+            throw new ElementNotRemovedException();
         }
-        catch (NoSuchElementException ex)
-        {
-            View.writeElementDoesNotExists();
-        }
-        catch (Exception ex){
-            View.writeMessage("Группа не удалена: "+ex.getMessage());
-        }
-        View.writeMessage("Группа успешно удалена");
     }
 
     @Override
     public String getTitle() {
-        return "Удалить группу";
+        return "CMD_GROUP_REMOVE";
     }
 }

@@ -12,11 +12,11 @@ public class ViewListAccountsCommand implements Command {
 
     @Override
     public void activate() {
-        View.writeAllAccounts();
+        View.request("ACCOUNT_LIST");
     }
 
     @Override
     public String getTitle() {
-        return "Вывод всех аккаунтов";
+        return "CMD_ACCOUNT_LIST";
     }
 }
