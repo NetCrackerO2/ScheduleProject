@@ -117,8 +117,8 @@ public class CathedraManager {
             throw new IllegalArgumentException("Cathedra already exist");
         Cathedra temp=getCathedra(oldNameCathedra);
         temp.setName(newNameCathedra);
-    }
         temp.setFaculty(faculty);
+    }
 
     public List<Cathedra> getCathedraByFaculty(Faculty faculty) {
         return list.stream().filter(current -> current.getFaculty() == faculty).collect(Collectors.toList());
