@@ -12,20 +12,17 @@ public class AddAccountToGroupCommand implements Command {
 
     @Override
     public void activate() {
-        // Считываем группу
         int groupNumber = Controller.getIntResponse("GROUP");
         if (!GroupsManager.getInstance().isExist(groupNumber)) {
             throw new ElementNotExistsException();
         }
 
-        // Считываем аккаунт
         String accountFIO = Controller.getStringResponse("ACCOUNT");
         if (!AccountManager.getInstance().isExist(accountFIO)) {
             throw new ElementNotExistsException();
         }
         Account needAccount = AccountManager.getInstance().getAccount(accountFIO);
 
-        //TODO: убрать, когда реформируем систему вывода строк
         if (needAccount.getGroup() != null) {
             throw new RuntimeException("ERR_ACCOUNT_ALREADY_BOUND_TO_GROUP");
         }

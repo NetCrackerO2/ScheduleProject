@@ -26,6 +26,6 @@ public class RemoveAccountFromGroupCommand implements Command {
 
     @Override
     public String getTitle() {
-        return "CMD_ACCOUT_UNBIND_TO_GROUP";
+        return "CMD_ACCOUNT_UNBIND_TO_GROUP";
     }
 }

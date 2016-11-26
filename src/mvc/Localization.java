@@ -29,7 +29,7 @@ public class Localization {
         language.put("GROUP_REQUEST", "Введите номер группы: ");
         language.put("CATHEDRA_REQUEST", "Введите название кафедры: ");
         language.put("FACULTY_REQUEST", "Введите номер факультета: ");
-        language.put("NEW_ACCOUNT_NAME_REQUEST", "Введите ФИО нового аккаунта: ");
+        language.put("NEW_ACCOUNT_REQUEST", "Введите ФИО нового аккаунта: ");
         language.put("NEW_GROUP_REQUEST", "Введите новый номер группы: ");
         language.put("NEW_CATHEDRA_REQUEST", "Введите новое название кафедры: ");
         language.put("NEW_FACULTY_REQUEST", "Введите новый номер факультета: ");

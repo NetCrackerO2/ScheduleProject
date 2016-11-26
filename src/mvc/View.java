@@ -75,14 +75,19 @@ public class View {
         switch (key) {
         case "ACCOUNT":
             writeAllAccounts();
+            break;
         case "GROUP":
             writeAllGroups();
+            break;
         case "CATHEDRA":
             writeAllCathedra();
+            break;
         case "FACULTY":
             writeAllFaculties();
+            break;
         case "SUBJECT":
             writeAllSubjects();
+            break;
 
         case "ACCOUNT_LIST":
             writeAllAccounts();
