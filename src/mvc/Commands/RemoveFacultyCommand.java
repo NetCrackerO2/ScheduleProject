@@ -5,10 +5,30 @@
  */
 package mvc.Commands;
 
+import faculty.FacultyManager;
+import mvc.Command;
+import mvc.Controller;
+
 /**
  *
  * @author Александр
  */
-public class RemoveFacultyCommand {
+public class RemoveFacultyCommand implements Command{
+    @Override
+    public void activate(){
+        String facultyName = Controller.getStringResponse("CATHEDRA");
+        if (!FacultyManager.getInstance().isExist(facultyName))
+            throw new ElementNotExistsException();
+
+        try {
+            FacultyManager.getInstance().removeFaculty(facultyName);
+        } catch (Exception ex) {
+            throw new ElementNotRemovedException();
+        }
+    }
     
+    @Override
+    public String getTitle() {
+        return "CMD_FACULTY_REMOVE";
+    }
 }
