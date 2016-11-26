@@ -30,4 +30,12 @@ public class Cathedra {
         return this.faculty;
     }
 
+    public void setName(String name) {
+        this.name=name;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty=faculty;
+    }
+
 }

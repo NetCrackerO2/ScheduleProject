@@ -19,4 +19,13 @@ public interface Group {
     int getNumber();
 
     void setNumber(int number);
+
+    int getProfessionCode();
+
+    void setProfessionCode(int professionCode);
+
+    int getReceiptYear();
+
+    void setReceiptYear(int year);
+
 }
