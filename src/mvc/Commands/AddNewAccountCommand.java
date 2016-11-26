@@ -4,26 +4,22 @@ package mvc.Commands;
 import account.AccountManager;
 import mvc.Command;
 import mvc.Controller;
-import mvc.View;
 
 
 public class AddNewAccountCommand implements Command {
 
     @Override
     public void activate() {
-        View.writeReadAccountFIO();
-        String accountName = Controller.readString();
+        String accountName = Controller.getStringResponse("NEW_ACCOUNT_NAME");
 
         if(AccountManager.getInstance().isExist(accountName))
-            View.writeElementAlreadyExists();
+            throw new ElementAlreadyExistsException();
         else
             AccountManager.getInstance().getNewAccount(accountName);
-
-        View.writeOperationCompletedSuccessfully();
     }
 
     @Override
     public String getTitle() {
-        return "Добавить новый аккаунт";
+        return "CMD_NEW_ACCOUNT";
     }
 }

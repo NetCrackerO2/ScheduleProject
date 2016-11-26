@@ -6,7 +6,6 @@ import account.AccountManager;
 import group.GroupsManager;
 import mvc.Command;
 import mvc.Controller;
-import mvc.View;
 
 
 public class AddAccountToGroupCommand implements Command {
@@ -14,35 +13,28 @@ public class AddAccountToGroupCommand implements Command {
     @Override
     public void activate() {
         // Считываем группу
-        View.writeReadGroupNumber();
-        int groupNumber = Controller.readInt();
-        //TODO: if (!GroupsManager.getInstance().isExist(groupNumber)) {
-        if (!GroupsManager.getInstance().getAllGroups().stream().anyMatch(group -> group.getNumber() == groupNumber)) {
-            View.writeElementDoesNotExists();
-            return;
+        int groupNumber = Controller.getIntResponse("GROUP");
+        if (!GroupsManager.getInstance().isExist(groupNumber)) {
+            throw new ElementNotExistsException();
         }
 
         // Считываем аккаунт
-        View.writeReadAccountFIO();
-        String accountFIO = Controller.readString();
+        String accountFIO = Controller.getStringResponse("ACCOUNT");
         if (!AccountManager.getInstance().isExist(accountFIO)) {
-            View.writeElementDoesNotExists();
-            return;
+            throw new ElementNotExistsException();
         }
         Account needAccount = AccountManager.getInstance().getAccount(accountFIO);
 
         //TODO: убрать, когда реформируем систему вывода строк
         if (needAccount.getGroup() != null) {
-            View.writeError("Данный аккаунт уже привязан к группе. Удалите привязку для проведения данной операции.");
-            return;
+            throw new RuntimeException("ERR_ACCOUNT_ALREADY_BOUND_TO_GROUP");
         }
 
         needAccount.setGroup(GroupsManager.getInstance().getGroup(groupNumber));
-        View.writeOperationCompletedSuccessfully();
     }
 
     @Override
     public String getTitle() {
-        return "Добавить аккаунт в группу.";
+        return "CMD_ACCOUNT_BIND_TO_GROUP";
     }
 }

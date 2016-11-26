@@ -24,24 +24,14 @@ public class Controller {
     }
 
     public void start() {
-        Scanner scanner = new Scanner(System.in);
         isStop = false;
-        int currentCommand;
-        String readCommand;
 
         while (!isStop) {
             View.writeAllCommands(commandsList);
-
-            try {
-                readCommand = scanner.nextLine();
-                currentCommand = Integer.parseInt(readCommand);
-            } catch (Exception e) {
-                View.writeError("Некорректный ввод номера команды.");
-                continue;
-            }
+            int currentCommand = getIntResponse("CMD");
 
             if (currentCommand < 0 || commandsList.size() < currentCommand) {
-                View.writeError("Команды с таким номером не существует.");
+                View.setStatus(new RuntimeException("ERR_INVALID_NUMBER"));
                 continue;
             }
 
@@ -52,27 +42,32 @@ public class Controller {
 
             try {
                 activateCommand(currentCommand);
+                View.setStatus(null);
             } catch (Exception e) {
-                View.writeError(e.getMessage());
+                View.setStatus(e);
             }
         }
 
     }
 
-    public static int readInt() {
+    public static int getIntResponse(String request) {
+        View.request(request);
+        @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
         int number;
 
         try {
             number = scanner.nextInt();
         } catch (Exception e) {
-            throw new RuntimeException("Некорректный ввод числа.");
+            throw new RuntimeException("ERR_INVALID_NUMBER");
         }
 
         return number;
     }
-
-    public static String readString() {
+    
+    public static String getStringResponse(String request) {
+        View.request(request);
+        @SuppressWarnings("resource")
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }

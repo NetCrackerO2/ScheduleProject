@@ -11,6 +11,7 @@ import faculty.Faculty;
 import faculty.FacultyImpl;
 import java.util.Scanner;
 import mvc.Command;
+import mvc.Controller;
 import mvc.View;
 import subject.Subject;
 import subject.SubjectManager;
@@ -23,7 +24,6 @@ public class AddNewSubjectCommand implements Command {
 
     @Override
     public void activate() {
-        Scanner scanner = new Scanner(System.in);
         String str;
         int numberCath=0;
         int i=0;
@@ -41,24 +41,10 @@ public class AddNewSubjectCommand implements Command {
         }
        
 
-        View.writeMessage("Введите название нового предмета: \n");
-
-        try {
-            str = scanner.nextLine();
-        } catch (Exception e) {
-            View.writeError("Некорректное название предмета.");
-            return;
-        }
+        str = Controller.getStringResponse("NEW_SUBJECT");
         
         Cathedra cathedra=CathedraManager.getInstance().getAllCathedra().get(numberCath);
-        try {
-            SubjectManager.getInstance().getNewSubject(cathedra, str);
-        } catch (Exception e) {
-            View.writeError(e.getMessage());
-            return;
-        }
-
-        View.writeMessage("Предмет добавлен.\n");
+        SubjectManager.getInstance().getNewSubject(cathedra, str);
     }
 
     @Override
