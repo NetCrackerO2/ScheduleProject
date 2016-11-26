@@ -37,7 +37,7 @@ public class FacultyManager {
      * @param number
      * @return faculty instance
      */
-    public Faculty addNewFaculty(int number) {
+    public Faculty getNewFaculty(int number) {
         if (list.stream().anyMatch(current -> current.getNumber() == number))
             throw new IllegalArgumentException("Faculty already exists");
         FacultyImpl newFaculty = new FacultyImpl(number);

@@ -10,7 +10,7 @@ public class AddNewFacultyCommand implements Command {
     public void activate() {
         int number = Controller.getIntResponse("NEW_FACULTY");
 
-        FacultyManager.getInstance().addNewFaculty(number);
+        FacultyManager.getInstance().getNewFaculty(number);
     }
 
     @Override
