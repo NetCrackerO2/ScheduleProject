@@ -52,6 +52,7 @@ public class Localization {
         language.put("CMD_CATHEDRA_LIST", "Вывод всех кафедр.");
         language.put("CMD_SUBJECT_NEW", "Добавить новый предмет.");
         language.put("CMD_SUBJECT_LIST", "Вывод всех предметов.");
+        language.put("CMD_FACULTY_REMOVE", "Удаление факультета");
 
         language.put("ERR_INVALID_NUMBER", "Некорректный ввод числа.");
         language.put("ERR_ELEMENT_NOT_EXISTS", "Элемент не существует.");
