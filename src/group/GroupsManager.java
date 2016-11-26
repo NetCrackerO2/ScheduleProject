@@ -94,7 +94,7 @@ public class GroupsManager {
         for (Group current : groupsList)
             if (current.getCathedra().equals(cathedra) && current.getNumber() == number)
                 return current;
-        return null;
+        throw new NoSuchElementException("Group not found");
     }
 
     public boolean isExist(int number) {

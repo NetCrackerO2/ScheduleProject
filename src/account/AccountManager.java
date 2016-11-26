@@ -70,7 +70,7 @@ public class AccountManager {
         for (Account current : list)
             if (current.getName().equals(name))
                 return current;
-        return null;
+        throw new NoSuchElementException("Account not found");
     }
 
     /**
@@ -84,7 +84,7 @@ public class AccountManager {
         for (Account current : list)
             if (current.getGroup().equals(group) && current.getName().equals(name))
                 return current;
-        return null;
+        throw new NoSuchElementException("Account not found");
     }
 
     public boolean isExist(String name){

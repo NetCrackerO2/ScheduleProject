@@ -92,7 +92,7 @@ public class CathedraManager {
         for (Cathedra current : list)
             if (current.getFaculty().equals(faculty) && current.getName().equals(name))
                 return current;
-        return null;
+        throw new NoSuchElementException("Cathedra not found");
     }
 
     public boolean isExist(String name) {
