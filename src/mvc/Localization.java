@@ -46,13 +46,15 @@ public class Localization {
         language.put("CMD_GROUP_LIST", "Вывод всех групп.");
         language.put("CMD_FACULTY_NEW", "Добавить новый факультет.");
         language.put("CMD_FACULTY_LIST", "Вывод всех факультетов.");
+        language.put("CMD_FACULTY_REMOVE", "Удаленить факультет");
+        language.put("CMD_FACULTY_EDIT", "Изменить факультет");
         language.put("CMD_CATHEDRA_NEW", "Добавить новую кафедру.");
         language.put("CMD_CATHEDRA_EDIT", "Изменить кафедру.");
         language.put("CMD_CATHEDRA_REMOVE", "Удалить кафедру.");
         language.put("CMD_CATHEDRA_LIST", "Вывод всех кафедр.");
         language.put("CMD_SUBJECT_NEW", "Добавить новый предмет.");
         language.put("CMD_SUBJECT_LIST", "Вывод всех предметов.");
-        language.put("CMD_FACULTY_REMOVE", "Удаление факультета");
+        
 
         language.put("ERR_INVALID_NUMBER", "Некорректный ввод числа.");
         language.put("ERR_ELEMENT_NOT_EXISTS", "Элемент не существует.");

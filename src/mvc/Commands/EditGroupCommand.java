@@ -17,7 +17,7 @@ public class EditGroupCommand implements Command {
 		try {
 			Group group = GroupManager.getInstance().getGroup(groupNum);
 			try {
-				group.setNumber(Controller.getIntResponse("NEW_GROUP"));
+				group.setNumber(Controller.getIntResponse("NEW_GROUP"));                                
 			} catch (Exception e) {
 			    View.setStatus(new ElementNotEditedException());
 			}

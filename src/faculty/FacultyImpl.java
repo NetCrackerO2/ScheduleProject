@@ -17,6 +17,7 @@ public class FacultyImpl implements Faculty {
         return number;
     }
 
+    @Override
     public void setNumber(int number) {
         if (FacultyManager.getInstance().isExist(number))
             throw new IllegalArgumentException("Факультет с таким номером уже существует.");
@@ -24,10 +25,12 @@ public class FacultyImpl implements Faculty {
         this.number = number;
     }
     
+    @Override
     public Account getDean(){
         return this.dean;
     }
     
+    @Override
     public void setDean(Account dean){
         this.dean = dean;
     }

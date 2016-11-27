@@ -76,10 +76,12 @@ public class Main {
         controller.addCommand(new AddAccountToGroupCommand());
         controller.addCommand(new EditCathedraCommand());
         controller.addCommand(new EditGroupCommand());
+        controller.addCommand(new EditFacultyCommand());
 
         controller.addCommand(new RemoveAccountFromGroupCommand());
         controller.addCommand(new RemoveCathedraCommand());
         controller.addCommand(new RemoveGroupCommand());
+        controller.addCommand(new RemoveFacultyCommand());
 
         controller.addCommand(new ViewListAccountsCommand());
         controller.addCommand(new ViewListCathedraCommand());
