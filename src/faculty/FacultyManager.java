@@ -54,6 +54,24 @@ public class FacultyManager {
         if (!list.remove(faculty))
             throw new NoSuchElementException("Faculty not found");
     }
+    
+    /**
+     * @param number Номер удаляемого факультета
+     * @throws NoSuchElementException Если удаляемого факультета нет в списке
+     */
+    public void removeFaculty(int number) {
+        Faculty removedFaculty;
+
+        try {
+            removedFaculty = list.stream().filter(
+                    currentGroup -> currentGroup.getNumber() == number
+            ).findFirst().get();
+        } catch (NoSuchElementException exc) {
+            throw exc;
+        }
+
+        list.remove(removedFaculty);
+    }
 
     /**
      * Get faculty by number

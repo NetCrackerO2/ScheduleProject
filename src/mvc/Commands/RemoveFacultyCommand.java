@@ -16,12 +16,13 @@ import mvc.Controller;
 public class RemoveFacultyCommand implements Command{
     @Override
     public void activate(){
+        int facultyNum = Controller.getIntResponse("FACULTY");
         String facultyName = Controller.getStringResponse("CATHEDRA");
-        if (!FacultyManager.getInstance().isExist(facultyName))
+        if (!FacultyManager.getInstance().isExist(facultyNum))
             throw new ElementNotExistsException();
 
         try {
-            FacultyManager.getInstance().removeFaculty(facultyName);
+            FacultyManager.getInstance().removeFaculty(facultyNum);
         } catch (Exception ex) {
             throw new ElementNotRemovedException();
         }
