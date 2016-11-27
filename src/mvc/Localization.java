@@ -46,7 +46,7 @@ public class Localization {
         language.put("CMD_GROUP_LIST", "Вывод всех групп.");
         language.put("CMD_FACULTY_NEW", "Добавить новый факультет.");
         language.put("CMD_FACULTY_LIST", "Вывод всех факультетов.");
-        language.put("CMD_FACULTY_REMOVE", "Удаленить факультет");
+        language.put("CMD_FACULTY_REMOVE", "Удалить факультет");
         language.put("CMD_FACULTY_EDIT", "Изменить факультет");
         language.put("CMD_CATHEDRA_NEW", "Добавить новую кафедру.");
         language.put("CMD_CATHEDRA_EDIT", "Изменить кафедру.");
