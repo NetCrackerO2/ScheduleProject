@@ -13,7 +13,7 @@ public class EditFacultyCommand implements Command {
     @Override
     public void activate() {
         int facultyNum = Controller.getIntResponse("FACULTY");
-        String dean = Controller.getStringResponse("DEAN");
+        String dean = Controller.getStringResponse("ACCOUNT");
         try {
             Faculty faculty = FacultyManager.getInstance().getFaculty(facultyNum);
             try {

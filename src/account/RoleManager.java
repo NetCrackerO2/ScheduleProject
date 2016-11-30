@@ -77,17 +77,18 @@ public class RoleManager {
 	 * @param account Объект аккаунта, к которому будет привязана роль
 	 * @param role    Объект роли, который будет привязан к аккаунту
 	 */
-	public void addRole(Account account, Role role) {
+	public Account addRole(Account account, Role role) {
 		// TODO: название метода необходимо изменить на более отражающее его назначение
 		List<Role> list = getOrCreateRoleList(account);
 
 		if (isExistInList(role.getName(), list))
 			// TODO: исключение?..
-			return;
+			return account;
 
 		list.add(role);
 
 		map.put(account, list);
+		return account;
 	}
 
 	/**

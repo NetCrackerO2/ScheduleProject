@@ -1,6 +1,9 @@
 package faculty;
 
+
 import account.Account;
+import account.Permission;
+import account.RoleManager;
 
 
 // Для теста
@@ -24,14 +27,17 @@ public class FacultyImpl implements Faculty {
 
         this.number = number;
     }
-    
+
     @Override
-    public Account getDean(){
+    public Account getDean() {
         return this.dean;
     }
-    
+
     @Override
-    public void setDean(Account dean){
+    public void setDean(Account dean) {
+        if (!RoleManager.getInstance().hasPermission(dean, Permission.InFaculty))
+            throw new RuntimeException("Данный аккаунт не может быть деканом факультета.");
+
         this.dean = dean;
     }
 }

@@ -7,7 +7,7 @@ import mvc.Command;
 import mvc.Controller;
 
 
-public class RemoveAccountFromGroupCommand implements Command {
+public class RemoveAccountFromCathedraCommand implements Command{
 
     @Override
     public void activate() {
@@ -16,12 +16,14 @@ public class RemoveAccountFromGroupCommand implements Command {
             throw new ElementNotExistsException();
 
         Account needAccount = AccountManager.getInstance().getAccount(accountFIO);
-        if (needAccount.getGroup() == null)
-            throw new RuntimeException("ERR_ACCOUNT_NOT_BOUND_TO_GROUP");
+        if (needAccount.getCathedra() == null)
+            throw new RuntimeException("ERR_ACCOUNT_NOT_BOUND_TO_CATHEDRA");
 
-        needAccount.setGroup(null);
+        needAccount.setCathedra(null);
     }
 
     @Override
-    public String getTitle() { return "CMD_ACCOUNT_UNBIND_TO_GROUP"; }
+    public String getTitle() {
+        return "CMD_ACCOUNT_UNBIND_TO_CATHEDRA";
+    }
 }

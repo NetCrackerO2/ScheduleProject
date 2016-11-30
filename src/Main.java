@@ -1,7 +1,4 @@
-import account.Account;
-import account.AccountManager;
-import account.Permission;
-import account.RoleManager;
+import account.*;
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
 import faculty.Faculty;
@@ -41,47 +38,107 @@ public class Main {
         // Распределяем аккаунты по группам
         Account[] accounts = new Account[10];
         for (int i = 0; i < 10; i++)
-            accounts[i] = accountManager.getNewAccount("" + i,
-                    i < 5 ? groupManager.getGroup(1003) : groupManager.getGroup(1004));
+            accounts[i] = accountManager.getNewAccount("" + i);
 
         // Распределяем предметы по кафедрам
         Subject[] subjects = new Subject[10];
         for (int i = 0; i < 10; i++)
             subjects[i] = subjectManager.getNewSubject(i < 5 ? cathedra1 : cathedra2, "" + i);
 
-        // Создаём и заполняем правами роли, даём аккаунту роль
-        Account account = accountManager.getNewAccount("This Is ACCOUNT");
+        // Создаём и заполняем правами роли
+        roleManager.createRole("Student").addPermissions(
+                Permission.InGroup
+        );
+        roleManager.createRole("Head").addPermissions(
+                Permission.InGroup,
+                Permission.EditAccount
+        );
+        roleManager.createRole("Lecturer").addPermissions(
+                Permission.InCathedra,
+                Permission.AddOrRemoveAccount,
+                Permission.EditAccount,
+                Permission.AddOrRemoveGroup,
+                Permission.EditGroup
+        );
+        roleManager.createRole("Dean").addPermissions(
+                Permission.InFaculty,
+                Permission.AddOrRemoveAccount,
+                Permission.EditAccount,
+                Permission.AddOrRemoveGroup,
+                Permission.EditGroup,
+                Permission.AddOrRemoveCathedra,
+                Permission.EditCathedra,
+                Permission.AddOrRemoveSubject,
+                Permission.EditSubject,
+                Permission.AddOrRemoveFaculty,
+                Permission.EditFaculty
+        );
 
-        roleManager.createRole("Role#1");
-        roleManager.getRole("Role#1").addPermissions(Permission.Student);
-        roleManager.createRole("Role#2");
-        roleManager.getRole("Role#2").addPermissions(Permission.NoStudent);
-        roleManager.createRole("Role#3");
 
-        roleManager.addRole(account, roleManager.getRole("Role#1"));
+        roleManager.addRole(accounts[0], roleManager.getRole("Student"));
+        roleManager.addRole(accounts[1], roleManager.getRole("Student"));
+        roleManager.addRole(accounts[2], roleManager.getRole("Student"));
+        roleManager.addRole(accounts[3], roleManager.getRole("Student"));
+        roleManager.addRole(accounts[4], roleManager.getRole("Student"));
+        roleManager.addRole(accounts[5], roleManager.getRole("Head"));
+        roleManager.addRole(accounts[6], roleManager.getRole("Lecturer"));
+        roleManager.addRole(accounts[7], roleManager.getRole("Dean"));
+        roleManager.addRole(accounts[8], roleManager.getRole("Student"));
+        roleManager.addRole(accounts[9], roleManager.getRole("Student"));
 
-
-
+        /////////////////////////////////////////////////////////////////////////
+        Role currentRole = roleManager.getRole("Dean");
+        /////////////////////////////////////////////////////////////////////////
 
 
         Controller controller = new Controller();
 
+        for (Permission permission : Permission.values())
+            if (currentRole.hasPermission(permission))
+                switch (permission) {
+                    case AddOrRemoveAccount:
+                        controller.addCommand(new AddNewAccountCommand());
+                        controller.addCommand(new RemoveAccountCommand());
+                        break;
 
-        controller.addCommand(new AddNewAccountCommand());
-        controller.addCommand(new AddNewCathedraCommand());
-        controller.addCommand(new AddNewFacultyCommand());
-        controller.addCommand(new AddNewGroupCommand());
-        controller.addCommand(new AddNewSubjectCommand());
+                    case EditAccount:
+                        controller.addCommand(new AddAccountToGroupCommand());
+                        controller.addCommand(new AddAccountToCathedraCommand());
+                        controller.addCommand(new RemoveAccountFromGroupCommand());
+                        controller.addCommand(new RemoveAccountFromCathedraCommand());
+                        break;
 
-        controller.addCommand(new AddAccountToGroupCommand());
-        controller.addCommand(new EditCathedraCommand());
-        controller.addCommand(new EditGroupCommand());
-        controller.addCommand(new EditFacultyCommand());
+                    case AddOrRemoveGroup:
+                        controller.addCommand(new AddNewGroupCommand());
+                        controller.addCommand(new RemoveGroupCommand());
+                        break;
 
-        controller.addCommand(new RemoveAccountFromGroupCommand());
-        controller.addCommand(new RemoveCathedraCommand());
-        controller.addCommand(new RemoveGroupCommand());
-        controller.addCommand(new RemoveFacultyCommand());
+                    case EditGroup:
+                        controller.addCommand(new EditGroupCommand());
+                        break;
+
+                    case AddOrRemoveCathedra:
+                        controller.addCommand(new AddNewCathedraCommand());
+                        controller.addCommand(new RemoveCathedraCommand());
+                        break;
+
+                    case EditCathedra:
+                        controller.addCommand(new EditCathedraCommand());
+                        break;
+
+                    case AddOrRemoveFaculty:
+                        controller.addCommand(new AddNewFacultyCommand());
+                        controller.addCommand(new RemoveFacultyCommand());
+                        break;
+
+                    case EditFaculty:
+                        controller.addCommand(new EditFacultyCommand());
+                        break;
+
+                    case AddOrRemoveSubject:
+                        controller.addCommand(new AddNewSubjectCommand());
+                        break;
+                }
 
         controller.addCommand(new ViewListAccountsCommand());
         controller.addCommand(new ViewListCathedraCommand());
@@ -91,11 +148,5 @@ public class Main {
 
 
         controller.start();
-
-
-        System.out.println(roleManager.hasRole(account, "Role#1"));
-        System.out.println(roleManager.hasRole(account, "Role#2"));
-        System.out.println(roleManager.hasPermission(account, Permission.Student));
-        System.out.println(roleManager.hasPermission(account, Permission.NoStudent));
     }
 }

@@ -1,8 +1,10 @@
 package mvc;
 
+
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 /**
  * @author AsGreyWolf
@@ -21,6 +23,8 @@ public class Localization {
         language.put("ACCOUNT_LIST", "Список аккаунтов:");
         language.put("ACCOUNT_LIST_NAME", "ФИО: ");
         language.put("ACCOUNT_LIST_GROUP", "Группа: ");
+        language.put("ACCOUNT_LIST_CATHEDRA", "Кафедра: ");
+        language.put("ACCOUNT_LIST_ROLE", "Роли: ");
         language.put("STATUS_ERROR", "Ошибка");
         language.put("STATUS_SUCCESS", "Операция завершна успешно");
 
@@ -33,34 +37,39 @@ public class Localization {
         language.put("NEW_GROUP_REQUEST", "Введите новый номер группы: ");
         language.put("NEW_CATHEDRA_REQUEST", "Введите новое название кафедры: ");
         language.put("NEW_FACULTY_REQUEST", "Введите новый номер факультета: ");
-        language.put("NEW_SUBJECT_REQUEST", "Введите новое название предмета: ");        
+        language.put("NEW_SUBJECT_REQUEST", "Введите новое название предмета: ");
 
         language.put("CMD_QUIT", "Выход");
         language.put("CMD_ACCOUNT_BIND_TO_GROUP", "Привязать аккаунт к группе.");
         language.put("CMD_ACCOUNT_UNBIND_TO_GROUP", "Удалить аккаунт из группы.");
+        language.put("CMD_ACCOUNT_BIND_TO_CATHEDRA", "Привязать аккаунт к кафедре.");
+        language.put("CMD_ACCOUNT_UNBIND_TO_CATHEDRA", "Удалить аккаунт из кафедры.");
         language.put("CMD_ACCOUNT_NEW", "Добавить аккаунт.");
         language.put("CMD_ACCOUNT_LIST", "Вывод всех аккаунтов.");
+        language.put("CMD_ACCOUNT_REMOVE", "Удалить аккаунт.");
         language.put("CMD_GROUP_NEW", "Добавить новую группу.");
         language.put("CMD_GROUP_EDIT", "Изменить группу.");
         language.put("CMD_GROUP_REMOVE", "Удалить группу.");
         language.put("CMD_GROUP_LIST", "Вывод всех групп.");
         language.put("CMD_FACULTY_NEW", "Добавить новый факультет.");
         language.put("CMD_FACULTY_LIST", "Вывод всех факультетов.");
-        language.put("CMD_FACULTY_REMOVE", "Удалить факультет");
-        language.put("CMD_FACULTY_EDIT", "Изменить факультет");
+        language.put("CMD_FACULTY_REMOVE", "Удалить факультет.");
+        language.put("CMD_FACULTY_EDIT", "Изменить факультет.");
         language.put("CMD_CATHEDRA_NEW", "Добавить новую кафедру.");
         language.put("CMD_CATHEDRA_EDIT", "Изменить кафедру.");
         language.put("CMD_CATHEDRA_REMOVE", "Удалить кафедру.");
         language.put("CMD_CATHEDRA_LIST", "Вывод всех кафедр.");
         language.put("CMD_SUBJECT_NEW", "Добавить новый предмет.");
         language.put("CMD_SUBJECT_LIST", "Вывод всех предметов.");
-        
+
 
         language.put("ERR_INVALID_NUMBER", "Некорректный ввод числа.");
         language.put("ERR_ELEMENT_NOT_EXISTS", "Элемент не существует.");
         language.put("ERR_ELEMENT_ALREADY_EXISTS", "Элемент уже существует.");
         language.put("ERR_ACCOUNT_ALREADY_BOUND_TO_GROUP", "Аккаунт уже привязан к группе.");
+        language.put("ERR_ACCOUNT_ALREADY_BOUND_TO_CATHEDRA", "Аккаунт уже привязан к кафедре.");
         language.put("ERR_ACCOUNT_NOT_BOUND_TO_GROUP", "Аккаунт не привязан к группе.");
+        language.put("ERR_ACCOUNT_NOT_BOUND_TO_CATHEDRA", "Аккаунт не привязан к кафедре.");
         language.put("ERR_ELEMENT_NOT_EDITED", "Элемент не был изменен.");
         language.put("ERR_ELEMENT_NOT_REMOVED", "Элемент не был удален.");
     }

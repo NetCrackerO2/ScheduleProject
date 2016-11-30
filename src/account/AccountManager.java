@@ -41,19 +41,12 @@ public class AccountManager {
     }
 
     /**
-     * Factory method to get new account instance
+     * Remove account from Manager
      *
      * @param name
-     * @param group
-     * @return account instance
      */
-    public Account getNewAccount(String name, Group group) {
-        if (list.stream().anyMatch(current -> current.getName().equals(name) && current.getGroup().equals(group)))
-            throw new IllegalArgumentException("Account already exists");
-
-        Account result = new Account(name, group);
-        list.add(result);
-        return result;
+    public void removeAccount(String name) {
+        removeAccount(getAccount(name));
     }
 
     /**
@@ -70,7 +63,7 @@ public class AccountManager {
         for (Account current : list)
             if (current.getName().equals(name))
                 return current;
-        
+
         throw new NoSuchElementException("Account not found");
     }
 

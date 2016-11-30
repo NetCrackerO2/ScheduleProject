@@ -2,6 +2,19 @@ package account;
 
 
 public enum Permission {
-	Student,
-	NoStudent
+    AddOrRemoveAccount,
+    AddOrRemoveGroup,
+    AddOrRemoveSubject,
+    AddOrRemoveCathedra,
+    AddOrRemoveFaculty,
+
+    EditAccount,
+    EditGroup,
+    EditSubject,
+    EditCathedra,
+    EditFaculty,
+
+    InGroup,
+    InCathedra,
+    InFaculty
 }

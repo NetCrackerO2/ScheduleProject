@@ -1,13 +1,17 @@
 package mvc;
 
+
+import account.AccountManager;
+import account.Role;
+import account.RoleManager;
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
 import faculty.FacultyManager;
 import group.GroupManager;
 import subject.SubjectManager;
-import account.AccountManager;
 
 import java.util.List;
+
 
 public class View {
     private static void print(String key) {
@@ -55,13 +59,19 @@ public class View {
             print("ACCOUNT_LIST_NAME");
             System.out.println(account.getName());
             print("ACCOUNT_LIST_GROUP");
-            System.out.println((account.getGroup() != null ? account.getGroup().getNumber() : "null") + "\n");
+            System.out.println(account.getGroup() != null ? account.getGroup().getNumber() : "null");
+            print("ACCOUNT_LIST_CATHEDRA");
+            System.out.println(account.getCathedra() != null ? account.getCathedra().getName() : "null");
+            print("ACCOUNT_LIST_ROLE");
+            for (Role role : RoleManager.getInstance().getRoles(account))
+                System.out.print(role.getName() + " ");
+            println("\n");
         });
         println("");
     }
 
     public static void writeAllCommands(List<Command> commandsList) { // TODO:
-                                                                      // private
+        // private
         int i = 0;
 
         println("");
@@ -73,37 +83,37 @@ public class View {
 
     public static void request(String key) {
         switch (key) {
-        case "ACCOUNT":
-            writeAllAccounts();
-            break;
-        case "GROUP":
-            writeAllGroups();
-            break;
-        case "CATHEDRA":
-            writeAllCathedra();
-            break;
-        case "FACULTY":
-            writeAllFaculties();
-            break;
-        case "SUBJECT":
-            writeAllSubjects();
-            break;
+            case "ACCOUNT":
+                writeAllAccounts();
+                break;
+            case "GROUP":
+                writeAllGroups();
+                break;
+            case "CATHEDRA":
+                writeAllCathedra();
+                break;
+            case "FACULTY":
+                writeAllFaculties();
+                break;
+            case "SUBJECT":
+                writeAllSubjects();
+                break;
 
-        case "ACCOUNT_LIST":
-            writeAllAccounts();
-            return;
-        case "GROUP_LIST":
-            writeAllGroups();
-            return;
-        case "CATHEDRA_LIST":
-            writeAllCathedra();
-            return;
-        case "FACULTY_LIST":
-            writeAllFaculties();
-            return;
-        case "SUBJECT_LIST":
-            writeAllSubjects();
-            return;
+            case "ACCOUNT_LIST":
+                writeAllAccounts();
+                return;
+            case "GROUP_LIST":
+                writeAllGroups();
+                return;
+            case "CATHEDRA_LIST":
+                writeAllCathedra();
+                return;
+            case "FACULTY_LIST":
+                writeAllFaculties();
+                return;
+            case "SUBJECT_LIST":
+                writeAllSubjects();
+                return;
         }
         print(key + "_REQUEST");
     }
