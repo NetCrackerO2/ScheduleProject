@@ -92,61 +92,8 @@ public class Main {
 
 
         Controller controller = new Controller();
-
-        for (Permission permission : Permission.values())
-            if (currentRole.hasPermission(permission))
-                switch (permission) {
-                    case AddOrRemoveAccount:
-                        controller.addCommand(new AddNewAccountCommand());
-                        controller.addCommand(new RemoveAccountCommand());
-                        break;
-
-                    case EditAccount:
-                        controller.addCommand(new AddAccountToGroupCommand());
-                        controller.addCommand(new AddAccountToCathedraCommand());
-                        controller.addCommand(new RemoveAccountFromGroupCommand());
-                        controller.addCommand(new RemoveAccountFromCathedraCommand());
-                        break;
-
-                    case AddOrRemoveGroup:
-                        controller.addCommand(new AddNewGroupCommand());
-                        controller.addCommand(new RemoveGroupCommand());
-                        break;
-
-                    case EditGroup:
-                        controller.addCommand(new EditGroupCommand());
-                        break;
-
-                    case AddOrRemoveCathedra:
-                        controller.addCommand(new AddNewCathedraCommand());
-                        controller.addCommand(new RemoveCathedraCommand());
-                        break;
-
-                    case EditCathedra:
-                        controller.addCommand(new EditCathedraCommand());
-                        break;
-
-                    case AddOrRemoveFaculty:
-                        controller.addCommand(new AddNewFacultyCommand());
-                        controller.addCommand(new RemoveFacultyCommand());
-                        break;
-
-                    case EditFaculty:
-                        controller.addCommand(new EditFacultyCommand());
-                        break;
-
-                    case AddOrRemoveSubject:
-                        controller.addCommand(new AddNewSubjectCommand());
-                        break;
-                }
-
-        controller.addCommand(new ViewListAccountsCommand());
-        controller.addCommand(new ViewListCathedraCommand());
-        controller.addCommand(new ViewListFacultiesCommand());
-        controller.addCommand(new ViewListGroupsCommand());
-        controller.addCommand(new ViewListSubjectsCommand());
-
-
+        controller.addCommand(new CreateServerCommand());
+        controller.addCommand(new CreateClientCommand());
         controller.start();
     }
 }
