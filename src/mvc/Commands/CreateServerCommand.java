@@ -11,7 +11,7 @@ public class CreateServerCommand implements Command {
         ServerAssistant serverAssistant = new ServerAssistant();
         serverAssistant.initialize();
 
-        while(true){
+        while (true) {
             System.out.println(serverAssistant.getNextMessage().getValue("type"));
         }
 

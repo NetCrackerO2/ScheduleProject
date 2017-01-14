@@ -1,15 +1,17 @@
 package faculty;
 
-import account.Account;
+
+import manager.Entity;
 
 
-// Для теста
-public interface Faculty {
+public interface Faculty extends Entity {
+    int getIndex();
+
     int getNumber();
-    
+
     void setNumber(int number);
-    
-    Account getDean();
-    
-    void setDean(Account dean);
+
+    int getDeanAccountIndex();
+
+    void setDeanAccountIndex(int deanAccountIndex);
 }

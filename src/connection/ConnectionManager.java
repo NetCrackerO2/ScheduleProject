@@ -5,7 +5,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 
 /**
@@ -127,12 +130,13 @@ class ConnectionManager {
             while (isRun) {
                 try {
                     String text = in.readUTF();
-                    Message newMessage = new Message(connectionIndex, text);
-                    if (newMessage.isCorrect())
-                        connectionManager.outPoint(newMessage);
-                    else
+
+                    if (Message.isCorrectJSON(text))
+                        connectionManager.outPoint(new Message(connectionIndex, text));
+                    else {
                         //TODO: лог
                         System.out.println("Cоединение №" + connectionIndex + ": принято и пропущено некорректное сообщение: " + text + ".");
+                    }
                 } catch (IOException e) {
                     //TODO: лог
                     System.out.println("Cоединение №" + connectionIndex + ": разорвано.");

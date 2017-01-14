@@ -1,16 +1,15 @@
 package subject;
 
 
-import cathedra.Cathedra;
+import manager.Entity;
 
 
-/**
- * @author AsGreyWolf
- */
-public interface Subject {
-    Cathedra getCathedra();
+public interface Subject extends Entity {
+    int getIndex();
 
-    void setCathedra(Cathedra cathedra);
+    int getCathedraIndex();
+
+    void setCathedraIndex(int cathedraIndex);
 
     String getName();
 

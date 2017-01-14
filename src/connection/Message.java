@@ -1,6 +1,7 @@
 package connection;
 
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -22,9 +23,32 @@ public class Message {
     public Message(int connectionIndex, String text) {
         this.connectionIndex = connectionIndex;
         this.text = text;
-        jsonObject = null;
+
+        try {
+            jsonObject = (JSONObject) (new JSONParser().parse(text));
+        } catch (ParseException e) {
+            throw new RuntimeException("Ааааа сообщение некорректно!!!" + "\n" + connectionIndex + "\n" + text);
+        }
     }
 
+
+    public int getConnectionIndex() {
+        return connectionIndex;
+    }
+
+    //TODO: проверка существования ключа?
+    public Object getValue(String key) {
+        return jsonObject.get(key);
+    }
+
+    public Object[] getValues(String key) {
+        JSONArray ja = (JSONArray) jsonObject.get(key);
+        return ja.toArray();
+    }
+
+    public String getText() {
+        return text;
+    }
 
     /**
      * Проверяет наличие ошибки выполнения запроса.
@@ -33,27 +57,13 @@ public class Message {
         return jsonObject.containsKey("err");
     }
 
-    //TODO: проверка существования ключа?
-    public Object getValue(String key) {
-        return jsonObject.get(key);
-    }
 
-    public int getConnectionIndex() {
-        return connectionIndex;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public boolean isCorrect() {
-        //TODO: Плохо, метод проврерки ещё и поле изменяет, придумать, как исправить.
+    static boolean isCorrectJSON(String text) {
         try {
-            jsonObject = (JSONObject) (new JSONParser().parse(text));
+            new JSONParser().parse(text);
+            return true;
         } catch (ParseException e) {
             return false;
         }
-
-        return true;
     }
 }

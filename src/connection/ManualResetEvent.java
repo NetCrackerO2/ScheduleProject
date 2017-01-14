@@ -1,17 +1,17 @@
 package connection;
 
 
-public class ManualResetEvent {
+class ManualResetEvent {
     private final Object monitor = new Object();
     private volatile boolean open = false;
     //=============
 
 
-    public ManualResetEvent(boolean open) {
+    ManualResetEvent(boolean open) {
         this.open = open;
     }
 
-    public void waitOne() {
+    void waitOne() {
         synchronized (monitor) {
             while (!open) {
                 try {
@@ -25,14 +25,14 @@ public class ManualResetEvent {
         }
     }
 
-    public void set() {
+    void set() {
         synchronized (monitor) {
             open = true;
             monitor.notify();
         }
     }
 
-    public void reset() {
+    void reset() {
         open = false;
     }
 }

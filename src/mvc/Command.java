@@ -9,6 +9,7 @@ public interface Command {
 
     /**
      * Метод, вызываемый при выводе команды на экран
+     *
      * @return Название команды
      */
     String getTitle();

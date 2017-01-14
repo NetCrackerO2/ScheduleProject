@@ -1,13 +1,15 @@
 package group;
 
 
-import cathedra.Cathedra;
+import manager.Entity;
 
 
-public interface Group {
-    Cathedra getCathedra();
+public interface Group extends Entity {
+    int getIndex();
 
-    void setCathedra(Cathedra cathedra);
+    int getCathedraIndex();
+
+    void setCathedraIndex(int cathedraIndex);
 
     int getNumber();
 

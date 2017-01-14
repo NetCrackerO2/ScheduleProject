@@ -1,24 +1,27 @@
 package cathedra;
 
 
-import account.Account;
-import account.Permission;
-import account.RoleManager;
-import faculty.Faculty;
+import account.AccountManager;
+import account.role.Permission;
+import account.role.RoleManager;
 import faculty.FacultyManager;
 
+import java.util.Objects;
 
-/**
- * @author Dmi3
- */
+
 public class CathedraImpl implements Cathedra {
+    private int index;
     private String name;
-    private Faculty faculty;
-    private Account head;
+    private int facultyIndex = -1;
+    private int headAccountIndex = -1;
 
-    protected CathedraImpl(Faculty faculty, String name) {
-        this.name = name;
-        this.faculty = faculty;
+    CathedraImpl(int index) {
+        this.index = index;
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
     }
 
     @Override
@@ -27,37 +30,36 @@ public class CathedraImpl implements Cathedra {
     }
 
     @Override
-    public Faculty getFaculty() {
-        return this.faculty;
+    public int getFacultyIndex() {
+        return this.facultyIndex;
     }
 
     @Override
     public void setName(String name) {
-        if (CathedraManager.getInstance().isExist(name))
+        if (CathedraManager.getInstance().getAllObjects().stream().anyMatch(cathedra -> Objects.equals(cathedra.getName(), name)))
             throw new IllegalArgumentException("Кафедра с таким именем уже существует.");
 
         this.name = name;
     }
 
     @Override
-    public void setFaculty(Faculty faculty) {
-        if (!FacultyManager.getInstance().isExist(faculty.getNumber()))
+    public void setFacultyIndex(int facultyIndex) {
+        if (!FacultyManager.getInstance().isExist(facultyIndex))
             throw new IllegalArgumentException("Такого факультета не существует.");
 
-        this.faculty = faculty;
+        this.facultyIndex = facultyIndex;
     }
 
     @Override
-    public Account getHead() {
-        return this.head;
+    public int getHeadAccountIndex() {
+        return this.headAccountIndex;
     }
 
     @Override
-    public void setHead(Account head) {
-        if (!RoleManager.getInstance().hasPermission(head, Permission.InCathedra))
+    public void setHeadAccountIndex(int headAccountIndex) {
+        if (!RoleManager.getInstance().hasPermission(AccountManager.getInstance().getObject(headAccountIndex), Permission.InCathedra))
             throw new RuntimeException("Данный аккаунт не может быть заведующим кафедры.");
 
-        this.head = head;
+        this.headAccountIndex = headAccountIndex;
     }
-
 }

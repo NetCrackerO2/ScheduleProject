@@ -1,18 +1,23 @@
 package faculty;
 
 
-import account.Account;
-import account.Permission;
-import account.RoleManager;
+import account.AccountManager;
+import account.role.Permission;
+import account.role.RoleManager;
 
 
-// Для теста
 public class FacultyImpl implements Faculty {
-    private int number;
-    private Account dean;
+    private int index;
+    private int number = -1;
+    private int deanAccountIndex = -1;
 
-    public FacultyImpl(int number) {
-        this.number = number;
+    FacultyImpl(int index) {
+        this.index = index;
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
     }
 
     @Override
@@ -22,22 +27,22 @@ public class FacultyImpl implements Faculty {
 
     @Override
     public void setNumber(int number) {
-        if (FacultyManager.getInstance().isExist(number))
+        if (FacultyManager.getInstance().getAllObjects().stream().anyMatch(faculty -> faculty.getNumber() == number))
             throw new IllegalArgumentException("Факультет с таким номером уже существует.");
 
         this.number = number;
     }
 
     @Override
-    public Account getDean() {
-        return this.dean;
+    public int getDeanAccountIndex() {
+        return this.deanAccountIndex;
     }
 
     @Override
-    public void setDean(Account dean) {
-        if (!RoleManager.getInstance().hasPermission(dean, Permission.InFaculty))
+    public void setDeanAccountIndex(int deanAccountIndex) {
+        if (!RoleManager.getInstance().hasPermission(AccountManager.getInstance().getObject(deanAccountIndex), Permission.InFaculty))
             throw new RuntimeException("Данный аккаунт не может быть деканом факультета.");
 
-        this.dean = dean;
+        this.deanAccountIndex = deanAccountIndex;
     }
 }

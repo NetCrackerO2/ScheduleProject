@@ -5,7 +5,7 @@ import mvc.Command;
 import mvc.View;
 
 
-public class ViewListCathedraCommand implements Command {
+public class ViewListCathedrasCommand implements Command {
     @Override
     public void activate() {
         View.request("CATHEDRA_LIST");

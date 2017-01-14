@@ -1,33 +1,36 @@
 package subject;
 
 
-import cathedra.Cathedra;
 import cathedra.CathedraManager;
 
+import java.util.Objects;
 
-/**
- * @author AsGreyWolf
- */
+
 public class SubjectImpl implements Subject {
-    private Cathedra cathedra;
+    private int index;
+    private int cathedraIndex;
     private String name;
 
-    protected SubjectImpl(Cathedra cathedra, String name) {
-        this.cathedra = cathedra;
-        this.name = name;
+    SubjectImpl(int index) {
+        this.index = index;
     }
 
     @Override
-    public Cathedra getCathedra() {
-        return cathedra;
+    public int getIndex() {
+        return index;
     }
 
     @Override
-    public void setCathedra(Cathedra cathedra) {
-        if (!CathedraManager.getInstance().isExist(cathedra.getName()))
+    public int getCathedraIndex() {
+        return cathedraIndex;
+    }
+
+    @Override
+    public void setCathedraIndex(int cathedraIndex) {
+        if (!CathedraManager.getInstance().isExist(cathedraIndex))
             throw new IllegalArgumentException("Такой кафедры не существует.");
 
-        this.cathedra = cathedra;
+        this.cathedraIndex = cathedraIndex;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class SubjectImpl implements Subject {
 
     @Override
     public void setName(String name) {
-        if (SubjectManager.getInstance().isExist(name))
+        if (SubjectManager.getInstance().getAllObjects().stream().anyMatch(subject -> Objects.equals(subject.getName(), name)))
             throw new IllegalArgumentException("Предмет с таким именем уже существует.");
 
         this.name = name;

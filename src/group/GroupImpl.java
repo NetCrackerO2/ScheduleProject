@@ -1,23 +1,23 @@
 package group;
 
 
-import cathedra.Cathedra;
 import cathedra.CathedraManager;
 
 
-/**
- * @author temon137
- */
 public class GroupImpl implements Group {
-    private Cathedra cathedra;
+    private int index;
+    private int cathedraIndex;
     private int number, receiptYear, professionCode;
 
 
-    protected GroupImpl(Cathedra cathedra, int number) {
-        this.cathedra = cathedra;
-        this.number = number;
+    GroupImpl(int index) {
+        this.index = index;
     }
 
+    @Override
+    public int getIndex() {
+        return index;
+    }
 
     @Override
     public int getReceiptYear() {
@@ -30,16 +30,16 @@ public class GroupImpl implements Group {
     }
 
     @Override
-    public Cathedra getCathedra() {
-        return cathedra;
+    public int getCathedraIndex() {
+        return cathedraIndex;
     }
 
     @Override
-    public void setCathedra(Cathedra cathedra) {
-        if (!CathedraManager.getInstance().isExist(cathedra.getName()))
+    public void setCathedraIndex(int cathedraIndex) {
+        if (!CathedraManager.getInstance().isExist(cathedraIndex))
             throw new IllegalArgumentException("Такой кафедры не существует.");
 
-        this.cathedra = cathedra;
+        this.cathedraIndex = cathedraIndex;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class GroupImpl implements Group {
 
     @Override
     public void setNumber(int number) {
-        if (GroupManager.getInstance().isExist(number))
+        if (GroupManager.getInstance().getAllObjects().stream().anyMatch(group -> group.getNumber() == number))
             throw new IllegalArgumentException("Группа с таким номером уже существует!");
 
         this.number = number;

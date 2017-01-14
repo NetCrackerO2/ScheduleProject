@@ -1,21 +1,21 @@
 package cathedra;
 
 
-import account.Account;
-import faculty.Faculty;
+import manager.Entity;
 
 
-public interface Cathedra {
+public interface Cathedra extends Entity {
+    int getIndex();
 
     String getName();
 
-    Faculty getFaculty();
+    int getFacultyIndex();
 
     void setName(String name);
 
-    void setFaculty(Faculty faculty);
+    void setFacultyIndex(int facultyIndex);
 
-    Account getHead();
+    int getHeadAccountIndex();
 
-    void setHead(Account head);
+    void setHeadAccountIndex(int headAccountIndex);
 }
