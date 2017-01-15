@@ -1,9 +1,12 @@
 package mvc.Commands;
 
 
+import account.AccountManager;
 import connection.ClientAssistant;
-import connection.Message;
+import connection.MessageBuilder;
 import mvc.Command;
+
+import java.util.ArrayList;
 
 
 public class CreateClientCommand implements Command {
@@ -12,13 +15,17 @@ public class CreateClientCommand implements Command {
         ClientAssistant clientAssistant = new ClientAssistant();
         clientAssistant.initialize();
 
+        MessageBuilder messageBuilder = new MessageBuilder();
+        messageBuilder.setConnectionIndex(0);
+        messageBuilder.put("type", "ACCOUNT_POST_TEST");
+        messageBuilder.put("data", new ArrayList<>(AccountManager.getInstance().getAllObjects()));
+
         while (true) {
-            clientAssistant.sendMessage(new Message(0, "{\"type\": \"toster\"}"));
+            clientAssistant.sendMessage(messageBuilder.toMessage());
 
             try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                //Убейтесь исключения
+                Thread.sleep(3000);
+            } catch (InterruptedException ignored) {
             }
         }
     }

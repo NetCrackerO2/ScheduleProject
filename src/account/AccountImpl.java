@@ -5,6 +5,7 @@ import account.role.Permission;
 import account.role.RoleManager;
 import cathedra.CathedraManager;
 import group.GroupManager;
+import org.json.simple.JSONObject;
 
 
 public class AccountImpl implements Account{
@@ -20,6 +21,18 @@ public class AccountImpl implements Account{
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public JSONObject getJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("index", index);
+        jsonObject.put("name", name);
+        jsonObject.put("groupIndex", groupIndex);
+        jsonObject.put("cathedraIndex", cathedraIndex);
+
+        return jsonObject;
     }
 
     @Override

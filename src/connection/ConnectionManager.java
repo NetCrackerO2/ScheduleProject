@@ -64,7 +64,7 @@ class ConnectionManager {
                 if (connection.connectionIndex != message.getConnectionIndex())
                     continue;
 
-                connection.sendText(message.getText());
+                connection.sendText(message.toString());
                 return;
             }
         }

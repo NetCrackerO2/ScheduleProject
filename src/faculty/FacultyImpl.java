@@ -4,6 +4,7 @@ package faculty;
 import account.AccountManager;
 import account.role.Permission;
 import account.role.RoleManager;
+import org.json.simple.JSONObject;
 
 
 public class FacultyImpl implements Faculty {
@@ -18,6 +19,17 @@ public class FacultyImpl implements Faculty {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public JSONObject getJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("index", index);
+        jsonObject.put("number", number);
+        jsonObject.put("deanAccountIndex", deanAccountIndex);
+
+        return jsonObject;
     }
 
     @Override

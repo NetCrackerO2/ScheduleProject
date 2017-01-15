@@ -2,6 +2,7 @@ package subject;
 
 
 import cathedra.CathedraManager;
+import org.json.simple.JSONObject;
 
 import java.util.Objects;
 
@@ -18,6 +19,17 @@ public class SubjectImpl implements Subject {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public JSONObject getJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("index", index);
+        jsonObject.put("name", name);
+        jsonObject.put("cathedraIndex", cathedraIndex);
+
+        return jsonObject;
     }
 
     @Override

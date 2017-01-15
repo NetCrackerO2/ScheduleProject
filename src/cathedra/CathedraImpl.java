@@ -5,6 +5,7 @@ import account.AccountManager;
 import account.role.Permission;
 import account.role.RoleManager;
 import faculty.FacultyManager;
+import org.json.simple.JSONObject;
 
 import java.util.Objects;
 
@@ -22,6 +23,18 @@ public class CathedraImpl implements Cathedra {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public JSONObject getJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("index", index);
+        jsonObject.put("name", name);
+        jsonObject.put("facultyIndex", facultyIndex);
+        jsonObject.put("headAccountIndex", headAccountIndex);
+
+        return jsonObject;
     }
 
     @Override

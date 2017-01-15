@@ -2,6 +2,7 @@ package group;
 
 
 import cathedra.CathedraManager;
+import org.json.simple.JSONObject;
 
 
 public class GroupImpl implements Group {
@@ -17,6 +18,19 @@ public class GroupImpl implements Group {
     @Override
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public JSONObject getJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("index", index);
+        jsonObject.put("number", number);
+        jsonObject.put("cathedraIndex", cathedraIndex);
+        jsonObject.put("receiptYear", receiptYear);
+        jsonObject.put("professionCode", professionCode);
+
+        return jsonObject;
     }
 
     @Override

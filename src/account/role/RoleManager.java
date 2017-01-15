@@ -6,7 +6,7 @@ import manager.GenericEntityManager;
 
 import java.util.*;
 
-
+//TODO: реорганизовать класс для использования индекса аккаунта вместо ссылки на аккаунт.
 public class RoleManager extends GenericEntityManager<Role> {
     private static RoleManager instance;
     private Map<Account, List<Role>> map = new HashMap<>();

@@ -1,7 +1,6 @@
 package connection;
 
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -27,7 +26,9 @@ public class Message {
         try {
             jsonObject = (JSONObject) (new JSONParser().parse(text));
         } catch (ParseException e) {
-            throw new RuntimeException("Ааааа сообщение некорректно!!!" + "\n" + connectionIndex + "\n" + text);
+            throw new RuntimeException("Сообщение некорректно."
+                    + "\nconnectionIndex: " + connectionIndex
+                    + "\ntext: " + text);
         }
     }
 
@@ -41,12 +42,8 @@ public class Message {
         return jsonObject.get(key);
     }
 
-    public Object[] getValues(String key) {
-        JSONArray ja = (JSONArray) jsonObject.get(key);
-        return ja.toArray();
-    }
-
-    public String getText() {
+    @Override
+    public String toString() {
         return text;
     }
 
