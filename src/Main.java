@@ -104,16 +104,16 @@ public class Main {
         );
 
 
-        roleManager.addRole(accounts[0], roleManager.getObject(0));
-        roleManager.addRole(accounts[1], roleManager.getObject(0));
-        roleManager.addRole(accounts[2], roleManager.getObject(0));
-        roleManager.addRole(accounts[3], roleManager.getObject(0));
-        roleManager.addRole(accounts[4], roleManager.getObject(0));
-        roleManager.addRole(accounts[5], roleManager.getObject(1));
-        roleManager.addRole(accounts[6], roleManager.getObject(2));
-        roleManager.addRole(accounts[7], roleManager.getObject(3));
-        roleManager.addRole(accounts[8], roleManager.getObject(0));
-        roleManager.addRole(accounts[9], roleManager.getObject(0));
+        roleManager.addRole(accounts[0].getIndex(), roleManager.getObject(0));
+        roleManager.addRole(accounts[1].getIndex(), roleManager.getObject(0));
+        roleManager.addRole(accounts[2].getIndex(), roleManager.getObject(0));
+        roleManager.addRole(accounts[3].getIndex(), roleManager.getObject(0));
+        roleManager.addRole(accounts[4].getIndex(), roleManager.getObject(0));
+        roleManager.addRole(accounts[5].getIndex(), roleManager.getObject(1));
+        roleManager.addRole(accounts[6].getIndex(), roleManager.getObject(2));
+        roleManager.addRole(accounts[7].getIndex(), roleManager.getObject(3));
+        roleManager.addRole(accounts[8].getIndex(), roleManager.getObject(0));
+        roleManager.addRole(accounts[9].getIndex(), roleManager.getObject(0));
 
         /////////////////////////////////////////////////////////////////////////
         Role currentRole = roleManager.getObject(3);

@@ -8,7 +8,7 @@ import group.GroupManager;
 import org.json.simple.JSONObject;
 
 
-public class AccountImpl implements Account{
+public class AccountImpl implements Account {
     private int index;
     private String name;
     private int groupIndex = -1;
@@ -52,7 +52,7 @@ public class AccountImpl implements Account{
 
     @Override
     public void setGroupIndex(int groupIndex) {
-        if (!RoleManager.getInstance().hasPermission(this, Permission.InGroup))
+        if (!RoleManager.getInstance().hasPermission(index, Permission.InGroup))
             throw new RuntimeException("Данный аккаунт не может состоять в группе.");
         if (!GroupManager.getInstance().isExist(groupIndex))
             throw new IllegalArgumentException("Группы с таким номером не существует.");
@@ -67,7 +67,7 @@ public class AccountImpl implements Account{
 
     @Override
     public void setCathedraIndex(int cathedraIndex) {
-        if (!RoleManager.getInstance().hasPermission(this, Permission.InCathedra))
+        if (!RoleManager.getInstance().hasPermission(index, Permission.InCathedra))
             throw new RuntimeException("Данный аккаунт не может состоять в кафедре.");
         if (!CathedraManager.getInstance().isExist(cathedraIndex))
             throw new IllegalArgumentException("Кафедры с таким именем не существует.");

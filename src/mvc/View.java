@@ -63,7 +63,7 @@ public class View {
             print("ACCOUNT_LIST_CATHEDRA");
             System.out.println(account.getCathedraIndex() >= 0 ? CathedraManager.getInstance().getObject(account.getCathedraIndex()).getName() : "null");
             print("ACCOUNT_LIST_ROLE");
-            for (Role role : RoleManager.getInstance().getRoles(account))
+            for (Role role : RoleManager.getInstance().getRoles(account.getIndex()))
                 System.out.print(role.getName() + " ");
             println("\n");
         });

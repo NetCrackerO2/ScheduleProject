@@ -1,7 +1,6 @@
 package cathedra;
 
 
-import account.AccountManager;
 import account.role.Permission;
 import account.role.RoleManager;
 import faculty.FacultyManager;
@@ -70,7 +69,7 @@ public class CathedraImpl implements Cathedra {
 
     @Override
     public void setHeadAccountIndex(int headAccountIndex) {
-        if (!RoleManager.getInstance().hasPermission(AccountManager.getInstance().getObject(headAccountIndex), Permission.InCathedra))
+        if (!RoleManager.getInstance().hasPermission(headAccountIndex, Permission.InCathedra))
             throw new RuntimeException("Данный аккаунт не может быть заведующим кафедры.");
 
         this.headAccountIndex = headAccountIndex;
