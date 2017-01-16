@@ -119,7 +119,6 @@ public class Main {
         Role currentRole = roleManager.getObject(3);
         /////////////////////////////////////////////////////////////////////////
 
-
         Controller controller = new Controller();
         controller.addCommand(new ViewListAccountsCommand());
         controller.addCommand(new ViewListCathedrasCommand());
