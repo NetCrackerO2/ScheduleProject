@@ -1,8 +1,12 @@
 package connection;
 
 
+import mvc.Localization;
+
+import java.io.IOException;
+
 public interface ConnectionAssistant {
-    void initialize();
+    void initialize() throws IOException;
 
     void stop();
 
@@ -11,4 +15,8 @@ public interface ConnectionAssistant {
     void sendMessage(Message message);
 
     Message getNextMessage();
+
+    default void log(String text) {
+        System.out.println(Localization.getInstance().getString(text));
+    }
 }

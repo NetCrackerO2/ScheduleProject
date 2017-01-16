@@ -26,29 +26,22 @@ public class ServerAssistant implements ConnectionAssistant {
 
         serverThread = new Thread(() -> {
             while (isRun) {
-                //TODO: лог
-                System.out.println("СЕРВЕР: Ожидаем подключения клиента... ");
+                log("SERVER_WAIT_CLIENT");
+
                 try {
                     Socket newClient = serverSocket.accept();
                     connectionManager.addNewConnection(newClient);
-                    //TODO: лог
-                    System.out.println("СЕРВЕР: Клиент подключен.");
+                    log("SERVER_CLIENT_CONNECTED");
                 } catch (IOException e) {
-                    //TODO: лог
-                    System.out.println("СЕРВЕР: неудачная попытка соединения с клиентом.");
+                    log("SERVER_CLIENT_CONNECTION_ERROR");
                 }
             }
         });
     }
 
     @Override
-    public void initialize() {
-        try {
-            serverSocket = new ServerSocket(4444);
-        } catch (IOException e) {
-            System.out.println("СЕРВЕР: Не удалось подключиться к порту 4444. Инициализация сервера невозможна.");
-            System.exit(1);
-        }
+    public void initialize() throws IOException {
+        serverSocket = new ServerSocket(4444);
 
         isRun = true;
         serverThread.start();
@@ -61,8 +54,7 @@ public class ServerAssistant implements ConnectionAssistant {
         try {
             serverSocket.close();
         } catch (IOException e) {
-            //TODO: уточнить, когда такое может произойти.
-            System.out.println("СЕРВЕР: Ошибка закрытия серверного сокета...");
+            log("SERVER_CLOSING_ERROR");
         }
 
         connectionManager.closeAllConnections();

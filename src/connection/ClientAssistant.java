@@ -27,17 +27,9 @@ public class ClientAssistant implements ConnectionAssistant {
     }
 
     @Override
-    public void initialize() {
-        try {
-            connectionManager.addNewConnection(new Socket(serverAddres, serverPort));
-            //TODO: лог
-            System.out.println("КЛИЕНТ: Соединение с сервером установлено.");
-        } catch (IOException e) {
-            //TODO: лог
-            System.out.println("КЛИЕНТ: Невозможно установить соединение с сервером.");
-            //TODO: Что тут делать? Опять непонятно.
-            System.exit(1);
-        }
+    public void initialize() throws IOException {
+        connectionManager.addNewConnection(new Socket(serverAddres, serverPort));
+        log("CLIENT_SERVER_CONNECTED");
     }
 
     @Override

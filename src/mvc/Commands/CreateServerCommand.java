@@ -4,15 +4,24 @@ package mvc.Commands;
 import connection.Message;
 import connection.ServerAssistant;
 import mvc.Command;
+import mvc.Localization;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import java.io.IOException;
 
 
 public class CreateServerCommand implements Command {
     @Override
     public void activate() {
         ServerAssistant serverAssistant = new ServerAssistant();
-        serverAssistant.initialize();
+
+        try {
+            serverAssistant.initialize();
+        } catch (IOException e) {
+            System.out.println(Localization.getInstance().getString("SERVER_INITIALIZATION_ERROR"));
+            return;
+        }
 
         while (true) {
             Message nextMessage = serverAssistant.getNextMessage();

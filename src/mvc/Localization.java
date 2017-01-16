@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
  */
 public class Localization {
     private static Localization instance;
-    private HashMap<String, String> language = new HashMap<String, String>();
     Pattern pattern;
+    private HashMap<String, String> language = new HashMap<String, String>();
 
     private Localization() {
         pattern = Pattern.compile("[A-Z_]+");
@@ -72,6 +72,22 @@ public class Localization {
         language.put("ERR_ACCOUNT_NOT_BOUND_TO_CATHEDRA", "Аккаунт не привязан к кафедре.");
         language.put("ERR_ELEMENT_NOT_EDITED", "Элемент не был изменен.");
         language.put("ERR_ELEMENT_NOT_REMOVED", "Элемент не был удален.");
+
+        language.put("CONN", "Соединение");
+        language.put("CONN_CLOSED", "Закрыто.");
+        language.put("CONN_INCORRECT_MESSAGE", "Принято и пропущено некорректное сообщение.");
+        language.put("CONN_CLOSING_ERROR", "Ошибка закрытия соединения.");
+        language.put("CONN_SEND_ERROR", "Ошибка отправки сообщения.");
+        language.put("CONN_NOT_EXIST", "Такого соединения не существует.");
+
+        language.put("SERVER_WAIT_CLIENT", "Сервер ожидает подключение клиента...");
+        language.put("SERVER_CLIENT_CONNECTED", "Новый клиент подключился к серверу.");
+        language.put("SERVER_CLIENT_CONNECTION_ERROR", "Произошла неудачная попытка подключения нового клиента.");
+        language.put("SERVER_CLOSING_ERROR", "Ошибка закрытия сервера.");
+        language.put("SERVER_INITIALIZATION_ERROR", "Ошибка инициализации сервера.");
+
+        language.put("CLIENT_SERVER_CONNECTED", "Клиент установил соединение с сервером.");
+        language.put("CLIENT_INITIALIZATION_ERROR", "Ошибка инициализации клиента.");
     }
 
     public static Localization getInstance() {

@@ -1,6 +1,8 @@
 package connection;
 
 
+import mvc.Localization;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -15,9 +17,9 @@ import java.util.Queue;
  * Менеджер соединений: отвечает за работу со всеми установленными соединениями.
  */
 class ConnectionManager {
-    private int nextIndex;
     private final List<Connection> connections;
     private final Queue<Message> messages;
+    private int nextIndex;
     private ManualResetEvent newMessage;
     //=============
 
@@ -34,6 +36,7 @@ class ConnectionManager {
         synchronized (connections) {
             connections.add(connection);
         }
+        connection.start();
     }
 
     void closeAllConnections() {
@@ -59,23 +62,27 @@ class ConnectionManager {
      * Отправляет сообщение по соединению с указанным индексом.
      */
     void sendMessage(Message message) {
+        Connection needConnection = null;
         synchronized (connections) {
             for (Connection connection : connections) {
                 if (connection.connectionIndex != message.getConnectionIndex())
                     continue;
 
-                connection.sendText(message.toString());
-                return;
+                needConnection = connection;
+                break;
             }
         }
 
-        //TODO: лог
-        System.out.println("Соединение №" + message.getConnectionIndex() + ": не существует. Отправка сообщения невозможна.");
-        //TODO: Я не знаю, что тут делать. Исключение кидать? False возвращать?
+        if (needConnection == null) {
+            log(message.getConnectionIndex(), "CONN_NOT_EXIST");
+            return;
+        }
+
+        needConnection.sendText(message.toString());
     }
 
     /**
-     * Вызывается из класса Connection при его закрытии.
+     * Вызывается АВТОМАТИЧЕСКИ, ТОЛЬКО из класса Connection при его закрытии.
      */
     private void removeConnection(Connection connection) {
         synchronized (connections) {
@@ -99,6 +106,17 @@ class ConnectionManager {
         newMessage.set();
     }
 
+    private void log(int connectionIndex, String text) {
+        Localization localization = Localization.getInstance();
+
+        System.out.println(localization.getString("CONN")
+                + " №"
+                + connectionIndex
+                + ": "
+                + localization.getString(text)
+        );
+    }
+
 
     /**
      * Класс, отвечающий за взаимодействие (отправка и приём сообщений) с одним соединением
@@ -120,27 +138,25 @@ class ConnectionManager {
 
             in = new DataInputStream(connection.getInputStream());
             out = new DataOutputStream(connection.getOutputStream());
-
-            isRun = true;
-            this.start();
-            this.interrupt();
         }
 
         public void run() {
+            isRun = true;
+            String text;
+
             while (isRun) {
                 try {
-                    String text = in.readUTF();
-
-                    if (Message.isCorrectJSON(text))
-                        connectionManager.outPoint(new Message(connectionIndex, text));
-                    else {
-                        //TODO: лог
-                        System.out.println("Cоединение №" + connectionIndex + ": принято и пропущено некорректное сообщение: " + text + ".");
-                    }
+                    text = in.readUTF();
                 } catch (IOException e) {
-                    //TODO: лог
-                    System.out.println("Cоединение №" + connectionIndex + ": разорвано.");
+                    log("CONN_CLOSED");
                     isRun = false;
+                    continue;
+                }
+
+                if (Message.isCorrectJSON(text))
+                    connectionManager.outPoint(new Message(connectionIndex, text));
+                else {
+                    log("CONN_INCORRECT_MESSAGE\n" + text);
                 }
             }
 
@@ -153,8 +169,7 @@ class ConnectionManager {
                 out.close();
                 connection.close();
             } catch (IOException e) {
-                //TODO: лог
-                System.out.println("Cоединение №" + connectionIndex + ": ошибка закрытия (:|) хехе что хотите то и делайте");
+                log("CONN_CLOSING_ERROR");
             }
         }
 
@@ -162,9 +177,12 @@ class ConnectionManager {
             try {
                 out.writeUTF(text);
             } catch (IOException e) {
-                //TODO: лог
-                System.out.println("Cоединение №" + connectionIndex + ": отправка сообщения невозможна.");
+                log("CONN_SEND_ERROR");
             }
+        }
+
+        private void log(String text) {
+            connectionManager.log(connectionIndex, text);
         }
     }
 }
