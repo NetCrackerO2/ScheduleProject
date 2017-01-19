@@ -1,16 +1,7 @@
 package mvc.Commands;
 
 
-import connection.Message;
-import connection.ServerAssistant;
-import mvc.Command;
-import mvc.Localization;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import java.io.IOException;
-
-
+/*
 public class CreateServerCommand implements Command {
     @Override
     public void activate() {
@@ -40,3 +31,4 @@ public class CreateServerCommand implements Command {
         return "CreateServer";
     }
 }
+*/

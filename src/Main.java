@@ -5,14 +5,18 @@ import account.role.Role;
 import account.role.RoleManager;
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
+import connection.ServerAssistant;
 import faculty.Faculty;
 import faculty.FacultyManager;
 import group.Group;
 import group.GroupManager;
-import mvc.Commands.*;
+import mvc.Commands.FacultyListCommand;
 import mvc.Controller;
+import mvc.Localization;
 import subject.Subject;
 import subject.SubjectManager;
+
+import java.io.IOException;
 
 
 public class Main {
@@ -119,14 +123,22 @@ public class Main {
         Role currentRole = roleManager.getObject(3);
         /////////////////////////////////////////////////////////////////////////
 
+
         Controller controller = new Controller();
-        controller.addCommand(new ViewListAccountsCommand());
-        controller.addCommand(new ViewListCathedrasCommand());
-        controller.addCommand(new ViewListFacultiesCommand());
-        controller.addCommand(new ViewListGroupsCommand());
-        controller.addCommand(new ViewListSubjectsCommand());
-        controller.addCommand(new CreateServerCommand());
-        controller.addCommand(new CreateClientCommand());
+        Controller.setController(controller);
+
+        controller.addCommand(new FacultyListCommand());
+
+
+        ServerAssistant serverAssistant = new ServerAssistant();
+        controller.setConnectionAssistant(serverAssistant);
+        try {
+            serverAssistant.initialize();
+        } catch (IOException e) {
+            System.out.println(Localization.getInstance().getString("SERVER_INITIALIZATION_ERROR"));
+            return;
+        }
+
         controller.start();
     }
 }
