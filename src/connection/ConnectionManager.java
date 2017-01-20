@@ -82,6 +82,18 @@ class ConnectionManager {
     }
 
     /**
+     * Отправляет сообщение по всем установленным соединениям.
+     * Номер соединения в сообщении игнорируется.
+     */
+    void sendMessageAll(Message message) {
+        synchronized (connections) {
+            for (Connection connection : connections) {
+                connection.sendText(message.toString());
+            }
+        }
+    }
+
+    /**
      * Вызывается АВТОМАТИЧЕСКИ, ТОЛЬКО из класса Connection при его закрытии.
      */
     private void removeConnection(Connection connection) {
@@ -90,8 +102,6 @@ class ConnectionManager {
         }
     }
 
-    //TODO: Плохое название метода - outPoint. Придумать лучше.
-
     /**
      * Сюда стекаются сообщения ото всех соединений.
      * Здесь принимается решение о том, что делать с пришедшим сообщением.
@@ -99,7 +109,7 @@ class ConnectionManager {
      *
      * @param message Поступившее сообщение.
      */
-    private void outPoint(Message message) {
+    private void processingMessage(Message message) {
         synchronized (messages) {
             messages.add(message);
         }
@@ -154,7 +164,7 @@ class ConnectionManager {
                 }
 
                 if (Message.isCorrectJSON(text))
-                    connectionManager.outPoint(new Message(connectionIndex, text));
+                    connectionManager.processingMessage(new Message(connectionIndex, text));
                 else {
                     log("CONN_INCORRECT_MESSAGE\n" + text);
                 }
