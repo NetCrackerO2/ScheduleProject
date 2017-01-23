@@ -33,11 +33,24 @@ public class AccountManager extends GenericEntityManager<Account> {
         return selector.process(getAllObjects());
     }
 
-    public interface AccountSelector {
-        List<Account> process(List<Account> input);
+    public static class AccountSelector {
+        protected AccountSelector() {
+        }
+
+        public List<Account> process(List<Account> input) {
+            return input;
+        }
+
+        public AccountSelector and(AccountSelector second) {
+            return new And(this, second);
+        }
+
+        public AccountSelector or(AccountSelector second) {
+            return new Or(this, second);
+        }
     }
 
-    public class NameIs implements AccountSelector {
+    public static class NameIs extends AccountSelector {
         private String s;
 
         public NameIs(String query) {
@@ -58,7 +71,7 @@ public class AccountManager extends GenericEntityManager<Account> {
      * @author asgreywolf
      *
      */
-    public class CathedraIs implements AccountSelector {
+    public static class CathedraIs extends AccountSelector {
         private String s;
 
         public CathedraIs(String query) {
@@ -89,7 +102,7 @@ public class AccountManager extends GenericEntityManager<Account> {
      * @author asgreywolf
      *
      */
-    public class GroupIs implements AccountSelector {
+    public static class GroupIs extends AccountSelector {
         private String s;
 
         public GroupIs(String query) {
@@ -114,7 +127,7 @@ public class AccountManager extends GenericEntityManager<Account> {
         }
     }
 
-    public class And implements AccountSelector {
+    private static class And extends AccountSelector {
         private AccountSelector a, b;
 
         public And(AccountSelector a, AccountSelector b) {
@@ -134,7 +147,7 @@ public class AccountManager extends GenericEntityManager<Account> {
         }
     }
 
-    public class Or implements AccountSelector {
+    private static class Or extends AccountSelector {
         private AccountSelector a, b;
 
         public Or(AccountSelector a, AccountSelector b) {

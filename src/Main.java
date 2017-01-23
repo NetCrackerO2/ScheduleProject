@@ -10,7 +10,7 @@ import faculty.Faculty;
 import faculty.FacultyManager;
 import group.Group;
 import group.GroupManager;
-import mvc.Commands.FacultyListCommand;
+import mvc.Commands.*;
 import mvc.Controller;
 import mvc.Localization;
 import subject.Subject;
@@ -127,7 +127,26 @@ public class Main {
         Controller controller = new Controller();
         Controller.setController(controller);
 
+        controller.addCommand(new AccountAddCommand());
+        controller.addCommand(new AccountEditCommand());
+        controller.addCommand(new AccountListCommand());
+        controller.addCommand(new AccountRemoveCommand());
+        controller.addCommand(new CathedraAddCommand());
+        controller.addCommand(new CathedraEditCommand());
+        controller.addCommand(new CathedraListCommand());
+        controller.addCommand(new CathedraRemoveCommand());
+        controller.addCommand(new FacultyAddCommand());
+        controller.addCommand(new FacultyEditCommand());
         controller.addCommand(new FacultyListCommand());
+        controller.addCommand(new FacultyRemoveCommand());
+        controller.addCommand(new GroupAddCommand());
+        controller.addCommand(new GroupEditCommand());
+        controller.addCommand(new GroupListCommand());
+        controller.addCommand(new GroupRemoveCommand());
+        controller.addCommand(new SubjectAddCommand());
+        controller.addCommand(new SubjectEditCommand());
+        controller.addCommand(new SubjectListCommand());
+        controller.addCommand(new SubjectRemoveCommand());
 
 
         ServerAssistant serverAssistant = new ServerAssistant();

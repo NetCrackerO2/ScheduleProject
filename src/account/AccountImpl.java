@@ -1,12 +1,10 @@
 package account;
 
-
 import account.role.Permission;
 import account.role.RoleManager;
 import cathedra.CathedraManager;
 import group.GroupManager;
 import org.json.simple.JSONObject;
-
 
 public class AccountImpl implements Account {
     private int index;
@@ -35,6 +33,55 @@ public class AccountImpl implements Account {
         return jsonObject;
     }
 
+    public static Account fromJSONObject(JSONObject jsonObject) {
+        int index = (int)(Integer)jsonObject.get("index");
+        String name = (String) jsonObject.get("name");
+        int group = (int)(Integer) jsonObject.get("groupIndex");
+        int cathedra = (int)(Integer) jsonObject.get("cathedraIndex");
+
+        return new Account() {
+            @Override
+            public int getIndex() {
+                return index;
+            }
+
+            @Override
+            public JSONObject getJSONObject() {
+                return jsonObject;
+            }
+
+            @Override
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public void setName(String name) {
+                throw new RuntimeException("Immutable object");
+            }
+
+            @Override
+            public int getGroupIndex() {
+                return group;
+            }
+
+            @Override
+            public void setGroupIndex(int groupIndex) {
+                throw new RuntimeException("Immutable object");
+            }
+
+            @Override
+            public int getCathedraIndex() {
+                return cathedra;
+            }
+
+            @Override
+            public void setCathedraIndex(int cathedraIndex) {
+                throw new RuntimeException("Immutable object");
+            }
+        };
+    }
+
     @Override
     public String getName() {
         return name;
@@ -50,14 +97,21 @@ public class AccountImpl implements Account {
         return groupIndex;
     }
 
+    /**
+     * WARNING: locks RoleManager -> GroupManager
+     */
     @Override
     public void setGroupIndex(int groupIndex) {
-        if (!RoleManager.getInstance().hasPermission(index, Permission.InGroup))
-            throw new RuntimeException("Данный аккаунт не может состоять в группе.");
-        if (!GroupManager.getInstance().isExist(groupIndex))
-            throw new IllegalArgumentException("Группы с таким номером не существует.");
+        synchronized (RoleManager.getInstance()) {
+            synchronized (GroupManager.getInstance()) {
+                if (!RoleManager.getInstance().hasPermission(index, Permission.InGroup))
+                    throw new RuntimeException("Данный аккаунт не может состоять в группе.");
+                if (!GroupManager.getInstance().isExist(groupIndex))
+                    throw new IllegalArgumentException("Группы с таким номером не существует.");
 
-        this.groupIndex = groupIndex;
+                this.groupIndex = groupIndex;
+            }
+        }
     }
 
     @Override
@@ -65,13 +119,20 @@ public class AccountImpl implements Account {
         return cathedraIndex;
     }
 
+    /**
+     * WARNING: locks RoleManager -> CathedraManager
+     */
     @Override
     public void setCathedraIndex(int cathedraIndex) {
-        if (!RoleManager.getInstance().hasPermission(index, Permission.InCathedra))
-            throw new RuntimeException("Данный аккаунт не может состоять в кафедре.");
-        if (!CathedraManager.getInstance().isExist(cathedraIndex))
-            throw new IllegalArgumentException("Кафедры с таким именем не существует.");
+        synchronized (RoleManager.getInstance()) {
+            synchronized (CathedraManager.getInstance()) {
+                if (!RoleManager.getInstance().hasPermission(index, Permission.InCathedra))
+                    throw new RuntimeException("Данный аккаунт не может состоять в кафедре.");
+                if (!CathedraManager.getInstance().isExist(cathedraIndex))
+                    throw new IllegalArgumentException("Кафедры с таким именем не существует.");
 
-        this.cathedraIndex = cathedraIndex;
+                this.cathedraIndex = cathedraIndex;
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -91,5 +92,50 @@ public class RoleImpl implements Role {
         jsonObject.put("permissionList", jsonArray);
 
         return jsonObject;
+    }
+    
+
+    public static Role fromJSONObject(JSONObject jsonObject) {
+        int index = (int)(Integer) jsonObject.get("index");
+        String name = (String) jsonObject.get("name");
+        List permissionList = Arrays.asList(((JSONArray) jsonObject.get("permissionList")).toArray());
+
+        return new Role() {
+            @Override
+            public int getIndex() {
+                return index;
+            }
+
+            @Override
+            public JSONObject getJSONObject() {
+                return jsonObject;
+            }
+
+            @Override
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public void setName(String name) {
+                throw new RuntimeException("Immutable object");
+            }
+
+            @Override
+            public void addPermissions(Permission... permissions) {
+                throw new RuntimeException("Immutable object");
+            }
+
+            @Override
+            public boolean hasPermission(Permission permission) {
+                return permissionList.indexOf(permission)>=0;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            public List<Permission> getAllPermissions() {
+                return permissionList;
+            }
+        };
     }
 }

@@ -1,13 +1,11 @@
 package cathedra;
 
-
 import account.role.Permission;
 import account.role.RoleManager;
 import faculty.FacultyManager;
 import org.json.simple.JSONObject;
 
 import java.util.Objects;
-
 
 public class CathedraImpl implements Cathedra {
     private int index;
@@ -35,6 +33,55 @@ public class CathedraImpl implements Cathedra {
 
         return jsonObject;
     }
+    
+    public static Cathedra fromJSONObject(JSONObject jsonObject) {
+        int index = (int)(Integer) jsonObject.get("index");
+        String name = (String) jsonObject.get("name");
+        int faculty = (int)(Integer) jsonObject.get("facultyIndex");
+        int head = (int)(Integer) jsonObject.get("headAccountIndex");
+
+        return new Cathedra() {
+            @Override
+            public int getIndex() {
+                return index;
+            }
+
+            @Override
+            public JSONObject getJSONObject() {
+                return jsonObject;
+            }
+
+            @Override
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public void setName(String name) {
+                throw new RuntimeException("Immutable object");
+            }
+
+            @Override
+            public int getFacultyIndex() {
+                return faculty;
+            }
+
+            @Override
+            public void setFacultyIndex(int facultyIndex) {
+                throw new RuntimeException("Immutable object");
+            }
+
+            @Override
+            public int getHeadAccountIndex() {
+                return head;
+            }
+
+            @Override
+            public void setHeadAccountIndex(int headAccountIndex) {
+                throw new RuntimeException("Immutable object");
+            }
+        };
+    }
 
     @Override
     public String getName() {
@@ -48,18 +95,24 @@ public class CathedraImpl implements Cathedra {
 
     @Override
     public void setName(String name) {
-        if (CathedraManager.getInstance().getAllObjects().stream().anyMatch(cathedra -> Objects.equals(cathedra.getName(), name)))
+        if (CathedraManager.getInstance().getAllObjects().stream()
+                .anyMatch(cathedra -> Objects.equals(cathedra.getName(), name)))
             throw new IllegalArgumentException("Кафедра с таким именем уже существует.");
 
         this.name = name;
     }
 
+    /**
+     * WARNING: locks FacultyManager
+     */
     @Override
     public void setFacultyIndex(int facultyIndex) {
-        if (!FacultyManager.getInstance().isExist(facultyIndex))
-            throw new IllegalArgumentException("Такого факультета не существует.");
+        synchronized (FacultyManager.getInstance()) {
+            if (!FacultyManager.getInstance().isExist(facultyIndex))
+                throw new IllegalArgumentException("Такого факультета не существует.");
 
-        this.facultyIndex = facultyIndex;
+            this.facultyIndex = facultyIndex;
+        }
     }
 
     @Override
@@ -67,11 +120,16 @@ public class CathedraImpl implements Cathedra {
         return this.headAccountIndex;
     }
 
+    /**
+     * WARNING: locks RoleManager
+     */
     @Override
     public void setHeadAccountIndex(int headAccountIndex) {
-        if (!RoleManager.getInstance().hasPermission(headAccountIndex, Permission.InCathedra))
-            throw new RuntimeException("Данный аккаунт не может быть заведующим кафедры.");
+        synchronized (RoleManager.getInstance()) {
+            if (!RoleManager.getInstance().hasPermission(headAccountIndex, Permission.InCathedra))
+                throw new RuntimeException("Данный аккаунт не может быть заведующим кафедры.");
 
-        this.headAccountIndex = headAccountIndex;
+            this.headAccountIndex = headAccountIndex;
+        }
     }
 }

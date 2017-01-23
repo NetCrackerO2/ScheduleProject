@@ -14,5 +14,5 @@ public interface Command {
      *
      * @return Название команды
      */
-    String getTitle();
+    String getType();
 }

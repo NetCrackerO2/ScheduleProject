@@ -1,29 +1,27 @@
 package mvc.Commands;
 
-
 import connection.Message;
 import connection.MessageBuilder;
-import faculty.FacultyManager;
 import mvc.Command;
 import mvc.Controller;
+import cathedra.CathedraManager;
 
-import java.util.ArrayList;
-
-
-public class FacultyListCommand implements Command {
+public class CathedraRemoveCommand implements Command {
     @Override
     public void activate(Message message) {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        synchronized(FacultyManager.getInstance()){
-            messageBuilder.put("data", new ArrayList<>(FacultyManager.getInstance().getAllObjects()));
+        int index = (int)(Integer) message.getValue("index");
+        synchronized (CathedraManager.getInstance()) {
+            CathedraManager.getInstance().removeObject(index);
         }
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+        new CathedraChangedCommand(index).activate(message);
     }
 
     @Override
     public String getType() {
-        return "FACULTY_LIST";
+        return "CATHEDRA_REMOVE";
     }
 }

@@ -1,11 +1,9 @@
 package subject;
 
-
 import cathedra.CathedraManager;
 import org.json.simple.JSONObject;
 
 import java.util.Objects;
-
 
 public class SubjectImpl implements Subject {
     private int index;
@@ -31,18 +29,62 @@ public class SubjectImpl implements Subject {
 
         return jsonObject;
     }
+    
+
+    public static Subject fromJSONObject(JSONObject jsonObject) {
+        int index = (int)(Integer) jsonObject.get("index");
+        String name = (String) jsonObject.get("name");
+        int cathedra = (int)(Integer) jsonObject.get("cathedraIndex");
+
+        return new Subject() {
+            @Override
+            public int getIndex() {
+                return index;
+            }
+
+            @Override
+            public JSONObject getJSONObject() {
+                return jsonObject;
+            }
+
+            @Override
+            public String getName() {
+                return name;
+            }
+
+            @Override
+            public void setName(String name) {
+                throw new RuntimeException("Immutable object");
+            }
+
+            @Override
+            public int getCathedraIndex() {
+                return cathedra;
+            }
+
+            @Override
+            public void setCathedraIndex(int cathedraIndex) {
+                throw new RuntimeException("Immutable object");
+            }
+        };
+    }
 
     @Override
     public int getCathedraIndex() {
         return cathedraIndex;
     }
 
+    /**
+     * WARNING: locks CathedraManager
+     */
     @Override
     public void setCathedraIndex(int cathedraIndex) {
-        if (!CathedraManager.getInstance().isExist(cathedraIndex))
-            throw new IllegalArgumentException("Такой кафедры не существует.");
+        synchronized (CathedraManager.getInstance()) {
+            if (!CathedraManager.getInstance().isExist(cathedraIndex))
+                throw new IllegalArgumentException("Такой кафедры не существует.");
 
-        this.cathedraIndex = cathedraIndex;
+            this.cathedraIndex = cathedraIndex;
+        }
     }
 
     @Override
@@ -52,7 +94,8 @@ public class SubjectImpl implements Subject {
 
     @Override
     public void setName(String name) {
-        if (SubjectManager.getInstance().getAllObjects().stream().anyMatch(subject -> Objects.equals(subject.getName(), name)))
+        if (SubjectManager.getInstance().getAllObjects().stream()
+                .anyMatch(subject -> Objects.equals(subject.getName(), name)))
             throw new IllegalArgumentException("Предмет с таким именем уже существует.");
 
         this.name = name;
