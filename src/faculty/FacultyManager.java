@@ -5,7 +5,7 @@ import manager.GenericEntityManager;
 
 
 public class FacultyManager extends GenericEntityManager<Faculty> {
-    private static FacultyManager instance;
+    private static volatile FacultyManager instance;
 
     private FacultyManager() {
         super();
@@ -13,7 +13,10 @@ public class FacultyManager extends GenericEntityManager<Faculty> {
 
     public static FacultyManager getInstance() {
         if (instance == null)
-            instance = new FacultyManager();
+            synchronized(FacultyManager.class){
+                if (instance == null)
+                    instance = new FacultyManager();
+            }
         return instance;
     }
 

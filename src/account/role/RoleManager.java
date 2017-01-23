@@ -11,7 +11,7 @@ import java.util.Map;
 
 //TODO: реорганизовать класс для использования индекса аккаунта вместо ссылки на аккаунт.
 public class RoleManager extends GenericEntityManager<Role> {
-    private static RoleManager instance;
+    private static volatile RoleManager instance;
     private Map<Integer, List<Role>> map = new HashMap<>();
 
     private RoleManager() {
@@ -20,7 +20,10 @@ public class RoleManager extends GenericEntityManager<Role> {
 
     public static RoleManager getInstance() {
         if (instance == null)
-            instance = new RoleManager();
+            synchronized(RoleManager.class){
+                if (instance == null)
+                    instance = new RoleManager();
+            }
         return instance;
     }
 

@@ -13,7 +13,10 @@ public class SubjectManager extends GenericEntityManager<Subject> {
 
     public static SubjectManager getInstance() {
         if (instance == null)
-            instance = new SubjectManager();
+            synchronized(SubjectManager.class){
+                if (instance == null)
+                    instance = new SubjectManager();
+            }
         return instance;
     }
 

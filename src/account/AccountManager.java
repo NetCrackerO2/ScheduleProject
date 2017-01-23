@@ -5,7 +5,7 @@ import manager.GenericEntityManager;
 
 
 public class AccountManager extends GenericEntityManager<Account> {
-    private static AccountManager instance;
+    private static volatile AccountManager instance;
 
     private AccountManager() {
         super();
@@ -13,7 +13,10 @@ public class AccountManager extends GenericEntityManager<Account> {
 
     public static AccountManager getInstance() {
         if (instance == null)
-            instance = new AccountManager();
+            synchronized(AccountManager.class){
+                if (instance == null)
+                    instance = new AccountManager();
+            }
         return instance;
     }
 

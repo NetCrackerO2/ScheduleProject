@@ -5,7 +5,7 @@ import manager.GenericEntityManager;
 
 
 public class GroupManager extends GenericEntityManager<Group> {
-    private static GroupManager instance;
+    private static volatile GroupManager instance;
 
     private GroupManager() {
         super();
@@ -13,7 +13,10 @@ public class GroupManager extends GenericEntityManager<Group> {
 
     public static GroupManager getInstance() {
         if (instance == null)
-            instance = new GroupManager();
+            synchronized(GroupManager.class){
+                if (instance == null)
+                    instance = new GroupManager();
+            }
         return instance;
     }
 
