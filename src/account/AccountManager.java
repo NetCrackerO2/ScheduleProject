@@ -188,11 +188,54 @@ public class AccountManager extends GenericEntityManager<Account> {
         String dataM = data.substring(d_l, d_r + 1);
         d_l = 0;
         for (String subquery : subqueries) {
-            int found = dataM.indexOf(subquery, d_l);
+            int found = indexOf(dataM, subquery, d_l);
             if (found == -1)
                 return false;
             d_l = found + subquery.length();
         }
         return true;
+    }
+
+    /**
+     * indexOf with target "." pattern support. Patched by AsGreyWolf. Copyright
+     * 1994-2006 Sun Microsystems, Inc. All Rights Reserved. GPLv2
+     */
+    private static int indexOf(String source, String target, int fromIndex) {
+        int sourceCount = source.length();
+        int targetCount = target.length();
+        if (fromIndex >= sourceCount) {
+            return (targetCount == 0 ? sourceCount : -1);
+        }
+        if (fromIndex < 0) {
+            fromIndex = 0;
+        }
+        if (targetCount == 0) {
+            return fromIndex;
+        }
+
+        char first = target.charAt(0);
+        int max = (sourceCount - targetCount);
+
+        for (int i = fromIndex; i <= max; i++) {
+            /* Look for first character. */
+            if (source.charAt(i) != first && first != '.') {
+                while (++i <= max && source.charAt(i) != first)
+                    ;
+            }
+
+            /* Found first character, now look at the rest of v2 */
+            if (i <= max) {
+                int j = i + 1;
+                int end = j + targetCount - 1;
+                for (int k = 1; j < end && (source.charAt(j) == target.charAt(k) || target.charAt(k) == '.'); j++, k++)
+                    ;
+
+                if (j == end) {
+                    /* Found whole string. */
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 }
