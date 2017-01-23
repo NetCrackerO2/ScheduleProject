@@ -32,9 +32,9 @@ public class SubjectImpl implements Subject {
     
 
     public static Subject fromJSONObject(JSONObject jsonObject) {
-        int index = (int)(Integer) jsonObject.get("index");
+        int index = (int)(long)(Long) jsonObject.get("index");
         String name = (String) jsonObject.get("name");
-        int cathedra = (int)(Integer) jsonObject.get("cathedraIndex");
+        int cathedra = (int)(long)(Long) jsonObject.get("cathedraIndex");
 
         return new Subject() {
             @Override
@@ -79,6 +79,10 @@ public class SubjectImpl implements Subject {
      */
     @Override
     public void setCathedraIndex(int cathedraIndex) {
+        if (cathedraIndex < 0) {
+            this.cathedraIndex = -1;
+            return;
+        }
         synchronized (CathedraManager.getInstance()) {
             if (!CathedraManager.getInstance().isExist(cathedraIndex))
                 throw new IllegalArgumentException("Такой кафедры не существует.");

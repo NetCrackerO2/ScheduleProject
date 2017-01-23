@@ -35,10 +35,10 @@ public class CathedraImpl implements Cathedra {
     }
     
     public static Cathedra fromJSONObject(JSONObject jsonObject) {
-        int index = (int)(Integer) jsonObject.get("index");
+        int index = (int)(long)(Long) jsonObject.get("index");
         String name = (String) jsonObject.get("name");
-        int faculty = (int)(Integer) jsonObject.get("facultyIndex");
-        int head = (int)(Integer) jsonObject.get("headAccountIndex");
+        int faculty = (int)(long)(Long) jsonObject.get("facultyIndex");
+        int head = (int)(long)(Long) jsonObject.get("headAccountIndex");
 
         return new Cathedra() {
             @Override
@@ -107,6 +107,10 @@ public class CathedraImpl implements Cathedra {
      */
     @Override
     public void setFacultyIndex(int facultyIndex) {
+        if (facultyIndex < 0) {
+            this.facultyIndex = -1;
+            return;
+        }
         synchronized (FacultyManager.getInstance()) {
             if (!FacultyManager.getInstance().isExist(facultyIndex))
                 throw new IllegalArgumentException("Такого факультета не существует.");
@@ -125,6 +129,10 @@ public class CathedraImpl implements Cathedra {
      */
     @Override
     public void setHeadAccountIndex(int headAccountIndex) {
+        if (headAccountIndex < 0) {
+            this.headAccountIndex = -1;
+            return;
+        }
         synchronized (RoleManager.getInstance()) {
             if (!RoleManager.getInstance().hasPermission(headAccountIndex, Permission.InCathedra))
                 throw new RuntimeException("Данный аккаунт не может быть заведующим кафедры.");

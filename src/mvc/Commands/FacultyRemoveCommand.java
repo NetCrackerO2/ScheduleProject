@@ -12,7 +12,7 @@ public class FacultyRemoveCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        int index = (int)(Integer) message.getValue("index");
+        int index = (int)(long)(Long) message.getValue("index");
         synchronized (FacultyManager.getInstance()) {
             FacultyManager.getInstance().removeObject(index);
         }

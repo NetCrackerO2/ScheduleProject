@@ -34,10 +34,10 @@ public class AccountImpl implements Account {
     }
 
     public static Account fromJSONObject(JSONObject jsonObject) {
-        int index = (int)(Integer)jsonObject.get("index");
+        int index = (int) (long) (Long) jsonObject.get("index");
         String name = (String) jsonObject.get("name");
-        int group = (int)(Integer) jsonObject.get("groupIndex");
-        int cathedra = (int)(Integer) jsonObject.get("cathedraIndex");
+        int group = (int) (long) (Long) jsonObject.get("groupIndex");
+        int cathedra = (int) (long) (Long) jsonObject.get("cathedraIndex");
 
         return new Account() {
             @Override
@@ -102,6 +102,10 @@ public class AccountImpl implements Account {
      */
     @Override
     public void setGroupIndex(int groupIndex) {
+        if (groupIndex < 0) {
+            this.groupIndex = -1;
+            return;
+        }
         synchronized (RoleManager.getInstance()) {
             synchronized (GroupManager.getInstance()) {
                 if (!RoleManager.getInstance().hasPermission(index, Permission.InGroup))
@@ -124,6 +128,10 @@ public class AccountImpl implements Account {
      */
     @Override
     public void setCathedraIndex(int cathedraIndex) {
+        if (cathedraIndex < 0) {
+            this.cathedraIndex = -1;
+            return;
+        }
         synchronized (RoleManager.getInstance()) {
             synchronized (CathedraManager.getInstance()) {
                 if (!RoleManager.getInstance().hasPermission(index, Permission.InCathedra))

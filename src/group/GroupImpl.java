@@ -32,11 +32,11 @@ public class GroupImpl implements Group {
     
 
     public static Group fromJSONObject(JSONObject jsonObject) {
-        int index = (int)(Integer) jsonObject.get("index");
-        int number = (int)(Integer) jsonObject.get("number");
-        int cathedra = (int)(Integer) jsonObject.get("cathedraIndex");
-        int year = (int)(Integer) jsonObject.get("receiptYear");
-        int prof = (int)(Integer) jsonObject.get("professionCode");
+        int index = (int)(long)(Long) jsonObject.get("index");
+        int number = (int)(long)(Long) jsonObject.get("number");
+        int cathedra = (int)(long)(Long) jsonObject.get("cathedraIndex");
+        int year = (int)(long)(Long) jsonObject.get("receiptYear");
+        int prof = (int)(long)(Long) jsonObject.get("professionCode");
 
         return new Group() {
             @Override
@@ -112,6 +112,10 @@ public class GroupImpl implements Group {
      */
     @Override
     public void setCathedraIndex(int cathedraIndex) {
+        if (cathedraIndex < 0) {
+            this.cathedraIndex = -1;
+            return;
+        }
         synchronized (CathedraManager.getInstance()) {
             if (!CathedraManager.getInstance().isExist(cathedraIndex))
                 throw new IllegalArgumentException("Такой кафедры не существует.");

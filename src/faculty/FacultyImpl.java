@@ -91,6 +91,10 @@ public class FacultyImpl implements Faculty {
      */
     @Override
     public void setDeanAccountIndex(int deanAccountIndex) {
+        if (deanAccountIndex < 0) {
+            this.deanAccountIndex = -1;
+            return;
+        }
         synchronized (RoleManager.getInstance()) {
             if (!RoleManager.getInstance().hasPermission(deanAccountIndex, Permission.InFaculty))
                 throw new RuntimeException("Данный аккаунт не может быть деканом факультета.");

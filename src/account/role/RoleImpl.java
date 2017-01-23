@@ -96,7 +96,7 @@ public class RoleImpl implements Role {
     
 
     public static Role fromJSONObject(JSONObject jsonObject) {
-        int index = (int)(Integer) jsonObject.get("index");
+        int index = (int)(long)(Long) jsonObject.get("index");
         String name = (String) jsonObject.get("name");
         List permissionList = Arrays.asList(((JSONArray) jsonObject.get("permissionList")).toArray());
 
