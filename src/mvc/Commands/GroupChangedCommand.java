@@ -15,10 +15,9 @@ public class GroupChangedCommand implements Command {
     @Override
     public void activate(Message message) {
         MessageBuilder messageBuilder = new MessageBuilder();
-        messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", getType());
         messageBuilder.put("index", index);
-        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+        Controller.getController().getConnectionAssistant().sendMessageAll(messageBuilder.toMessage());
     }
 
     @Override

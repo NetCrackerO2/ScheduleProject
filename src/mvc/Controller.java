@@ -1,8 +1,8 @@
 package mvc;
 
-import connection.ConnectionAssistant;
 import connection.Message;
 import connection.MessageBuilder;
+import connection.ServerAssistant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Controller {
     private static Controller controller;
     private List<Command> commandsList;
-    private ConnectionAssistant connectionAssistant;
+    private ServerAssistant connectionAssistant;
     private boolean isStop;
 
     public Controller() {
@@ -32,11 +32,11 @@ public class Controller {
         commandsList.add(newCommand);
     }
 
-    public ConnectionAssistant getConnectionAssistant() {
+    public ServerAssistant getConnectionAssistant() {
         return connectionAssistant;
     }
 
-    public void setConnectionAssistant(ConnectionAssistant connectionAssistant) {
+    public void setConnectionAssistant(ServerAssistant connectionAssistant) {
         this.connectionAssistant = connectionAssistant;
     }
 

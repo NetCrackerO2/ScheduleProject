@@ -2,14 +2,10 @@ package mvc.Commands;
 
 import connection.Message;
 import connection.MessageBuilder;
-import manager.Entity;
 import mvc.Command;
 import mvc.Controller;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import account.Account;
 import account.AccountManager;
 import account.AccountManager.*;
 

@@ -64,6 +64,10 @@ public class ServerAssistant implements ConnectionAssistant {
     public void sendMessage(Message message) {
         connectionManager.sendMessage(message);
     }
+    
+    public void sendMessageAll(Message message) {
+        connectionManager.sendMessageAll(message);
+    }
 
     @Override
     public Message getNextMessage() {
