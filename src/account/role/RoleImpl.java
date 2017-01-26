@@ -1,6 +1,5 @@
 package account.role;
 
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
 
 public class RoleImpl implements Role {
     private int index;
@@ -28,7 +26,8 @@ public class RoleImpl implements Role {
     /**
      * Установка нового имени роли
      *
-     * @param name Новое имя роли
+     * @param name
+     *            Новое имя роли
      */
     @Override
     public void setName(String name) {
@@ -41,20 +40,35 @@ public class RoleImpl implements Role {
     /**
      * Добавление перечня прав в роль
      *
-     * @param permissions Перечень добавляемых прав
+     * @param permissions
+     *            Перечень добавляемых прав
      */
     @Override
     public void addPermissions(Permission... permissions) {
         for (Permission permission : permissions)
             if (!permissionList.contains(permission))
                 permissionList.add(permission);
-        // TODO: надо ли кидать исключение при попытке повторного добавления разрешения?
+        // TODO: надо ли кидать исключение при попытке повторного добавления
+        // разрешения?
+    }
+
+    /**
+     * Установление перечня прав
+     *
+     * @param permissions
+     *            Перечень прав
+     */
+    @Override
+    public void setPermissions(Permission... permissions) {
+        permissionList.clear();
+        addPermissions(permissions);
     }
 
     /**
      * Проверка принадлежности определённого права данной роли
      *
-     * @param permission Право, принадлежность которого проверяется
+     * @param permission
+     *            Право, принадлежность которого проверяется
      * @return true - если принадлежит, иначе false
      */
     @Override
@@ -69,7 +83,7 @@ public class RoleImpl implements Role {
      * @return Список всех прав роли
      */
     @Override
-    public List<Permission> getAllPermissions() {
+    public List<Permission> getPermissions() {
         return new ArrayList<>(permissionList);
     }
 
@@ -93,10 +107,9 @@ public class RoleImpl implements Role {
 
         return jsonObject;
     }
-    
 
     public static Role fromJSONObject(JSONObject jsonObject) {
-        int index = (int)(long)(Long) jsonObject.get("index");
+        int index = (int) (long) (Long) jsonObject.get("index");
         String name = (String) jsonObject.get("name");
         List permissionList = Arrays.asList(((JSONArray) jsonObject.get("permissionList")).toArray());
 
@@ -127,13 +140,18 @@ public class RoleImpl implements Role {
             }
 
             @Override
+            public void setPermissions(Permission... permissions) {
+                throw new RuntimeException("Immutable object");
+            }
+
+            @Override
             public boolean hasPermission(Permission permission) {
-                return permissionList.indexOf(permission)>=0;
+                return permissionList.indexOf(permission) >= 0;
             }
 
             @SuppressWarnings("unchecked")
             @Override
-            public List<Permission> getAllPermissions() {
+            public List<Permission> getPermissions() {
                 return permissionList;
             }
         };
