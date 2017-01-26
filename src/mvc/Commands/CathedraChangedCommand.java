@@ -1,5 +1,6 @@
 package mvc.Commands;
 
+import account.role.Permission;
 import connection.Message;
 import connection.MessageBuilder;
 import mvc.Command;
@@ -23,6 +24,11 @@ public class CathedraChangedCommand implements Command {
     @Override
     public String getType() {
         return "CATHEDRA_CHANGED";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] {};
     }
 
 }

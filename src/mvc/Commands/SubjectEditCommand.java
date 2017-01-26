@@ -2,6 +2,7 @@ package mvc.Commands;
 
 import org.json.simple.JSONObject;
 
+import account.role.Permission;
 import connection.Message;
 import connection.MessageBuilder;
 import mvc.Command;
@@ -38,5 +39,10 @@ public class SubjectEditCommand implements Command {
     @Override
     public String getType() {
         return "SUBJECT_EDIT";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] { Permission.EditSubject };
     }
 }

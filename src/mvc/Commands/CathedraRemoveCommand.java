@@ -4,6 +4,7 @@ import connection.Message;
 import connection.MessageBuilder;
 import mvc.Command;
 import mvc.Controller;
+import account.role.Permission;
 import cathedra.CathedraManager;
 
 public class CathedraRemoveCommand implements Command {
@@ -12,7 +13,7 @@ public class CathedraRemoveCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        int index = (int)(long)(Long) message.getValue("index");
+        int index = (int) (long) (Long) message.getValue("index");
         synchronized (CathedraManager.getInstance()) {
             CathedraManager.getInstance().removeObject(index);
         }
@@ -23,5 +24,10 @@ public class CathedraRemoveCommand implements Command {
     @Override
     public String getType() {
         return "CATHEDRA_REMOVE";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] { Permission.AddOrRemoveCathedra };
     }
 }

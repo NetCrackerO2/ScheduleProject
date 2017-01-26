@@ -8,6 +8,7 @@ import mvc.Controller;
 import java.util.ArrayList;
 import account.AccountManager;
 import account.AccountManager.*;
+import account.role.Permission;
 
 public class AccountListCommand implements Command {
     @Override
@@ -19,7 +20,8 @@ public class AccountListCommand implements Command {
         String cathedra = (String) message.getValue("cathedra");
         String group = (String) message.getValue("group");
         synchronized (AccountManager.getInstance()) {
-            messageBuilder.put("data", new ArrayList<>(AccountManager.getInstance().find(new NameIs(name).and(new GroupIs(group)).and(new CathedraIs(cathedra)))));
+            messageBuilder.put("data", new ArrayList<>(AccountManager.getInstance()
+                    .find(new NameIs(name).and(new GroupIs(group)).and(new CathedraIs(cathedra)))));
         }
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
     }
@@ -27,5 +29,10 @@ public class AccountListCommand implements Command {
     @Override
     public String getType() {
         return "ACCOUNT_LIST";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] {};
     }
 }

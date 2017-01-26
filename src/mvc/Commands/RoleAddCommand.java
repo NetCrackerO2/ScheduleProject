@@ -38,4 +38,9 @@ public class RoleAddCommand implements Command {
     public String getType() {
         return "ROLE_ADD";
     }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] {};
+    }
 }

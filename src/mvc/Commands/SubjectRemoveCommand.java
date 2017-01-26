@@ -1,5 +1,6 @@
 package mvc.Commands;
 
+import account.role.Permission;
 import connection.Message;
 import connection.MessageBuilder;
 import mvc.Command;
@@ -12,7 +13,7 @@ public class SubjectRemoveCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        int index = (int)(long)(Long) message.getValue("index");
+        int index = (int) (long) (Long) message.getValue("index");
         synchronized (SubjectManager.getInstance()) {
             SubjectManager.getInstance().removeObject(index);
         }
@@ -23,5 +24,10 @@ public class SubjectRemoveCommand implements Command {
     @Override
     public String getType() {
         return "SUBJECT_REMOVE";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] { Permission.AddOrRemoveSubject };
     }
 }

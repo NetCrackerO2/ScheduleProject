@@ -42,4 +42,9 @@ public class RoleEditCommand implements Command {
     public String getType() {
         return "ROLE_EDIT";
     }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] {};
+    }
 }

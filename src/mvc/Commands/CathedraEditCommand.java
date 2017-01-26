@@ -7,6 +7,7 @@ import mvc.Controller;
 
 import org.json.simple.JSONObject;
 
+import account.role.Permission;
 import cathedra.Cathedra;
 import cathedra.CathedraImpl;
 import cathedra.CathedraManager;
@@ -42,5 +43,10 @@ public class CathedraEditCommand implements Command {
     @Override
     public String getType() {
         return "CATHEDRA_EDIT";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] { Permission.EditCathedra };
     }
 }

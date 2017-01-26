@@ -2,6 +2,7 @@ package mvc.Commands;
 
 import org.json.simple.JSONObject;
 
+import account.role.Permission;
 import connection.Message;
 import connection.MessageBuilder;
 import group.Group;
@@ -38,5 +39,10 @@ public class GroupAddCommand implements Command {
     @Override
     public String getType() {
         return "GROUP_ADD";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] { Permission.AddOrRemoveGroup };
     }
 }

@@ -1,5 +1,6 @@
 package mvc.Commands;
 
+import account.role.Permission;
 import account.role.RoleManager;
 import connection.Message;
 import connection.MessageBuilder;
@@ -23,5 +24,10 @@ public class RoleRemoveCommand implements Command {
     @Override
     public String getType() {
         return "ROLE_REMOVE";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] {};
     }
 }

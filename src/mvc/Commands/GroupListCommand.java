@@ -1,6 +1,5 @@
 package mvc.Commands;
 
-
 import connection.Message;
 import connection.MessageBuilder;
 import group.GroupManager;
@@ -9,6 +8,7 @@ import mvc.Controller;
 
 import java.util.ArrayList;
 
+import account.role.Permission;
 
 public class GroupListCommand implements Command {
     @Override
@@ -16,7 +16,7 @@ public class GroupListCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        synchronized(GroupManager.getInstance()){
+        synchronized (GroupManager.getInstance()) {
             messageBuilder.put("data", new ArrayList<>(GroupManager.getInstance().getAllObjects()));
         }
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
@@ -25,5 +25,10 @@ public class GroupListCommand implements Command {
     @Override
     public String getType() {
         return "GROUP_LIST";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] {};
     }
 }

@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import account.Account;
 import account.AccountImpl;
 import account.AccountManager;
+import account.role.Permission;
 
 public class AccountAddCommand implements Command {
     @Override
@@ -38,5 +39,10 @@ public class AccountAddCommand implements Command {
     @Override
     public String getType() {
         return "ACCOUNT_ADD";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] { Permission.AddOrRemoveAccount };
     }
 }

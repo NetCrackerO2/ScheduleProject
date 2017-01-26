@@ -1,6 +1,6 @@
 package mvc;
 
-
+import account.role.Permission;
 import connection.Message;
 
 public interface Command {
@@ -15,4 +15,6 @@ public interface Command {
      * @return Название команды
      */
     String getType();
+
+    Permission[] getRequiredPermissions();
 }

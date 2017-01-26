@@ -2,6 +2,7 @@ package mvc.Commands;
 
 import org.json.simple.JSONObject;
 
+import account.role.Permission;
 import connection.Message;
 import connection.MessageBuilder;
 import faculty.Faculty;
@@ -38,5 +39,10 @@ public class FacultyEditCommand implements Command {
     @Override
     public String getType() {
         return "FACULTY_EDIT";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] { Permission.EditFaculty };
     }
 }

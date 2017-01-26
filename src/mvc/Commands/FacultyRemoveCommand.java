@@ -1,5 +1,6 @@
 package mvc.Commands;
 
+import account.role.Permission;
 import connection.Message;
 import connection.MessageBuilder;
 import faculty.FacultyManager;
@@ -12,7 +13,7 @@ public class FacultyRemoveCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        int index = (int)(long)(Long) message.getValue("index");
+        int index = (int) (long) (Long) message.getValue("index");
         synchronized (FacultyManager.getInstance()) {
             FacultyManager.getInstance().removeObject(index);
         }
@@ -23,5 +24,10 @@ public class FacultyRemoveCommand implements Command {
     @Override
     public String getType() {
         return "FACULTY_REMOVE";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] { Permission.AddOrRemoveFaculty };
     }
 }

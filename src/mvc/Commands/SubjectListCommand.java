@@ -1,6 +1,5 @@
 package mvc.Commands;
 
-
 import connection.Message;
 import connection.MessageBuilder;
 import mvc.Command;
@@ -9,6 +8,7 @@ import subject.SubjectManager;
 
 import java.util.ArrayList;
 
+import account.role.Permission;
 
 public class SubjectListCommand implements Command {
     @Override
@@ -16,7 +16,7 @@ public class SubjectListCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        synchronized(SubjectManager.getInstance()){
+        synchronized (SubjectManager.getInstance()) {
             messageBuilder.put("data", new ArrayList<>(SubjectManager.getInstance().getAllObjects()));
         }
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
@@ -25,5 +25,10 @@ public class SubjectListCommand implements Command {
     @Override
     public String getType() {
         return "SUBJECT_LIST";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] {};
     }
 }

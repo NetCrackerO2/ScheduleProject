@@ -7,6 +7,7 @@ import mvc.Controller;
 
 import java.util.ArrayList;
 
+import account.role.Permission;
 import account.role.RoleManager;
 
 public class RoleListCommand implements Command {
@@ -24,5 +25,10 @@ public class RoleListCommand implements Command {
     @Override
     public String getType() {
         return "ROLE_LIST";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] {};
     }
 }

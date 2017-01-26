@@ -1,6 +1,5 @@
 package mvc.Commands;
 
-
 import connection.Message;
 import connection.MessageBuilder;
 import mvc.Command;
@@ -8,8 +7,8 @@ import mvc.Controller;
 
 import java.util.ArrayList;
 
+import account.role.Permission;
 import cathedra.CathedraManager;
-
 
 public class CathedraListCommand implements Command {
     @Override
@@ -17,7 +16,7 @@ public class CathedraListCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        synchronized(CathedraManager.getInstance()){
+        synchronized (CathedraManager.getInstance()) {
             messageBuilder.put("data", new ArrayList<>(CathedraManager.getInstance().getAllObjects()));
         }
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
@@ -26,5 +25,10 @@ public class CathedraListCommand implements Command {
     @Override
     public String getType() {
         return "CATHEDRA_LIST";
+    }
+
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] {};
     }
 }

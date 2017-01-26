@@ -1,5 +1,6 @@
 package mvc.Commands;
 
+import account.role.Permission;
 import connection.Message;
 import connection.MessageBuilder;
 import mvc.Command;
@@ -25,4 +26,8 @@ public class SubjectChangedCommand implements Command {
         return "SUBJECT_CHANGED";
     }
 
+    @Override
+    public Permission[] getRequiredPermissions() {
+        return new Permission[] {};
+    }
 }

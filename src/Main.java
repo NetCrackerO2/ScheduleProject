@@ -120,8 +120,6 @@ public class Main {
         roleManager.addRole(accounts[9].getIndex(), roleManager.getObject(0));
 
         /////////////////////////////////////////////////////////////////////////
-        Role currentRole = roleManager.getObject(3);
-        /////////////////////////////////////////////////////////////////////////
 
 
         Controller controller = new Controller();

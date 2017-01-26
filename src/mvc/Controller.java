@@ -3,10 +3,15 @@ package mvc;
 import connection.Message;
 import connection.MessageBuilder;
 import connection.ServerAssistant;
+import mvc.Commands.NoPermissionsException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import account.role.Permission;
+import account.role.Role;
+import account.role.RoleManager;
 
 public class Controller {
     private static Controller controller;
@@ -42,6 +47,10 @@ public class Controller {
 
     public void start() {
         isStop = false;
+        Role currentRole;
+        synchronized (RoleManager.getInstance()) {
+            currentRole = RoleManager.getInstance().getObject(3);
+        }
 
         while (!isStop) {
             Message nextMessage = connectionAssistant.getNextMessage();
@@ -61,6 +70,11 @@ public class Controller {
             }
 
             try {
+                synchronized (RoleManager.getInstance()) {
+                    for (Permission perm : needCommand.getRequiredPermissions())
+                        if (!currentRole.hasPermission(perm))
+                            throw new NoPermissionsException();
+                }
                 needCommand.activate(nextMessage);
             } catch (Exception e) {
                 MessageBuilder messageBuilder = new MessageBuilder();
