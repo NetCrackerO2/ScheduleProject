@@ -11,16 +11,10 @@ class ManualResetEvent {
         this.open = open;
     }
 
-    void waitOne() {
+    void waitOne() throws InterruptedException {
         synchronized (monitor) {
             while (!open) {
-                try {
-                    monitor.wait();
-                } catch (InterruptedException e) {
-                    //TODO: уточнить, когда такое может произойти.
-                    System.out.println("СТРАШНОЕМЕСТО: Наихудшее случилось. Убейтесь.");
-                    System.exit(13);
-                }
+                monitor.wait();
             }
         }
     }

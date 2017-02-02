@@ -65,8 +65,12 @@ public class ServerAssistant implements ConnectionAssistant {
         connectionManager.sendMessage(message);
     }
 
+    public void sendMessageAll(Message message) {
+        connectionManager.sendMessageAll(message);
+    }
+
     @Override
-    public Message getNextMessage() {
+    public Message getNextMessage() throws InterruptedException {
         return connectionManager.getNextMessage();
     }
 }

@@ -1,10 +1,8 @@
 package account.role;
 
-
 import manager.Entity;
 
 import java.util.List;
-
 
 public interface Role extends Entity {
     String getName();
@@ -15,5 +13,7 @@ public interface Role extends Entity {
 
     boolean hasPermission(Permission permission);
 
-    List<Permission> getAllPermissions();
+    List<Permission> getPermissions();
+
+    void setPermissions(Permission... permissions);
 }

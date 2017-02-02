@@ -9,8 +9,6 @@ import faculty.Faculty;
 import faculty.FacultyManager;
 import group.Group;
 import group.GroupManager;
-import mvc.Commands.*;
-import mvc.Controller;
 import subject.Subject;
 import subject.SubjectManager;
 
@@ -116,17 +114,42 @@ public class Main {
         roleManager.addRole(accounts[9].getIndex(), roleManager.getObject(0));
 
         /////////////////////////////////////////////////////////////////////////
-        Role currentRole = roleManager.getObject(3);
-        /////////////////////////////////////////////////////////////////////////
 
-        Controller controller = new Controller();
-        controller.addCommand(new ViewListAccountsCommand());
-        controller.addCommand(new ViewListCathedrasCommand());
-        controller.addCommand(new ViewListFacultiesCommand());
-        controller.addCommand(new ViewListGroupsCommand());
-        controller.addCommand(new ViewListSubjectsCommand());
-        controller.addCommand(new CreateServerCommand());
-        controller.addCommand(new CreateClientCommand());
-        controller.start();
+
+        /*Controller controller   = new Controller();
+        Controller.setController(controller);
+
+        controller.addCommand(new AccountAddCommand());
+        controller.addCommand(new AccountEditCommand());
+        controller.addCommand(new AccountListCommand());
+        controller.addCommand(new AccountRemoveCommand());
+        controller.addCommand(new CathedraAddCommand());
+        controller.addCommand(new CathedraEditCommand());
+        controller.addCommand(new CathedraListCommand());
+        controller.addCommand(new CathedraRemoveCommand());
+        controller.addCommand(new FacultyAddCommand());
+        controller.addCommand(new FacultyEditCommand());
+        controller.addCommand(new FacultyListCommand());
+        controller.addCommand(new FacultyRemoveCommand());
+        controller.addCommand(new GroupAddCommand());
+        controller.addCommand(new GroupEditCommand());
+        controller.addCommand(new GroupListCommand());
+        controller.addCommand(new GroupRemoveCommand());
+        controller.addCommand(new SubjectAddCommand());
+        controller.addCommand(new SubjectEditCommand());
+        controller.addCommand(new SubjectListCommand());
+        controller.addCommand(new SubjectRemoveCommand());
+
+
+        ServerAssistant serverAssistant = new ServerAssistant();
+        controller.setConnectionAssistant(serverAssistant);
+        try {
+            serverAssistant.initialize();
+        } catch (IOException e) {
+            System.out.println(Localization.getInstance().getString("SERVER_INITIALIZATION_ERROR"));
+            return;
+        }
+
+        controller.start();*/
     }
 }

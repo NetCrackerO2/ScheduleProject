@@ -1,74 +1,81 @@
 package mvc;
 
 
+import connection.ClientAssistant;
+import connection.Message;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Objects;
 
 
 public class Controller {
+    private static Controller controller;
     private List<Command> commandsList;
+    private ClientAssistant connectionAssistant;
     private boolean isStop;
+
 
     public Controller() {
         commandsList = new ArrayList<>();
         isStop = true;
+        connectionAssistant = null;
     }
+
+
+    public static Controller getController() {
+        return controller;
+    }
+
+    public static void setController(Controller controller) {
+        Controller.controller = controller;
+    }
+
+    public ClientAssistant getConnectionAssistant() {
+        return connectionAssistant;
+    }
+
+    public void setConnectionAssistant(ClientAssistant connectionAssistant) {
+        this.connectionAssistant = connectionAssistant;
+    }
+
 
     public void addCommand(Command newCommand) {
         commandsList.add(newCommand);
-    }
-
-    public void activateCommand(int number) {
-        commandsList.get(number).activate();
     }
 
     public void start() {
         isStop = false;
 
         while (!isStop) {
-            View.writeAllCommands(commandsList);
-            int currentCommand = getIntResponse("CMD");
-
-            if (currentCommand < 0 || commandsList.size() < currentCommand) {
-                View.setStatus(new RuntimeException("ERR_INVALID_NUMBER"));
-                continue;
-            }
-
-            if (commandsList.size() == currentCommand) {
+            Message nextMessage;
+            try {
+                nextMessage = connectionAssistant.getNextMessage();
+            } catch (InterruptedException e) {
                 isStop = true;
                 continue;
             }
 
+            Command needCommand = null;
+            for (Command command : commandsList) {
+                if (Objects.equals(command.getType(), nextMessage.getValue("type"))) {
+                    needCommand = command;
+                    break;
+                }
+            }
+
+            if (needCommand == null) {
+                // TODO: лог
+                System.out.println("Невозможно обработать поступивший запрос.\nType: " + nextMessage.getValue("type"));
+                continue;
+            }
+
             try {
-                activateCommand(currentCommand);
-                View.setStatus(null);
+                needCommand.activate(nextMessage);
             } catch (Exception e) {
-                View.setStatus(e);
+                System.out.println(e.getMessage());
             }
         }
 
-    }
-
-    public static int getIntResponse(String request) {
-        View.request(request);
-        @SuppressWarnings("resource")
-        Scanner scanner = new Scanner(System.in);
-        int number;
-
-        try {
-            number = scanner.nextInt();
-        } catch (Exception e) {
-            throw new RuntimeException("ERR_INVALID_NUMBER");
-        }
-
-        return number;
-    }
-
-    public static String getStringResponse(String request) {
-        View.request(request);
-        @SuppressWarnings("resource")
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
     }
 }
