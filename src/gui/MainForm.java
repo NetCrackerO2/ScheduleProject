@@ -159,6 +159,9 @@ public class MainForm {
 
 
     private void updateContentPane() {
+        if (currentContentPane == null)
+            return;
+
         if (accountsUpdated
                 //&& rolesUpdated
                 //&& cathedrasUpdated
