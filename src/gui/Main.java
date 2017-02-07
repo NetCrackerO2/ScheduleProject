@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import mvc.Commands.AccountListCommand;
+import mvc.Commands.FacultyRemoveCommand;
 import mvc.Commands.FacultyListCommand;
 import mvc.Controller;
 import mvc.Localization;
@@ -46,6 +47,7 @@ public class Main extends Application {
             ///// Команды контролера /////
             controller.addCommand(new FacultyListCommand());
             controller.addCommand(new AccountListCommand());
+            controller.addCommand(new FacultyRemoveCommand());
             //////////////////////////////
 
             controller.start();

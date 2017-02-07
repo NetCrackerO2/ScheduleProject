@@ -19,7 +19,7 @@
         <Label layoutX="24.0" layoutY="69.0" text="Декан"/>
         <ComboBox layoutX="137.0" layoutY="65.0" prefWidth="150.0"/>
         <Button layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0"
-                text="Удалить"/>
+                text="Удалить" fx:id="deleteButton"/>
         <Button layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0"
                 text="Применить"/>
     </Pane>
