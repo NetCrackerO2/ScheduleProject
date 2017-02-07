@@ -1,7 +1,7 @@
 package account;
 
 import account.role.Permission;
-import account.role.RoleManager;
+import account.role.RoleAssignmentManager;
 import cathedra.CathedraManager;
 import group.GroupManager;
 import org.json.simple.JSONObject;
@@ -98,7 +98,7 @@ public class AccountImpl implements Account {
     }
 
     /**
-     * WARNING: locks RoleManager -> GroupManager
+     * WARNING: locks RoleAssignmentManager -> GroupManager
      */
     @Override
     public void setGroupIndex(int groupIndex) {
@@ -106,9 +106,9 @@ public class AccountImpl implements Account {
             this.groupIndex = -1;
             return;
         }
-        synchronized (RoleManager.getInstance()) {
+        synchronized (RoleAssignmentManager.getInstance()) {
             synchronized (GroupManager.getInstance()) {
-                if (!RoleManager.getInstance().hasPermission(index, Permission.InGroup))
+                if (!RoleAssignmentManager.getInstance().hasPermission(index, Permission.InGroup))
                     throw new RuntimeException("Данный аккаунт не может состоять в группе.");
                 if (!GroupManager.getInstance().isExist(groupIndex))
                     throw new IllegalArgumentException("Группы с таким номером не существует.");
@@ -124,7 +124,7 @@ public class AccountImpl implements Account {
     }
 
     /**
-     * WARNING: locks RoleManager -> CathedraManager
+     * WARNING: locks RoleAssignmentManager -> CathedraManager
      */
     @Override
     public void setCathedraIndex(int cathedraIndex) {
@@ -132,9 +132,9 @@ public class AccountImpl implements Account {
             this.cathedraIndex = -1;
             return;
         }
-        synchronized (RoleManager.getInstance()) {
+        synchronized (RoleAssignmentManager.getInstance()) {
             synchronized (CathedraManager.getInstance()) {
-                if (!RoleManager.getInstance().hasPermission(index, Permission.InCathedra))
+                if (!RoleAssignmentManager.getInstance().hasPermission(index, Permission.InCathedra))
                     throw new RuntimeException("Данный аккаунт не может состоять в кафедре.");
                 if (!CathedraManager.getInstance().isExist(cathedraIndex))
                     throw new IllegalArgumentException("Кафедры с таким именем не существует.");

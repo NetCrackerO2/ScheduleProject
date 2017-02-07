@@ -1,7 +1,7 @@
 package cathedra;
 
 import account.role.Permission;
-import account.role.RoleManager;
+import account.role.RoleAssignmentManager;
 import faculty.FacultyManager;
 import org.json.simple.JSONObject;
 
@@ -33,12 +33,12 @@ public class CathedraImpl implements Cathedra {
 
         return jsonObject;
     }
-    
+
     public static Cathedra fromJSONObject(JSONObject jsonObject) {
-        int index = (int)(long)(Long) jsonObject.get("index");
+        int index = (int) (long) (Long) jsonObject.get("index");
         String name = (String) jsonObject.get("name");
-        int faculty = (int)(long)(Long) jsonObject.get("facultyIndex");
-        int head = (int)(long)(Long) jsonObject.get("headAccountIndex");
+        int faculty = (int) (long) (Long) jsonObject.get("facultyIndex");
+        int head = (int) (long) (Long) jsonObject.get("headAccountIndex");
 
         return new Cathedra() {
             @Override
@@ -125,7 +125,7 @@ public class CathedraImpl implements Cathedra {
     }
 
     /**
-     * WARNING: locks RoleManager
+     * WARNING: locks RoleAssignmentManager
      */
     @Override
     public void setHeadAccountIndex(int headAccountIndex) {
@@ -133,8 +133,8 @@ public class CathedraImpl implements Cathedra {
             this.headAccountIndex = -1;
             return;
         }
-        synchronized (RoleManager.getInstance()) {
-            if (!RoleManager.getInstance().hasPermission(headAccountIndex, Permission.InCathedra))
+        synchronized (RoleAssignmentManager.getInstance()) {
+            if (!RoleAssignmentManager.getInstance().hasPermission(headAccountIndex, Permission.InCathedra))
                 throw new RuntimeException("Данный аккаунт не может быть заведующим кафедры.");
 
             this.headAccountIndex = headAccountIndex;

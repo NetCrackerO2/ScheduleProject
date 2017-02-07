@@ -1,29 +1,30 @@
 package mvc.Commands;
 
-import account.role.Permission;
-import account.role.RoleManager;
 import connection.Message;
 import connection.MessageBuilder;
 import mvc.Command;
 import mvc.Controller;
 
-public class RoleRemoveCommand implements Command {
+import java.util.ArrayList;
+
+import account.role.Permission;
+import account.role.RoleAssignmentManager;
+
+public class RoleAssignmentListCommand implements Command {
     @Override
     public void activate(Message message) {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        int index = (int) (long) (Long) message.getValue("index");
-        synchronized (RoleManager.getInstance()) {
-            RoleManager.getInstance().removeObject(index);
+        synchronized (RoleAssignmentManager.getInstance()) {
+            messageBuilder.put("data", new ArrayList<>(RoleAssignmentManager.getInstance().getAllObjects()));
         }
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
-        new RoleChangedCommand(index).activate(message);
     }
 
     @Override
     public String getType() {
-        return "ROLE_REMOVE";
+        return "ROLE_ASSIGNMENT_LIST";
     }
 
     @Override

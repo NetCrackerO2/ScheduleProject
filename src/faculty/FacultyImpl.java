@@ -1,8 +1,7 @@
 package faculty;
 
 import account.role.Permission;
-import account.role.RoleManager;
-
+import account.role.RoleAssignmentManager;
 import org.json.simple.JSONObject;
 
 public class FacultyImpl implements Faculty {
@@ -87,7 +86,7 @@ public class FacultyImpl implements Faculty {
     }
 
     /**
-     * WARNING: locks RoleManager
+     * WARNING: locks RoleAssignmentManager
      */
     @Override
     public void setDeanAccountIndex(int deanAccountIndex) {
@@ -95,8 +94,8 @@ public class FacultyImpl implements Faculty {
             this.deanAccountIndex = -1;
             return;
         }
-        synchronized (RoleManager.getInstance()) {
-            if (!RoleManager.getInstance().hasPermission(deanAccountIndex, Permission.InFaculty))
+        synchronized (RoleAssignmentManager.getInstance()) {
+            if (!RoleAssignmentManager.getInstance().hasPermission(deanAccountIndex, Permission.InFaculty))
                 throw new RuntimeException("Данный аккаунт не может быть деканом факультета.");
 
             this.deanAccountIndex = deanAccountIndex;

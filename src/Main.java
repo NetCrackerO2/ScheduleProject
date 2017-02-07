@@ -2,6 +2,8 @@ import account.Account;
 import account.AccountManager;
 import account.role.Permission;
 import account.role.Role;
+import account.role.RoleAssignment;
+import account.role.RoleAssignmentManager;
 import account.role.RoleManager;
 import cathedra.Cathedra;
 import cathedra.CathedraManager;
@@ -27,6 +29,7 @@ public class Main {
         AccountManager accountManager = AccountManager.getInstance();
         SubjectManager subjectManager = SubjectManager.getInstance();
         RoleManager roleManager = RoleManager.getInstance();
+        RoleAssignmentManager roleAssignmentManager = RoleAssignmentManager.getInstance();
 
         Faculty faculty1, faculty2;
         faculty1 = facultyManager.createObject();
@@ -107,17 +110,36 @@ public class Main {
                 Permission.EditFaculty
         );
 
-
-        roleManager.addRole(accounts[0].getIndex(), roleManager.getObject(0));
-        roleManager.addRole(accounts[1].getIndex(), roleManager.getObject(0));
-        roleManager.addRole(accounts[2].getIndex(), roleManager.getObject(0));
-        roleManager.addRole(accounts[3].getIndex(), roleManager.getObject(0));
-        roleManager.addRole(accounts[4].getIndex(), roleManager.getObject(0));
-        roleManager.addRole(accounts[5].getIndex(), roleManager.getObject(1));
-        roleManager.addRole(accounts[6].getIndex(), roleManager.getObject(2));
-        roleManager.addRole(accounts[7].getIndex(), roleManager.getObject(3));
-        roleManager.addRole(accounts[8].getIndex(), roleManager.getObject(0));
-        roleManager.addRole(accounts[9].getIndex(), roleManager.getObject(0));
+        RoleAssignment ra = roleAssignmentManager.createObject();
+        ra.setAccountIndex(accounts[0].getIndex());
+        ra.setRoleIndex(roleManager.getObject(0).getIndex());
+        ra = roleAssignmentManager.createObject();
+        ra.setAccountIndex(accounts[1].getIndex());
+        ra.setRoleIndex(roleManager.getObject(0).getIndex());
+        ra = roleAssignmentManager.createObject();
+        ra.setAccountIndex(accounts[2].getIndex());
+        ra.setRoleIndex(roleManager.getObject(0).getIndex());
+        ra = roleAssignmentManager.createObject();
+        ra.setAccountIndex(accounts[3].getIndex());
+        ra.setRoleIndex(roleManager.getObject(0).getIndex());
+        ra = roleAssignmentManager.createObject();
+        ra.setAccountIndex(accounts[4].getIndex());
+        ra.setRoleIndex(roleManager.getObject(0).getIndex());
+        ra = roleAssignmentManager.createObject();
+        ra.setAccountIndex(accounts[5].getIndex());
+        ra.setRoleIndex(roleManager.getObject(1).getIndex());
+        ra = roleAssignmentManager.createObject();
+        ra.setAccountIndex(accounts[6].getIndex());
+        ra.setRoleIndex(roleManager.getObject(2).getIndex());
+        ra = roleAssignmentManager.createObject();
+        ra.setAccountIndex(accounts[7].getIndex());
+        ra.setRoleIndex(roleManager.getObject(3).getIndex());
+        ra = roleAssignmentManager.createObject();
+        ra.setAccountIndex(accounts[8].getIndex());
+        ra.setRoleIndex(roleManager.getObject(0).getIndex());
+        ra = roleAssignmentManager.createObject();
+        ra.setAccountIndex(accounts[9].getIndex());
+        ra.setRoleIndex(roleManager.getObject(0).getIndex());
 
         /////////////////////////////////////////////////////////////////////////
 
