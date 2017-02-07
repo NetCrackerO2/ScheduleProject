@@ -1,5 +1,9 @@
 package mvc;
 
+
+import account.role.Permission;
+import account.role.Role;
+import account.role.RoleManager;
 import connection.Message;
 import connection.MessageBuilder;
 import connection.ServerAssistant;
@@ -9,9 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import account.role.Permission;
-import account.role.Role;
-import account.role.RoleManager;
 
 public class Controller {
     private static Controller controller;
@@ -53,7 +54,13 @@ public class Controller {
         }
 
         while (!isStop) {
-            Message nextMessage = connectionAssistant.getNextMessage();
+            Message nextMessage = null;
+            try {
+                nextMessage = connectionAssistant.getNextMessage();
+            } catch (InterruptedException e) {
+                isStop = true;
+                continue;
+            }
 
             Command needCommand = null;
             for (Command command : commandsList) {

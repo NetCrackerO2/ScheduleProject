@@ -45,7 +45,7 @@ public class ClientAssistant implements ConnectionAssistant {
     }
 
     @Override
-    public Message getNextMessage() {
+    public Message getNextMessage() throws InterruptedException {
         return connectionManager.getNextMessage();
     }
 }

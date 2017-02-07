@@ -48,7 +48,7 @@ class ConnectionManager {
      * @return Возвращает самое раннее из пришедших сообщений.
      * Если очередь сообщений пуста, блокирует поток до прихода нового.
      */
-    Message getNextMessage() {
+    Message getNextMessage() throws InterruptedException {
         if (messages.size() == 0)
             newMessage.waitOne();
         newMessage.reset();

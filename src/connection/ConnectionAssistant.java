@@ -14,7 +14,7 @@ public interface ConnectionAssistant {
     //т.к. соединение только с сервером (его индекс = 0)
     void sendMessage(Message message);
 
-    Message getNextMessage();
+    Message getNextMessage() throws InterruptedException;
 
     default void log(String text) {
         System.out.println(Localization.getInstance().getString(text));
