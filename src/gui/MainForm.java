@@ -8,7 +8,7 @@ import connection.MessageBuilder;
 import faculty.Faculty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
+import group.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import mvc.Controller;
@@ -31,8 +31,8 @@ public class MainForm {
     private List<Group> groupList;
 
     private boolean accountsUpdated;
-    //private boolean rolesUpdated;
-    //private boolean cathedrasUpdated;
+   // private boolean rolesUpdated;
+    private boolean cathedrasUpdated;
     private boolean facultyesUpdated;
     //private boolean groupsUpdated;
 
@@ -43,8 +43,8 @@ public class MainForm {
         mainForm = this;
 
         accountList = new ArrayList<>();
-        //roleList = new ArrayList<>();
-        //cathedraList = new ArrayList<>();
+       // roleList = new ArrayList<>();
+        cathedraList = new ArrayList<>();
         facultyList = new ArrayList<>();
         //groupList = new ArrayList<>();
     }
@@ -78,6 +78,7 @@ public class MainForm {
 
     public void setCathedraList(List<Cathedra> cathedraList) {
         this.cathedraList = cathedraList;
+        cathedrasUpdated=true;
         updateContentPane();
     }
 
@@ -141,7 +142,7 @@ public class MainForm {
     public void updateAllData() {
         accountsUpdated = false;
         //rolesUpdated = false;
-        //cathedrasUpdated = false;
+        cathedrasUpdated = false;
         facultyesUpdated = false;
         //groupsUpdated = false;
 
@@ -155,6 +156,22 @@ public class MainForm {
         messageBuilder.setConnectionIndex(0);
         messageBuilder.put("type", "ACCOUNT_LIST");
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+
+        messageBuilder.initialize();
+        messageBuilder.setConnectionIndex(0);
+        messageBuilder.put("type", "CATHEDRA_LIST");
+        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+
+//        messageBuilder.initialize();
+//        messageBuilder.setConnectionIndex(0);
+//        messageBuilder.put("type", "GROUP_LIST");
+//        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+//
+//        messageBuilder.initialize();
+//        messageBuilder.setConnectionIndex(0);
+//        messageBuilder.put("type", "ROLE_LIST");
+//        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+
     }
 
 
@@ -163,8 +180,8 @@ public class MainForm {
             return;
 
         if (accountsUpdated
-                //&& rolesUpdated
-                //&& cathedrasUpdated
+               // && rolesUpdated
+                && cathedrasUpdated
                 && facultyesUpdated
             //&& groupsUpdated
                 )

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CathedraPane">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="301.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="299.0" />
@@ -23,19 +23,19 @@
       <Pane prefHeight="417.0" prefWidth="314.0" GridPane.columnIndex="1">
          <children>
             <Label layoutX="24.0" layoutY="27.0" text="Название кафедры" />
-            <TextField layoutX="138.0" layoutY="23.0" />
+            <TextField fx:id="nameCathedraBox" layoutX="138.0" layoutY="23.0" />
             <Label layoutX="24.0" layoutY="69.0" text="Факультет" />
-            <ComboBox layoutX="137.0" layoutY="65.0" prefWidth="150.0" />
-            <Button layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Удалить" />
-            <Button layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Применить" />
+            <ComboBox fx:id="facultyComboBox" layoutX="137.0" layoutY="65.0" prefWidth="150.0" />
+            <Button fx:id="deleteButton" layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Удалить" />
+            <Button fx:id="addButton" layoutX="66.0" layoutY="320.0" mnemonicParsing="false" onAction="#addCathedra" prefHeight="37.0" prefWidth="80.0" text="Применить" />
          </children>
       </Pane>
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <TableView layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0">
+            <TableView fx:id="tableView" layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0">
                <columns>
-                  <TableColumn prefWidth="118.0" text="Название кафедры" />
-                  <TableColumn prefWidth="181.0" text="Факультет" />
+                  <TableColumn fx:id="cathedraNameColumn" prefWidth="118.0" text="Название кафедры" />
+                  <TableColumn fx:id="facultyNumberColumn" prefWidth="181.0" text="Факультет" />
                </columns>
             </TableView>
          </children>
