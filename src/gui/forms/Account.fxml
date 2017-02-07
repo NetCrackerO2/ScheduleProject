@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AccountPane">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0" prefWidth="301.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="310.0" minWidth="10.0" prefWidth="299.0" />
@@ -26,13 +26,13 @@
       <Pane prefHeight="417.0" prefWidth="314.0" GridPane.columnIndex="1">
          <children>
             <Label layoutX="24.0" layoutY="27.0" text="Фамилия" />
-            <TextField layoutX="138.0" layoutY="23.0" />
+            <TextField fx:id="nameField" layoutX="138.0" layoutY="23.0" />
             <Label layoutX="23.0" layoutY="145.0" text="Группа" />
-            <ComboBox layoutX="137.0" layoutY="141.0" prefWidth="150.0" />
-            <Button layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Удалить" />
-            <Button layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Применить" />
+            <ComboBox fx:id="groupComboBox" layoutX="137.0" layoutY="141.0" prefWidth="150.0" />
+            <Button fx:id="deleteButton" layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Удалить" />
+            <Button fx:id="addButton" layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Применить" />
             <Label layoutX="23.0" layoutY="104.0" text="Кафедра" />
-            <ComboBox layoutX="137.0" layoutY="100.0" prefWidth="150.0" />
+            <ComboBox fx:id="cathedraComboBox" layoutX="137.0" layoutY="100.0" prefWidth="150.0" />
             <Label layoutX="23.0" layoutY="66.0" text="Пол" />
             <RadioButton layoutX="136.0" layoutY="66.0" mnemonicParsing="false" text="Мужской">
                <toggleGroup>
@@ -45,12 +45,12 @@
       </Pane>
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <TableView layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0">
+            <TableView fx:id="tableView" layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0">
                <columns>
-                  <TableColumn prefWidth="72.0" text="Фамилия" />
-                  <TableColumn prefWidth="59.0" text="Пол" />
-                  <TableColumn prefWidth="75.0" text="Кафедра" />
-                  <TableColumn prefWidth="93.0" text="Группа" />
+                  <TableColumn fx:id="nameColumn" prefWidth="72.0" text="Фамилия" />
+                  <TableColumn fx:id="genderColumn" prefWidth="59.0" text="Пол" />
+                  <TableColumn fx:id="cathedraColumn" prefWidth="75.0" text="Кафедра" />
+                  <TableColumn fx:id="groupColumn" prefWidth="93.0" text="Группа" />
                </columns>
             </TableView>
          </children>

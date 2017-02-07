@@ -34,7 +34,7 @@ public class MainForm {
    // private boolean rolesUpdated;
     private boolean cathedrasUpdated;
     private boolean facultyesUpdated;
-    //private boolean groupsUpdated;
+    private boolean groupsUpdated;
 
     private ContentPane currentContentPane;
 
@@ -46,7 +46,7 @@ public class MainForm {
        // roleList = new ArrayList<>();
         cathedraList = new ArrayList<>();
         facultyList = new ArrayList<>();
-        //groupList = new ArrayList<>();
+        groupList = new ArrayList<>();
     }
 
     public static MainForm getMainForm() {
@@ -98,6 +98,7 @@ public class MainForm {
 
     public void setGroupList(List<Group> groupList) {
         this.groupList = groupList;
+        groupsUpdated=true;
         updateContentPane();
     }
 
@@ -145,7 +146,7 @@ public class MainForm {
         //rolesUpdated = false;
         cathedrasUpdated = false;
         facultyesUpdated = false;
-        //groupsUpdated = false;
+        groupsUpdated = false;
 
         MessageBuilder messageBuilder = new MessageBuilder();
 
@@ -163,10 +164,10 @@ public class MainForm {
         messageBuilder.put("type", "CATHEDRA_LIST");
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
 
-//        messageBuilder.initialize();
-//        messageBuilder.setConnectionIndex(0);
-//        messageBuilder.put("type", "GROUP_LIST");
-//        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+        messageBuilder.initialize();
+        messageBuilder.setConnectionIndex(0);
+        messageBuilder.put("type", "GROUP_LIST");
+        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
 //
 //        messageBuilder.initialize();
 //        messageBuilder.setConnectionIndex(0);
@@ -184,7 +185,7 @@ public class MainForm {
                // && rolesUpdated
                 && cathedrasUpdated
                 && facultyesUpdated
-            //&& groupsUpdated
+            && groupsUpdated
                 )
             currentContentPane.update();
     }

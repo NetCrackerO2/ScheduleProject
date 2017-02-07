@@ -23,11 +23,11 @@
       <Pane prefHeight="417.0" prefWidth="314.0" GridPane.columnIndex="1">
          <children>
             <Label layoutX="24.0" layoutY="27.0" text="Название кафедры" />
-            <TextField fx:id="nameCathedraBox" layoutX="138.0" layoutY="23.0" />
+            <TextField fx:id="nameCathedraField" layoutX="138.0" layoutY="23.0" />
             <Label layoutX="24.0" layoutY="69.0" text="Факультет" />
             <ComboBox fx:id="facultyComboBox" layoutX="137.0" layoutY="65.0" prefWidth="150.0" />
             <Button fx:id="deleteButton" layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Удалить" />
-            <Button fx:id="addButton" layoutX="66.0" layoutY="320.0" mnemonicParsing="false" onAction="#addCathedra" prefHeight="37.0" prefWidth="80.0" text="Применить" />
+            <Button fx:id="addButton" layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Применить" />
          </children>
       </Pane>
       <Pane prefHeight="200.0" prefWidth="200.0">
