@@ -132,6 +132,7 @@ public class MainForm {
         try {
             Node node = FXMLLoader.load(this.getClass().getResource("forms/" + string + ".fxml"));
             this.framePane.getChildren().setAll(node);
+            currentContentPane.load();
             updateContentPane();
         } catch (IOException e) {
             System.out.println(e.getMessage());

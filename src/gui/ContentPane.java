@@ -6,5 +6,7 @@ public abstract class ContentPane {
         MainForm.getMainForm().setCurrentContentPane(this);
     }
 
+    public abstract void load();
+
     public abstract void update();
 }
