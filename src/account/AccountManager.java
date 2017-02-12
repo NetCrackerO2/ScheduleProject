@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import account.role.RoleAssignmentManager;
 import cathedra.CathedraManager;
+import faculty.FacultyManager;
 import group.GroupManager;
 import manager.GenericEntityManager;
 
@@ -27,6 +29,21 @@ public class AccountManager extends GenericEntityManager<Account> {
     @Override
     public Account newObject(int index) {
         return new AccountImpl(index);
+    }
+
+    @Override
+    public void removeObject(int index) {
+        synchronized (RoleAssignmentManager.getInstance()) {
+            synchronized (CathedraManager.getInstance()) {
+                if(CathedraManager.getInstance().getAllObjects().stream().anyMatch(x -> x.getHeadAccountIndex() == index))
+                    throw new IllegalArgumentException("Объект не может быть удален.");
+                if(FacultyManager.getInstance().getAllObjects().stream().anyMatch(x -> x.getDeanAccountIndex() == index))
+                    throw new IllegalArgumentException("Объект не может быть удален.");
+                RoleAssignmentManager.getInstance().getAllObjects().stream().filter(x -> x.getAccountIndex() == index)
+                        .forEach(x -> RoleAssignmentManager.getInstance().removeObject(x.getIndex()));
+                super.removeObject(index);
+            }
+        }
     }
 
     public List<Account> find(AccountSelector selector) {
