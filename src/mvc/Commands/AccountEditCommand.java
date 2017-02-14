@@ -8,8 +8,8 @@ import mvc.Controller;
 import org.json.simple.JSONObject;
 
 import account.Account;
-import account.AccountImpl;
 import account.AccountManager;
+import account.UnregistredAccount;
 import account.role.Permission;
 
 public class AccountEditCommand implements Command {
@@ -18,7 +18,7 @@ public class AccountEditCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        Account data = AccountImpl.fromJSONObject((JSONObject) message.getValue("data"));
+        Account data = new UnregistredAccount((JSONObject) message.getValue("data"));
         int index = data.getIndex();
         synchronized (AccountManager.getInstance()) {
             Account modified = AccountManager.getInstance().getObject(index);

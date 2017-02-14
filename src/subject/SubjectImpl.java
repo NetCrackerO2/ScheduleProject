@@ -29,45 +29,6 @@ public class SubjectImpl implements Subject {
 
         return jsonObject;
     }
-    
-
-    public static Subject fromJSONObject(JSONObject jsonObject) {
-        int index = (int)(long)(Long) jsonObject.get("index");
-        String name = (String) jsonObject.get("name");
-        int cathedra = (int)(long)(Long) jsonObject.get("cathedraIndex");
-
-        return new Subject() {
-            @Override
-            public int getIndex() {
-                return index;
-            }
-
-            @Override
-            public JSONObject getJSONObject() {
-                return jsonObject;
-            }
-
-            @Override
-            public String getName() {
-                return name;
-            }
-
-            @Override
-            public void setName(String name) {
-                throw new RuntimeException("Immutable object");
-            }
-
-            @Override
-            public int getCathedraIndex() {
-                return cathedra;
-            }
-
-            @Override
-            public void setCathedraIndex(int cathedraIndex) {
-                throw new RuntimeException("Immutable object");
-            }
-        };
-    }
 
     @Override
     public int getCathedraIndex() {

@@ -29,68 +29,6 @@ public class GroupImpl implements Group {
 
         return jsonObject;
     }
-    
-
-    public static Group fromJSONObject(JSONObject jsonObject) {
-        int index = (int)(long)(Long) jsonObject.get("index");
-        int number = (int)(long)(Long) jsonObject.get("number");
-        int cathedra = (int)(long)(Long) jsonObject.get("cathedraIndex");
-        int year = (int)(long)(Long) jsonObject.get("receiptYear");
-        int prof = (int)(long)(Long) jsonObject.get("professionCode");
-
-        return new Group() {
-            @Override
-            public int getIndex() {
-                return index;
-            }
-
-            @Override
-            public JSONObject getJSONObject() {
-                return jsonObject;
-            }
-
-            @Override
-            public int getCathedraIndex() {
-                return cathedra;
-            }
-
-            @Override
-            public void setCathedraIndex(int cathedraIndex) {
-                throw new RuntimeException("Immutable object");
-            }
-
-            @Override
-            public int getNumber() {
-                return number;
-            }
-
-            @Override
-            public void setNumber(int number) {
-                throw new RuntimeException("Immutable object");
-            }
-
-            @Override
-            public int getProfessionCode() {
-                return prof;
-            }
-
-            @Override
-            public void setProfessionCode(int professionCode) {
-                throw new RuntimeException("Immutable object");
-            }
-
-            @Override
-            public int getReceiptYear() {
-                return year;
-            }
-
-            @Override
-            public void setReceiptYear(int year) {
-                throw new RuntimeException("Immutable object");
-            }
-
-        };
-    }
 
     @Override
     public int getReceiptYear() {

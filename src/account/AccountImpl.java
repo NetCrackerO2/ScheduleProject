@@ -33,55 +33,6 @@ public class AccountImpl implements Account {
         return jsonObject;
     }
 
-    public static Account fromJSONObject(JSONObject jsonObject) {
-        int index = (int) (long) (Long) jsonObject.get("index");
-        String name = (String) jsonObject.get("name");
-        int group = (int) (long) (Long) jsonObject.get("groupIndex");
-        int cathedra = (int) (long) (Long) jsonObject.get("cathedraIndex");
-
-        return new Account() {
-            @Override
-            public int getIndex() {
-                return index;
-            }
-
-            @Override
-            public JSONObject getJSONObject() {
-                return jsonObject;
-            }
-
-            @Override
-            public String getName() {
-                return name;
-            }
-
-            @Override
-            public void setName(String name) {
-                throw new RuntimeException("Immutable object");
-            }
-
-            @Override
-            public int getGroupIndex() {
-                return group;
-            }
-
-            @Override
-            public void setGroupIndex(int groupIndex) {
-                throw new RuntimeException("Immutable object");
-            }
-
-            @Override
-            public int getCathedraIndex() {
-                return cathedra;
-            }
-
-            @Override
-            public void setCathedraIndex(int cathedraIndex) {
-                throw new RuntimeException("Immutable object");
-            }
-        };
-    }
-
     @Override
     public String getName() {
         return name;

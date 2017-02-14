@@ -6,8 +6,8 @@ import account.role.Permission;
 import connection.Message;
 import connection.MessageBuilder;
 import group.Group;
-import group.GroupImpl;
 import group.GroupManager;
+import group.UnregistredGroup;
 import mvc.Command;
 import mvc.Controller;
 
@@ -17,7 +17,7 @@ public class GroupEditCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        Group data = GroupImpl.fromJSONObject((JSONObject) message.getValue("data"));
+        Group data = new UnregistredGroup((JSONObject) message.getValue("data"));
         int index = data.getIndex();
         synchronized (GroupManager.getInstance()) {
             Group modified = GroupManager.getInstance().getObject(index);

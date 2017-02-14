@@ -9,8 +9,8 @@ import org.json.simple.JSONObject;
 
 import account.role.Permission;
 import cathedra.Cathedra;
-import cathedra.CathedraImpl;
 import cathedra.CathedraManager;
+import cathedra.UnregistredCathedra;
 
 public class CathedraEditCommand implements Command {
     @Override
@@ -18,7 +18,7 @@ public class CathedraEditCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        Cathedra data = CathedraImpl.fromJSONObject((JSONObject) message.getValue("data"));
+        Cathedra data = new UnregistredCathedra((JSONObject) message.getValue("data"));
         int index = data.getIndex();
         synchronized (CathedraManager.getInstance()) {
             Cathedra modified = CathedraManager.getInstance().getObject(index);

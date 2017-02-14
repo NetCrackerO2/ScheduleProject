@@ -8,8 +8,8 @@ import connection.MessageBuilder;
 import mvc.Command;
 import mvc.Controller;
 import subject.Subject;
-import subject.SubjectImpl;
 import subject.SubjectManager;
+import subject.UnregistredSubject;
 
 public class SubjectEditCommand implements Command {
     @Override
@@ -17,7 +17,7 @@ public class SubjectEditCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        Subject data = SubjectImpl.fromJSONObject((JSONObject) message.getValue("data"));
+        Subject data = new UnregistredSubject((JSONObject) message.getValue("data"));
         int index = data.getIndex();
         synchronized (SubjectManager.getInstance()) {
             Subject modified = SubjectManager.getInstance().getObject(index);

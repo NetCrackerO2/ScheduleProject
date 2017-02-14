@@ -29,44 +29,6 @@ public class FacultyImpl implements Faculty {
         return jsonObject;
     }
 
-    public static Faculty fromJSONObject(JSONObject jsonObject) {
-        int index = (int) (long) (Long) jsonObject.get("index");
-        int number = (int) (long) (Long) jsonObject.get("number");
-        int dean = (int) (long) (Long) jsonObject.get("deanAccountIndex");
-
-        return new Faculty() {
-            @Override
-            public int getIndex() {
-                return index;
-            }
-
-            @Override
-            public JSONObject getJSONObject() {
-                return jsonObject;
-            }
-
-            @Override
-            public int getNumber() {
-                return number;
-            }
-
-            @Override
-            public void setNumber(int number) {
-                throw new RuntimeException("Immutable object");
-            }
-
-            @Override
-            public int getDeanAccountIndex() {
-                return dean;
-            }
-
-            @Override
-            public void setDeanAccountIndex(int deanAccountIndex) {
-                throw new RuntimeException("Immutable object");
-            }
-        };
-    }
-
     @Override
     public int getNumber() {
         return number;

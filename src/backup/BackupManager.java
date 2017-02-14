@@ -5,27 +5,27 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import account.Account;
-import account.AccountImpl;
 import account.AccountManager;
+import account.UnregistredAccount;
 import account.role.Permission;
 import account.role.Role;
 import account.role.RoleAssignment;
-import account.role.RoleAssignmentImpl;
 import account.role.RoleAssignmentManager;
-import account.role.RoleImpl;
 import account.role.RoleManager;
+import account.role.UnregistredRole;
+import account.role.UnregistredRoleAssignment;
 import cathedra.Cathedra;
-import cathedra.CathedraImpl;
 import cathedra.CathedraManager;
+import cathedra.UnregistredCathedra;
 import faculty.Faculty;
-import faculty.FacultyImpl;
 import faculty.FacultyManager;
+import faculty.UnregistredFaculty;
 import group.Group;
-import group.GroupImpl;
 import group.GroupManager;
+import group.UnregistredGroup;
 import manager.GenericEntityManager;
+import subject.UnregistredSubject;
 import subject.Subject;
-import subject.SubjectImpl;
 import subject.SubjectManager;
 
 public class BackupManager {
@@ -71,27 +71,27 @@ public class BackupManager {
         HashMap<Integer, Integer> roleAssignmentMapping = new HashMap<>();
         try {
             for (Object obj : (JSONArray) data.get("roles")) {
-                Role backed = RoleImpl.fromJSONObject((JSONObject) obj);
+                Role backed = new UnregistredRole((JSONObject) obj);
                 Role created = RoleManager.getInstance().createObject();
                 roleMapping.put(backed.getIndex(), created.getIndex());
                 created.setName(backed.getName());
                 created.setPermissions(backed.getPermissions().toArray(new Permission[] {}));
             }
             for (Object obj : (JSONArray) data.get("faculties")) {
-                Faculty backed = FacultyImpl.fromJSONObject((JSONObject) obj);
+                Faculty backed = new UnregistredFaculty((JSONObject) obj);
                 Faculty created = FacultyManager.getInstance().createObject();
                 facultyMapping.put(backed.getIndex(), created.getIndex());
                 created.setNumber(backed.getNumber());
             }
             for (Object obj : (JSONArray) data.get("cathedras")) {
-                Cathedra backed = CathedraImpl.fromJSONObject((JSONObject) obj);
+                Cathedra backed = new UnregistredCathedra((JSONObject) obj);
                 Cathedra created = CathedraManager.getInstance().createObject();
                 cathedraMapping.put(backed.getIndex(), created.getIndex());
                 created.setName(backed.getName());
                 created.setFacultyIndex(facultyMapping.get(backed.getFacultyIndex()));
             }
             for (Object obj : (JSONArray) data.get("groups")) {
-                Group backed = GroupImpl.fromJSONObject((JSONObject) obj);
+                Group backed = new UnregistredGroup((JSONObject) obj);
                 Group created = GroupManager.getInstance().createObject();
                 groupMapping.put(backed.getIndex(), created.getIndex());
                 created.setNumber(backed.getNumber());
@@ -100,7 +100,7 @@ public class BackupManager {
                 created.setCathedraIndex(cathedraMapping.get(backed.getCathedraIndex()));
             }
             for (Object obj : (JSONArray) data.get("accounts")) {
-                Account backed = AccountImpl.fromJSONObject((JSONObject) obj);
+                Account backed = new UnregistredAccount((JSONObject) obj);
                 Account created = AccountManager.getInstance().createObject();
                 accountMapping.put(backed.getIndex(), created.getIndex());
                 created.setName(backed.getName());
@@ -108,14 +108,14 @@ public class BackupManager {
                 created.setCathedraIndex(cathedraMapping.get(backed.getCathedraIndex()));
             }
             for (Object obj : (JSONArray) data.get("subjects")) {
-                Subject backed = SubjectImpl.fromJSONObject((JSONObject) obj);
+                Subject backed = new UnregistredSubject((JSONObject) obj);
                 Subject created = SubjectManager.getInstance().createObject();
                 subjectMapping.put(backed.getIndex(), created.getIndex());
                 created.setName(backed.getName());
                 created.setCathedraIndex(cathedraMapping.get(backed.getCathedraIndex()));
             }
             for (Object obj : (JSONArray) data.get("role_assignments")) {
-                RoleAssignment backed = RoleAssignmentImpl.fromJSONObject((JSONObject) obj);
+                RoleAssignment backed = new UnregistredRoleAssignment((JSONObject) obj);
                 RoleAssignment created = RoleAssignmentManager.getInstance().createObject();
                 roleAssignmentMapping.put(backed.getIndex(), created.getIndex());
                 created.setAccountIndex(accountMapping.get(backed.getAccountIndex()));
@@ -123,12 +123,12 @@ public class BackupManager {
             }
 
             for (Object obj : (JSONArray) data.get("faculties")) {
-                Faculty backed = FacultyImpl.fromJSONObject((JSONObject) obj);
+                Faculty backed = new UnregistredFaculty((JSONObject) obj);
                 Faculty created = FacultyManager.getInstance().getObject(facultyMapping.get(backed.getIndex()));
                 created.setDeanAccountIndex(accountMapping.get(backed.getDeanAccountIndex()));
             }
             for (Object obj : (JSONArray) data.get("cathedras")) {
-                Cathedra backed = CathedraImpl.fromJSONObject((JSONObject) obj);
+                Cathedra backed = new UnregistredCathedra((JSONObject) obj);
                 Cathedra created = CathedraManager.getInstance().getObject(cathedraMapping.get(backed.getIndex()));
                 created.setHeadAccountIndex(accountMapping.get(backed.getHeadAccountIndex()));
             }

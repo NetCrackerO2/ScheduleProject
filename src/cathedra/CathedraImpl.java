@@ -34,55 +34,6 @@ public class CathedraImpl implements Cathedra {
         return jsonObject;
     }
 
-    public static Cathedra fromJSONObject(JSONObject jsonObject) {
-        int index = (int) (long) (Long) jsonObject.get("index");
-        String name = (String) jsonObject.get("name");
-        int faculty = (int) (long) (Long) jsonObject.get("facultyIndex");
-        int head = (int) (long) (Long) jsonObject.get("headAccountIndex");
-
-        return new Cathedra() {
-            @Override
-            public int getIndex() {
-                return index;
-            }
-
-            @Override
-            public JSONObject getJSONObject() {
-                return jsonObject;
-            }
-
-            @Override
-            public String getName() {
-                return name;
-            }
-
-            @Override
-            public void setName(String name) {
-                throw new RuntimeException("Immutable object");
-            }
-
-            @Override
-            public int getFacultyIndex() {
-                return faculty;
-            }
-
-            @Override
-            public void setFacultyIndex(int facultyIndex) {
-                throw new RuntimeException("Immutable object");
-            }
-
-            @Override
-            public int getHeadAccountIndex() {
-                return head;
-            }
-
-            @Override
-            public void setHeadAccountIndex(int headAccountIndex) {
-                throw new RuntimeException("Immutable object");
-            }
-        };
-    }
-
     @Override
     public String getName() {
         return this.name;

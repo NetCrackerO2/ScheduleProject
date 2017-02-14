@@ -6,8 +6,8 @@ import org.json.simple.JSONObject;
 
 import account.role.Permission;
 import account.role.Role;
-import account.role.RoleImpl;
 import account.role.RoleManager;
+import account.role.UnregistredRole;
 import connection.Message;
 import connection.MessageBuilder;
 import mvc.Command;
@@ -19,7 +19,7 @@ public class RoleEditCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        Role data = RoleImpl.fromJSONObject((JSONObject) message.getValue("data"));
+        Role data = new UnregistredRole((JSONObject) message.getValue("data"));
         int index = data.getIndex();
         synchronized (RoleManager.getInstance()) {
             Role modified = RoleManager.getInstance().getObject(index);

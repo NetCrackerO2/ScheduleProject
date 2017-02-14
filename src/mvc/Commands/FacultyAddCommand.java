@@ -6,8 +6,8 @@ import account.role.Permission;
 import connection.Message;
 import connection.MessageBuilder;
 import faculty.Faculty;
-import faculty.FacultyImpl;
 import faculty.FacultyManager;
+import faculty.UnregistredFaculty;
 import mvc.Command;
 import mvc.Controller;
 
@@ -17,7 +17,7 @@ public class FacultyAddCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        Faculty data = FacultyImpl.fromJSONObject((JSONObject) message.getValue("data"));
+        Faculty data = new UnregistredFaculty((JSONObject) message.getValue("data"));
         int index = -1;
         synchronized (FacultyManager.getInstance()) {
             Faculty inserted = FacultyManager.getInstance().createObject();

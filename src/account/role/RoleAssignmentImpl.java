@@ -50,44 +50,4 @@ public class RoleAssignmentImpl implements RoleAssignment {
         jsonObject.put("role", roleIndex);
         return jsonObject;
     }
-
-    public static RoleAssignment fromJSONObject(JSONObject jsonObject) {
-        int index = (int) (long) (Long) jsonObject.get("index");
-        int account = (int) (long) (Long) jsonObject.get("account");
-        int role = (int) (long) (Long) jsonObject.get("role");
-
-        return new RoleAssignment() {
-
-            @Override
-            public int getIndex() {
-                return index;
-            }
-
-            @Override
-            public JSONObject getJSONObject() {
-                return null;
-            }
-
-            @Override
-            public int getAccountIndex() {
-                return account;
-            }
-
-            @Override
-            public void setAccountIndex(int accountIndex) {
-                throw new RuntimeException("Immutable object");
-            }
-
-            @Override
-            public int getRoleIndex() {
-                return role;
-            }
-
-            @Override
-            public void setRoleIndex(int roleIndex) {
-                throw new RuntimeException("Immutable object");
-            }
-            
-        };
-    }
 }

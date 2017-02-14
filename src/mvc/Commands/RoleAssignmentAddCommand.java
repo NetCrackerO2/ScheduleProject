@@ -4,8 +4,8 @@ import org.json.simple.JSONObject;
 
 import account.role.Permission;
 import account.role.RoleAssignment;
-import account.role.RoleAssignmentImpl;
 import account.role.RoleAssignmentManager;
+import account.role.UnregistredRoleAssignment;
 import connection.Message;
 import connection.MessageBuilder;
 import mvc.Command;
@@ -17,7 +17,7 @@ public class RoleAssignmentAddCommand implements Command {
         MessageBuilder messageBuilder = new MessageBuilder();
         messageBuilder.setConnectionIndex(message.getConnectionIndex());
         messageBuilder.put("type", message.getValue("type"));
-        RoleAssignment data = RoleAssignmentImpl.fromJSONObject((JSONObject) message.getValue("data"));
+        RoleAssignment data = new UnregistredRoleAssignment((JSONObject) message.getValue("data"));
         int index = -1;
         synchronized (RoleAssignmentManager.getInstance()) {
             RoleAssignment inserted = RoleAssignmentManager.getInstance().createObject();
