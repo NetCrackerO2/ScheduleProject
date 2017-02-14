@@ -4,9 +4,9 @@ import cathedra.CathedraManager;
 import org.json.simple.JSONObject;
 
 public class GroupImpl implements Group {
-    private int index;
-    private int cathedraIndex;
-    private int number, receiptYear, professionCode;
+    private int index = -1;
+    private int cathedraIndex = -1;
+    private int number = -1, receiptYear = -1, professionCode = -1;
 
     GroupImpl(int index) {
         this.index = index;

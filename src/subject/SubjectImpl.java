@@ -6,8 +6,8 @@ import org.json.simple.JSONObject;
 import java.util.Objects;
 
 public class SubjectImpl implements Subject {
-    private int index;
-    private int cathedraIndex;
+    private int index = -1;
+    private int cathedraIndex = -1;
     private String name;
 
     SubjectImpl(int index) {
