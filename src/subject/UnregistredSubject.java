@@ -7,11 +7,11 @@ public class UnregistredSubject implements Subject {
     private int cathedraIndex;
     private String name;
 
-    UnregistredSubject(int index) {
+    public UnregistredSubject(int index) {
         this.index = index;
     }
 
-    UnregistredSubject(JSONObject jsonObject) {
+    public UnregistredSubject(JSONObject jsonObject) {
         index = (int) (long) (Long) jsonObject.get("index");
         name = (String) jsonObject.get("name");
         cathedraIndex = (int) (long) (Long) jsonObject.get("cathedraIndex");

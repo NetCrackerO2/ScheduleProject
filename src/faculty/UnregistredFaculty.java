@@ -7,11 +7,11 @@ public class UnregistredFaculty implements Faculty {
     private int number = -1;
     private int deanAccountIndex = -1;
 
-    UnregistredFaculty(int index) {
+    public UnregistredFaculty(int index) {
         this.index = index;
     }
 
-    UnregistredFaculty(JSONObject jsonObject) {
+    public UnregistredFaculty(JSONObject jsonObject) {
         index = (int) (long) (Long) jsonObject.get("index");
         number = (int) (long) (Long) jsonObject.get("number");
         deanAccountIndex = (int) (long) (Long) jsonObject.get("deanAccountIndex");
