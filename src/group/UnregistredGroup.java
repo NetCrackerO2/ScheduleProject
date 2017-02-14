@@ -7,11 +7,11 @@ public class UnregistredGroup implements Group {
     private int cathedraIndex = -1;
     private int number = -1, receiptYear = -1, professionCode = -1;
 
-    UnregistredGroup(int index) {
+    public UnregistredGroup(int index) {
         this.index = index;
     }
 
-    UnregistredGroup(JSONObject jsonObject) {
+    public UnregistredGroup(JSONObject jsonObject) {
         index = (int) (long) (Long) jsonObject.get("index");
         number = (int) (long) (Long) jsonObject.get("number");
         cathedraIndex = (int) (long) (Long) jsonObject.get("cathedraIndex");
