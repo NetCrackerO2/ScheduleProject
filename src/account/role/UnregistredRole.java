@@ -11,11 +11,11 @@ public class UnregistredRole implements Role {
     private String name;
     private List<Permission> permissionList = new ArrayList<>();
 
-    UnregistredRole(int index) {
+    public UnregistredRole(int index) {
         this.index = index;
     }
 
-    UnregistredRole(JSONObject jsonObject) {
+    public UnregistredRole(JSONObject jsonObject) {
         index = (int) (long) (Long) jsonObject.get("index");
         name = (String) jsonObject.get("name");
         Permission[] perms = (Permission[])((JSONArray) jsonObject.get("permissionList")).toArray();
