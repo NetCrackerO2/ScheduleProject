@@ -22,11 +22,13 @@ public class Main {
         SubjectManager subjectManager = SubjectManager.getInstance();
         RoleManager roleManager = RoleManager.getInstance();
 
-        Faculty faculty1, faculty2;
+        Faculty faculty1, faculty2, faculty3;
         faculty1 = facultyManager.createObject();
         faculty2 = facultyManager.createObject();
+        faculty3 = facultyManager.createObject();
         faculty1.setNumber(1);
         faculty2.setNumber(2);
+        faculty3.setNumber(3);
 
         // Распределяем кафедры по факультетам
         Cathedra cathedra1, cathedra2, cathedra3;
@@ -112,6 +114,8 @@ public class Main {
         roleManager.addRole(accounts[7].getIndex(), roleManager.getObject(3));
         roleManager.addRole(accounts[8].getIndex(), roleManager.getObject(0));
         roleManager.addRole(accounts[9].getIndex(), roleManager.getObject(0));
+
+        faculty2.setDeanAccountIndex(accounts[7].getIndex());
 
         /////////////////////////////////////////////////////////////////////////
 

@@ -17,11 +17,11 @@
         <Label layoutX="24.0" layoutY="27.0" text="Номер факультета"/>
         <TextField layoutX="138.0" layoutY="23.0" fx:id="test"/>
         <Label layoutX="24.0" layoutY="69.0" text="Декан"/>
-        <ComboBox layoutX="137.0" layoutY="65.0" prefWidth="150.0"/>
+        <ComboBox layoutX="137.0" layoutY="65.0" prefWidth="150.0" fx:id="deanComboBox"/>
         <Button layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0"
                 text="Удалить" fx:id="deleteButton"/>
         <Button layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0"
-                text="Применить"/>
+                text="Применить" fx:id="acceptButton"/>
     </Pane>
     <Pane prefHeight="200.0" prefWidth="200.0">
         <TableView layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0" fx:id="tableView">

@@ -4,18 +4,12 @@ package gui;
 import account.Account;
 import connection.MessageBuilder;
 import faculty.Faculty;
-import faculty.FacultyImpl;
-import faculty.FacultyManager;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
 import mvc.Controller;
+import org.json.simple.JSONObject;
 
 
 public class FacultyPane extends ContentPane {
@@ -25,6 +19,8 @@ public class FacultyPane extends ContentPane {
     public TableColumn<Faculty, String> deanColumn;
     public TextField test;
     public Button deleteButton;
+    public ComboBox deanComboBox;
+    public Button acceptButton;
 
     public FacultyPane() {
         super();
@@ -50,11 +46,28 @@ public class FacultyPane extends ContentPane {
             messageBuilder.put("index", faculty.getIndex());
             Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
         });
+
+        acceptButton.setOnMouseClicked(event -> {
+            JSONObject jsonObject = new JSONObject();
+
+            jsonObject.put("index", 0);
+            jsonObject.put("number", Integer.parseInt(test.getText()));
+            jsonObject.put("deanAccountIndex", 7);
+
+            MessageBuilder messageBuilder = new MessageBuilder();
+            messageBuilder.setConnectionIndex(0);
+            messageBuilder.put("type", "FACULTY_ADD");
+            messageBuilder.put("data", jsonObject);
+            Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+        });
     }
 
     private void showFacultyDetails(Faculty newValue) {
-        if (newValue != null)
+        if (newValue != null) {
             test.setText("" + newValue.getNumber());
+            deanComboBox.getItems().clear();
+            deanComboBox.getItems().add(deanColumn.getCellData(newValue));
+        }
     }
 
     @Override
