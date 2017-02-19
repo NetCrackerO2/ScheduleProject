@@ -25,10 +25,7 @@
     </Pane>
     <Pane prefHeight="200.0" prefWidth="200.0">
         <TableView layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0" fx:id="tableView">
-            <columns>
-                <TableColumn prefWidth="118.0" text="Номер факультета" fx:id="numberColumn"/>
-                <TableColumn prefWidth="181.0" text="Декан" fx:id="deanColumn"/>
-            </columns>
+
         </TableView>
     </Pane>
 </GridPane>

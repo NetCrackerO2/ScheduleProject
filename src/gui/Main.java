@@ -43,17 +43,24 @@ public class Main extends Application {
             }
 
             ///// Команды контролера /////
-            controller.addCommand(new FacultyListCommand());
-            controller.addCommand(new AccountListCommand());
             controller.addCommand(new AccountAddCommand());
+            controller.addCommand(new AccountListCommand());
             controller.addCommand(new AccountRemoveCommand());
-            controller.addCommand(new FacultyRemoveCommand());
-            controller.addCommand(new CathedraListCommand());
+
             controller.addCommand(new CathedraAddCommand());
+            controller.addCommand(new CathedraListCommand());
             controller.addCommand(new CathedraRemoveCommand());
-            controller.addCommand(new GroupListCommand());
+
+            controller.addCommand(new FacultyAddCommand());
+            controller.addCommand(new FacultyChangedCommand());
+            controller.addCommand(new FacultyEditCommand());
+            controller.addCommand(new FacultyListCommand());
+            controller.addCommand(new FacultyRemoveCommand());
+
             controller.addCommand(new GroupAddCommand());
+            controller.addCommand(new GroupListCommand());
             controller.addCommand(new GroupRemoveCommand());
+
             controller.addCommand(new RoleListCommand());
             //////////////////////////////
 
