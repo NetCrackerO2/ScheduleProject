@@ -1,7 +1,6 @@
 package gui;
 
-
-import com.sun.istack.internal.NotNull;
+import com.sun.istack.NotNull;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -16,7 +15,7 @@ import java.util.List;
 
 enum NewRowStatus {
     ACTIVE,
-    NONACTIVE
+    INACTIVE
 }
 
 
@@ -25,7 +24,9 @@ class TableManager<T extends Entity> {
     private boolean isNewRowActive;
     private boolean isNewRowSelected;
     private T newObject;
-    private ChangeListener<? super T> changeListener; // Может пригодится
+    private OnSelectListener<? super T> onSelectListener; // Может пригодится
+    
+    interface OnSelectListener<T> extends ChangeListener<T>{}
 
 
     /**
@@ -40,7 +41,7 @@ class TableManager<T extends Entity> {
         this.newObject = isNewRowActive ? newObject : null;
         isNewRowSelected = false;
 
-        setChangeListener((observable, oldValue, newValue) -> {
+        setOnSelectListener((observable, oldValue, newValue) -> {
         });
 
         if (isNewRowActive)
@@ -90,18 +91,19 @@ class TableManager<T extends Entity> {
      * Получение выделенного в таблице объекта
      */
     T getSelectedItem() {
+        if (tableView.getSelectionModel().getSelectedIndex() < 0) return null;
         return tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
     }
 
     /**
      * Установка обработчика изменения выделенной строки
      */
-    void setChangeListener(ChangeListener<? super T> changeListener) {
-        this.changeListener = changeListener;
+    void setOnSelectListener(OnSelectListener<? super T> onSelectListener) {
+        this.onSelectListener = onSelectListener;
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             isNewRowSelected = (isNewRowActive && newValue == newObject);
 
-            changeListener.changed(observable, oldValue, newValue);
+            onSelectListener.changed(observable, oldValue, newValue);
         });
     }
 

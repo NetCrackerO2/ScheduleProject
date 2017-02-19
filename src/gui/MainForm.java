@@ -1,11 +1,11 @@
 package gui;
 
-
 import account.Account;
 import account.role.Role;
 import cathedra.Cathedra;
 import connection.MessageBuilder;
 import faculty.Faculty;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import group.Group;
@@ -16,7 +16,6 @@ import mvc.Controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class MainForm {
     private static MainForm mainForm;
@@ -31,19 +30,18 @@ public class MainForm {
     private List<Group> groupList;
 
     private boolean accountsUpdated;
-   // private boolean rolesUpdated;
+    // private boolean rolesUpdated;
     private boolean cathedrasUpdated;
     private boolean facultyesUpdated;
     private boolean groupsUpdated;
 
     private ContentPane currentContentPane;
 
-
     public MainForm() {
         mainForm = this;
 
         accountList = new ArrayList<>();
-       // roleList = new ArrayList<>();
+        // roleList = new ArrayList<>();
         cathedraList = new ArrayList<>();
         facultyList = new ArrayList<>();
         groupList = new ArrayList<>();
@@ -78,7 +76,7 @@ public class MainForm {
 
     public void setCathedraList(List<Cathedra> cathedraList) {
         this.cathedraList = cathedraList;
-        cathedrasUpdated=true;
+        cathedrasUpdated = true;
         updateContentPane();
     }
 
@@ -98,15 +96,13 @@ public class MainForm {
 
     public void setGroupList(List<Group> groupList) {
         this.groupList = groupList;
-        groupsUpdated=true;
+        groupsUpdated = true;
         updateContentPane();
     }
-
 
     public void setCurrentContentPane(ContentPane currentContentPane) {
         this.currentContentPane = currentContentPane;
     }
-
 
     public void showFaculty() {
         showPane("Faculty");
@@ -128,7 +124,6 @@ public class MainForm {
         showPane("Role");
     }
 
-
     private void showPane(String string) {
         try {
             Node node = FXMLLoader.load(this.getClass().getResource("forms/" + string + ".fxml"));
@@ -140,10 +135,9 @@ public class MainForm {
         }
     }
 
-
     public void updateAllData() {
         accountsUpdated = false;
-        //rolesUpdated = false;
+        // rolesUpdated = false;
         cathedrasUpdated = false;
         facultyesUpdated = false;
         groupsUpdated = false;
@@ -168,25 +162,29 @@ public class MainForm {
         messageBuilder.setConnectionIndex(0);
         messageBuilder.put("type", "GROUP_LIST");
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
-//
-//        messageBuilder.initialize();
-//        messageBuilder.setConnectionIndex(0);
-//        messageBuilder.put("type", "ROLE_LIST");
-//        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+        //
+        // messageBuilder.initialize();
+        // messageBuilder.setConnectionIndex(0);
+        // messageBuilder.put("type", "ROLE_LIST");
+        // Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
 
     }
-
 
     private void updateContentPane() {
         if (currentContentPane == null)
             return;
 
         if (accountsUpdated
-               // && rolesUpdated
-                && cathedrasUpdated
-                && facultyesUpdated
-            && groupsUpdated
-                )
-            currentContentPane.update();
+                // && rolesUpdated
+                && cathedrasUpdated && facultyesUpdated && groupsUpdated)
+            if (!Platform.isFxApplicationThread())
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        currentContentPane.update();
+                    }
+                });
+            else
+                currentContentPane.update();
     }
 }

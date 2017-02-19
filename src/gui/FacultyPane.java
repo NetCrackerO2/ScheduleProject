@@ -85,7 +85,7 @@ public class FacultyPane extends ContentPane {
                     return deanName;
                 }
         );
-        tableManager.setChangeListener(
+        tableManager.setOnSelectListener(
                 (observable, oldValue, newValue) -> showFacultyDetails(newValue)
         );
 
@@ -133,15 +133,22 @@ public class FacultyPane extends ContentPane {
     }
 
     private void showFacultyDetails(Faculty newValue) {
+        deanComboBox.getItems().clear();
+        test.setText("");
         if (newValue != null) {
             test.setText("" + newValue.getNumber());
-            deanComboBox.getItems().clear();
             deanComboBox.getItems().add(newValue.getDeanAccountIndex());
         }
     }
 
     @Override
     public void update() {
+        final Faculty selected = tableManager.getSelectedItem();
         tableManager.setItems(MainForm.getMainForm().getFacultyList());
+        if (selected != null
+                && MainForm.getMainForm().getFacultyList().stream().anyMatch(x -> x.getIndex() == selected.getIndex()))
+            showFacultyDetails(selected);
+        else
+            showFacultyDetails(null);
     }
 }
