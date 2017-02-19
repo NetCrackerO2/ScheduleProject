@@ -2,8 +2,7 @@ package gui;
 
 
 import cathedra.Cathedra;
-import cathedra.CathedraImpl;
-import cathedra.CathedraManager;
+import cathedra.UnregistredCathedra;
 import connection.MessageBuilder;
 import faculty.Faculty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -12,8 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 import mvc.Controller;
-
-import java.util.stream.Collectors;
 
 public class CathedraPane extends ContentPane {
 
@@ -79,7 +76,7 @@ public class CathedraPane extends ContentPane {
             MessageBuilder messageBuilder = new MessageBuilder();
             messageBuilder.setConnectionIndex(0);
             messageBuilder.put("type", "CATHEDRA_ADD");
-            Cathedra newCathedra = CathedraManager.getInstance().createObject();
+            Cathedra newCathedra = new UnregistredCathedra(0);
             newCathedra.setName(nameCathedraField.getText());
             newCathedra.setFacultyIndex(facultyComboBox.getValue().getIndex());
             messageBuilder.put("data", newCathedra.getJSONObject());

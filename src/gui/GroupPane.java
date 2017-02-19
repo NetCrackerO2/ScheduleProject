@@ -3,12 +3,10 @@ package gui;
 
 import cathedra.Cathedra;
 import connection.MessageBuilder;
-import faculty.Faculty;
 import group.Group;
-import group.GroupManager;
+import group.UnregistredGroup;
 import gui.ContentPane;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.*;
 import javafx.util.Callback;
@@ -43,7 +41,7 @@ public class GroupPane extends ContentPane {
             MessageBuilder messageBuilder = new MessageBuilder();
             messageBuilder.setConnectionIndex(0);
             messageBuilder.put("type", "CATHEDRA_ADD");
-            Group newGroup = GroupManager.getInstance().createObject();
+            Group newGroup = new UnregistredGroup(0);
             newGroup.setNumber(Integer.parseInt(groupNumberField.getText()));
             newGroup.setCathedraIndex(cathedraComboBox.getValue().getIndex());
             messageBuilder.put("data", newGroup.getJSONObject());

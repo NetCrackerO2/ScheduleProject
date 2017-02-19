@@ -2,7 +2,7 @@ package gui;
 
 
 import account.Account;
-import account.AccountManager;
+import account.UnregistredAccount;
 import cathedra.Cathedra;
 import connection.MessageBuilder;
 import group.Group;
@@ -51,7 +51,7 @@ public class AccountPane extends ContentPane {
             MessageBuilder messageBuilder = new MessageBuilder();
             messageBuilder.setConnectionIndex(0);
             messageBuilder.put("type", "ACCOUNT_ADD");
-            Account newAccount= AccountManager.getInstance().createObject();
+            Account newAccount= new UnregistredAccount(0);
 
             newAccount.setName(nameField.getText());
             newAccount.setCathedraIndex(cathedraComboBox.getValue().getIndex());

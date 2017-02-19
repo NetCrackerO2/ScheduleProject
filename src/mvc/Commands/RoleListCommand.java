@@ -1,12 +1,9 @@
 package mvc.Commands;
 
-
 import account.role.Permission;
 import account.role.Role;
-import account.role.RoleImpl;
+import account.role.UnregistredRole;
 import connection.Message;
-import group.Group;
-import group.GroupImpl;
 import gui.MainForm;
 import mvc.Command;
 import org.json.simple.JSONArray;
@@ -22,7 +19,7 @@ public class RoleListCommand implements Command {
         jsonArray = (JSONArray) message.getValue("data");
         List<Role> roleList = new ArrayList<>();
         for (Object object : jsonArray.toArray())
-            roleList.add(RoleImpl.fromJSONObject((JSONObject) object));
+            roleList.add(new UnregistredRole((JSONObject) object));
         MainForm.getMainForm().setRoleList(roleList);
     }
 
@@ -33,6 +30,6 @@ public class RoleListCommand implements Command {
 
     @Override
     public Permission[] getRequiredPermissions() {
-        return new Permission[]{};
+        return new Permission[] {};
     }
 }

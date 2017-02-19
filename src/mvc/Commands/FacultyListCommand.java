@@ -4,7 +4,7 @@ package mvc.Commands;
 import account.role.Permission;
 import connection.Message;
 import faculty.Faculty;
-import faculty.FacultyImpl;
+import faculty.UnregistredFaculty;
 import gui.MainForm;
 import mvc.Command;
 import org.json.simple.JSONArray;
@@ -21,7 +21,7 @@ public class FacultyListCommand implements Command {
         jsonArray = (JSONArray) message.getValue("data");
         List<Faculty> facultyList = new ArrayList<>();
         for (Object object : jsonArray.toArray())
-            facultyList.add(FacultyImpl.fromJSONObject((JSONObject) object));
+            facultyList.add(new UnregistredFaculty((JSONObject) object));
         MainForm.getMainForm().setFacultyList(facultyList);
     }
 

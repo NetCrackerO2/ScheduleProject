@@ -2,7 +2,7 @@ package mvc.Commands;
 
 
 import account.Account;
-import account.AccountImpl;
+import account.UnregistredAccount;
 import account.role.Permission;
 import connection.Message;
 import gui.MainForm;
@@ -21,7 +21,7 @@ public class AccountListCommand implements Command {
         jsonArray = (JSONArray) message.getValue("data");
         List<Account> accountList = new ArrayList<>();
         for (Object object : jsonArray.toArray())
-            accountList.add(AccountImpl.fromJSONObject((JSONObject) object));
+            accountList.add(new UnregistredAccount((JSONObject) object));
         MainForm.getMainForm().setAccountList(accountList);
     }
 

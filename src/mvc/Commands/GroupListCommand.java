@@ -1,10 +1,9 @@
 package mvc.Commands;
 
-
 import account.role.Permission;
 import connection.Message;
 import group.Group;
-import group.GroupImpl;
+import group.UnregistredGroup;
 import gui.MainForm;
 import mvc.Command;
 import org.json.simple.JSONArray;
@@ -20,7 +19,7 @@ public class GroupListCommand implements Command {
         jsonArray = (JSONArray) message.getValue("data");
         List<Group> groupList = new ArrayList<>();
         for (Object object : jsonArray.toArray())
-            groupList.add(GroupImpl.fromJSONObject((JSONObject) object));
+            groupList.add(new UnregistredGroup((JSONObject) object));
         MainForm.getMainForm().setGroupList(groupList);
     }
 
@@ -31,6 +30,6 @@ public class GroupListCommand implements Command {
 
     @Override
     public Permission[] getRequiredPermissions() {
-        return new Permission[]{};
+        return new Permission[] {};
     }
 }
