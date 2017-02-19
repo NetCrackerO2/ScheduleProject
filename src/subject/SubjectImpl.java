@@ -60,7 +60,7 @@ public class SubjectImpl implements Subject {
     @Override
     public void setName(String name) {
         if (SubjectManager.getInstance().getAllObjects().stream()
-                .anyMatch(subject -> Objects.equals(subject.getName(), name)))
+                .anyMatch(subject -> Objects.equals(subject.getName(), name) && subject != this))
             throw new IllegalArgumentException("Предмет с таким именем уже существует.");
 
         this.name = name;

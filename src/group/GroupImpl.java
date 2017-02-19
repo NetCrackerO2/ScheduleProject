@@ -69,7 +69,7 @@ public class GroupImpl implements Group {
 
     @Override
     public void setNumber(int number) {
-        if (GroupManager.getInstance().getAllObjects().stream().anyMatch(group -> group.getNumber() == number))
+        if (GroupManager.getInstance().getAllObjects().stream().anyMatch(group -> group.getNumber() == number && group != this))
             throw new IllegalArgumentException("Группа с таким номером уже существует!");
 
         this.number = number;

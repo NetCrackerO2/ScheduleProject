@@ -36,7 +36,7 @@ public class FacultyImpl implements Faculty {
 
     @Override
     public void setNumber(int number) {
-        if (FacultyManager.getInstance().getAllObjects().stream().anyMatch(faculty -> faculty.getNumber() == number))
+        if (FacultyManager.getInstance().getAllObjects().stream().anyMatch(faculty -> faculty.getNumber() == number && faculty != this))
             throw new IllegalArgumentException("Факультет с таким номером уже существует.");
 
         this.number = number;

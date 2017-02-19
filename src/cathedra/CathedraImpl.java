@@ -47,7 +47,7 @@ public class CathedraImpl implements Cathedra {
     @Override
     public void setName(String name) {
         if (CathedraManager.getInstance().getAllObjects().stream()
-                .anyMatch(cathedra -> Objects.equals(cathedra.getName(), name)))
+                .anyMatch(cathedra -> Objects.equals(cathedra.getName(), name) && cathedra != this))
             throw new IllegalArgumentException("Кафедра с таким именем уже существует.");
 
         this.name = name;

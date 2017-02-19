@@ -29,7 +29,7 @@ public class RoleAssignmentImpl implements RoleAssignment {
     @Override
     public void setAccountIndex(int accountIndex) {
         if (RoleAssignmentManager.getInstance().getAllObjects().stream()
-                .anyMatch(ra -> ra.getAccountIndex() == accountIndex && ra.getRoleIndex() == roleIndex))
+                .anyMatch(ra -> ra.getAccountIndex() == accountIndex && ra.getRoleIndex() == roleIndex && ra != this))
             throw new IllegalArgumentException("Аккаунт уже имеет эту роль.");
         this.accountIndex = accountIndex;
     }
@@ -37,7 +37,7 @@ public class RoleAssignmentImpl implements RoleAssignment {
     @Override
     public void setRoleIndex(int roleIndex) {
         if (RoleAssignmentManager.getInstance().getAllObjects().stream()
-                .anyMatch(ra -> ra.getAccountIndex() == accountIndex && ra.getRoleIndex() == roleIndex))
+                .anyMatch(ra -> ra.getAccountIndex() == accountIndex && ra.getRoleIndex() == roleIndex && ra != this))
             throw new IllegalArgumentException("Аккаунт уже имеет эту роль.");
         this.roleIndex = roleIndex;
     }
