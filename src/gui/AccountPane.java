@@ -5,13 +5,17 @@ import java.util.stream.Collectors;
 import account.Account;
 import account.UnregistredAccount;
 import cathedra.Cathedra;
+import cathedra.UnregistredCathedra;
 import group.Group;
+import group.UnregistredGroup;
 import javafx.scene.control.*;
 
 public class AccountPane extends PaneManager<Account> {
 
     public AccountPane() {
         super("ACCOUNT");
+        defaultCathedra.setName("Не задано");
+        defaultGroup.setNumber(-1);
     }
 
     public TableView<Account> tableView;
@@ -22,6 +26,9 @@ public class AccountPane extends PaneManager<Account> {
     public Button addButton;
     public Button deleteButton;
 
+    Cathedra defaultCathedra = new UnregistredCathedra(-1);
+    Group defaultGroup = new UnregistredGroup(-1);
+
     @Override
     public void load() {
         TableManager<Account> tableManager = new TableManager<Account>(tableView, NewRowStatus.ACTIVE,
@@ -29,13 +36,13 @@ public class AccountPane extends PaneManager<Account> {
         tableManager.addColumn("Фамилия", String.class, account -> account.getName());
         tableManager.addColumn("Кафедра", String.class, account -> {
             if (account.getCathedraIndex() < 0)
-                return "Не задана";
+                return defaultCathedra.toString();
             return MainForm.getMainForm().getCathedraList().stream()
                     .filter(object -> object.getIndex() == account.getCathedraIndex()).findFirst().get().toString();
         });
         tableManager.addColumn("Группа", String.class, account -> {
             if (account.getCathedraIndex() < 0)
-                return "Не задана";
+                return defaultGroup.toString();
             return MainForm.getMainForm().getGroupList().stream()
                     .filter(object -> object.getIndex() == account.getGroupIndex()).findFirst().get().toString();
         });
@@ -59,7 +66,7 @@ public class AccountPane extends PaneManager<Account> {
         }
         if (cathedraComboBox.getValue() == null) {
             // TODO: уведомление о необходимости выбрать кафедру
-            System.out.println("Напишите фамилию пользователя");
+            System.out.println("Выберите кафедру пользователя");
             return null;
         }
         if (groupComboBox.getValue() == null) {
@@ -84,11 +91,13 @@ public class AccountPane extends PaneManager<Account> {
             if (object.getCathedraIndex() >= 0)
                 cathedraComboBox.getItems().add(MainForm.getMainForm().getCathedraList().stream()
                         .filter(x -> x.getIndex() == object.getCathedraIndex()).findFirst().get());
+            cathedraComboBox.getItems().add(defaultCathedra);
             cathedraComboBox.getItems().addAll(MainForm.getMainForm().getCathedraList().stream()
                     .filter(x -> x.getIndex() != object.getCathedraIndex()).collect(Collectors.toList()));
             if (object.getCathedraIndex() >= 0)
                 groupComboBox.getItems().add(MainForm.getMainForm().getGroupList().stream()
                         .filter(x -> x.getIndex() == object.getGroupIndex()).findFirst().get());
+            groupComboBox.getItems().add(defaultGroup);
             groupComboBox.getItems().addAll(MainForm.getMainForm().getGroupList().stream()
                     .filter(x -> x.getIndex() != object.getGroupIndex()).collect(Collectors.toList()));
         }
