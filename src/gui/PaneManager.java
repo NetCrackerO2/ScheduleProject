@@ -1,15 +1,15 @@
 package gui;
 
-
 import connection.MessageBuilder;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import manager.Entity;
 import mvc.Controller;
 import org.json.simple.JSONObject;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 
 public abstract class PaneManager<T extends Entity> extends ContentPane {
     private String commandTitle;
@@ -22,7 +22,6 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
         this.commandTitle = commandTitle;
     }
 
-
     public void setTableManager(TableManager<T> tableManager) {
         this.tableManager = tableManager;
         this.tableManager.setOnSelectListener((a, oldValue, newValue) -> onShowDetails(newValue));
@@ -31,7 +30,8 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
     /**
      * Устанавливает обработчик изменения/добавления записи на кнопку
      *
-     * @param acceptButton Объект кнопки "Применить"
+     * @param acceptButton
+     *            Объект кнопки "Применить"
      */
     public void setAcceptButton(Button acceptButton) {
         this.acceptButton = acceptButton;
@@ -68,7 +68,8 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
     /**
      * Устанавливает обработчик удаления записи на кнопку
      *
-     * @param deleteButton Объект кнопки "Удалить"
+     * @param deleteButton
+     *            Объект кнопки "Удалить"
      */
     public void setDeleteButton(Button deleteButton) {
         this.deleteButton = deleteButton;
@@ -89,15 +90,16 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
     /**
      * Создание объекта на основе значений полей формы
      *
-     * @return Объект, проинициализированный значениями полей формы
-     * Индекс объекта не важен (лучше -1)
+     * @return Объект, проинициализированный значениями полей формы Индекс
+     *         объекта не важен (лучше -1)
      */
     protected abstract T onConfirm();
 
     /**
      * Вывод информации об объекте в поля формы
      *
-     * @param object Объект, информация о котором будет выведена в поля формы
+     * @param object
+     *            Объект, информация о котором будет выведена в поля формы
      */
     protected abstract void onShowDetails(T object);
 
@@ -119,5 +121,22 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
             tableManager.setSelectedIndex(source.indexOf(selected.get()));
         } else
             onShowDetails(null);
+    }
+
+    /**
+     * Заполняет комбобокс учитывая значение по умолчанию(не установленное)
+     * @param comboBox
+     * @param selectedIndex
+     * @param defaultObject
+     * @param data
+     */
+    protected <T extends Entity> void updateComboBox(ComboBox<T> comboBox, int selectedIndex, T defaultObject,
+            List<T> data) {
+        if (selectedIndex >= 0)
+            comboBox.getItems().add(data.stream().filter(x -> x.getIndex() == selectedIndex).findFirst().get());
+        comboBox.getItems().add(defaultObject);
+        comboBox.getItems()
+                .addAll(data.stream().filter(x -> x.getIndex() != selectedIndex).collect(Collectors.toList()));
+        comboBox.setValue(comboBox.getItems().get(0));
     }
 }
