@@ -1,33 +1,30 @@
 package gui;
 
-
 import connection.MessageBuilder;
 import javafx.scene.control.Button;
-import javafx.util.Callback;
 import manager.Entity;
 import mvc.Controller;
 import org.json.simple.JSONObject;
 
 import java.util.List;
+import java.util.Optional;
 
-
-public class PaneManager<T extends Entity> {
+public abstract class PaneManager<T extends Entity> extends ContentPane {
     private String commandTitle;
-    private List<T> source;
-
     private TableManager<T> tableManager;
+
     private Button acceptButton;
     private Button deleteButton;
 
-    private T oldSelectedEntity;
-    private T enteredEntity;
-    private Callback<Void, T> makeObjectAction;
-    private Callback<T, Void> makeOutObjectAction;
-
-
-    public PaneManager(TableManager<T> tableManager, String commandTitle) {
-        this.tableManager = tableManager;
+    public PaneManager(String commandTitle) {
         this.commandTitle = commandTitle;
+    }
+
+    public void setTableManager(TableManager<T> tableManager) {
+        this.tableManager = tableManager;
+        this.tableManager.setOnSelectListener((a, oldValud, newValue) -> {
+            onShowDetails(newValue);
+        });
     }
 
     public void setAcceptButton(Button acceptButton) {
@@ -35,13 +32,13 @@ public class PaneManager<T extends Entity> {
 
         this.acceptButton.setOnMouseClicked(event -> {
             if (tableManager.getSelectedItem() == null) {
-                //TODO: лог
+                // TODO: лог
                 System.out.println("Не выделено объекта для добавления/редактирования.");
                 return;
             }
 
             String commandName = commandTitle;
-            JSONObject object = makeObjectAction.call(null).getJSONObject();
+            JSONObject object = onConfirm().getJSONObject();
             MessageBuilder messageBuilder = new MessageBuilder();
             messageBuilder.setConnectionIndex(0);
 
@@ -70,43 +67,24 @@ public class PaneManager<T extends Entity> {
                 messageBuilder.put("index", tableManager.getSelectedItem().getIndex());
                 Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
             } else
-                //TODO: лог
+                // TODO: лог
                 System.out.println("Не выделен объект для удаления.");
         });
     }
 
-    private void saveCondition() {
-        oldSelectedEntity = tableManager.getSelectedItem();
-        enteredEntity = makeObjectAction.call(null);
-    }
+    protected abstract T onConfirm();
 
-    private void loadCondition() {
-        if (oldSelectedEntity == null)
-            return;
-        if (source.stream().noneMatch((entity) -> entity.getIndex() == oldSelectedEntity.getIndex()))
-            return;
-
-        Entity selectedEntity = source.stream().filter(
-                (entity) -> entity.getIndex() == oldSelectedEntity.getIndex()
-        ).findFirst().get();
-
-        tableManager.setSelectedIndex(source.indexOf(selectedEntity));
-
-        makeOutObjectAction.call(enteredEntity);
-    }
-
-    public void setBlaBlaObjectAction(Callback<Void, T> makeObjectAction,
-                                      Callback<T, Void> makeOutObjectAction) {
-        this.makeObjectAction = makeObjectAction;
-        this.makeOutObjectAction = makeOutObjectAction;
-    }
+    protected abstract void onShowDetails(T object);
 
     public void setSource(List<T> source) {
-        saveCondition();
-
-        this.source = source;
+        final T prevSelected = tableManager.getSelectedItem();
         tableManager.setItems(source);
-
-        loadCondition();
+        Optional<T> selected = source.stream()
+                .filter(x -> prevSelected != null && x.getIndex() == prevSelected.getIndex()).findAny();
+        if (prevSelected != null && selected.isPresent()) {
+            onShowDetails(selected.get());
+            tableManager.setSelectedIndex(source.indexOf(selected.get()));
+        } else
+            onShowDetails(null);
     }
 }
