@@ -28,7 +28,7 @@ public class UnregistredAccount implements Account {
     public JSONObject getJSONObject() {
         JSONObject jsonObject = new JSONObject();
 
-        jsonObject.put("index", -1);
+        jsonObject.put("index", index);
         jsonObject.put("name", name);
         jsonObject.put("groupIndex", groupIndex);
         jsonObject.put("cathedraIndex", cathedraIndex);
