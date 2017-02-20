@@ -60,7 +60,7 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
             }
 
             messageBuilder.put("type", commandName);
-            messageBuilder.put("data", object.getJSONObject());
+            messageBuilder.put("data", jsonObject);
             Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
         });
     }
