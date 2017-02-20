@@ -163,6 +163,14 @@ public class Main {
         controller.addCommand(new GroupEditCommand());
         controller.addCommand(new GroupListCommand());
         controller.addCommand(new GroupRemoveCommand());
+        controller.addCommand(new RoleAssignmentAddCommand());
+        controller.addCommand(new RoleAssignmentEditCommand());
+        controller.addCommand(new RoleAssignmentListCommand());
+        controller.addCommand(new RoleAssignmentRemoveCommand());
+        controller.addCommand(new RoleAddCommand());
+        controller.addCommand(new RoleEditCommand());
+        controller.addCommand(new RoleListCommand());
+        controller.addCommand(new RoleRemoveCommand());
         controller.addCommand(new SubjectAddCommand());
         controller.addCommand(new SubjectEditCommand());
         controller.addCommand(new SubjectListCommand());
