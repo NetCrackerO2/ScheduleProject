@@ -63,4 +63,9 @@ public class FacultyImpl implements Faculty {
             this.deanAccountIndex = deanAccountIndex;
         }
     }
+
+    @Override
+    public String toString() {
+        return getNumber() + "";
+    }
 }

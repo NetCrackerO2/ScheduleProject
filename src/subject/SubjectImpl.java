@@ -65,4 +65,9 @@ public class SubjectImpl implements Subject {
 
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

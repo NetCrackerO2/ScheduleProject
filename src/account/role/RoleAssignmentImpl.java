@@ -50,4 +50,9 @@ public class RoleAssignmentImpl implements RoleAssignment {
         jsonObject.put("role", roleIndex);
         return jsonObject;
     }
+
+    @Override
+    public String toString() {
+        return getIndex() + "";
+    }
 }

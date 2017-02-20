@@ -77,4 +77,8 @@ public class UnregistredGroup implements Group {
         receiptYear = receiptYear;
     }
 
+    @Override
+    public String toString() {
+        return getNumber() + "";
+    }
 }

@@ -91,4 +91,9 @@ public class CathedraImpl implements Cathedra {
             this.headAccountIndex = headAccountIndex;
         }
     }
+    
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

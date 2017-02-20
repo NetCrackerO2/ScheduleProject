@@ -94,4 +94,9 @@ public class AccountImpl implements Account {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

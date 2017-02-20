@@ -66,4 +66,8 @@ public class UnregistredCathedra implements Cathedra {
         this.headAccountIndex = headAccountIndex;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

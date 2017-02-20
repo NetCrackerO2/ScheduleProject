@@ -51,4 +51,8 @@ public class UnregistredRoleAssignment implements RoleAssignment {
         this.roleIndex = roleIndex;
     }
 
+    @Override
+    public String toString() {
+        return getIndex() + "";
+    }
 }

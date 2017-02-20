@@ -84,4 +84,9 @@ public class GroupImpl implements Group {
     public void setProfessionCode(int professionCode) {
         this.professionCode = professionCode;
     }
+
+    @Override
+    public String toString() {
+        return getNumber() + "";
+    }
 }

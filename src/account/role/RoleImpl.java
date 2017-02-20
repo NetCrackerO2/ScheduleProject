@@ -107,4 +107,9 @@ public class RoleImpl implements Role {
 
         return jsonObject;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
