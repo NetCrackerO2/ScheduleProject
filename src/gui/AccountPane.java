@@ -1,7 +1,5 @@
 package gui;
 
-import java.util.stream.Collectors;
-
 import account.Account;
 import account.UnregistredAccount;
 import cathedra.Cathedra;
@@ -32,7 +30,7 @@ public class AccountPane extends PaneManager<Account> {
     @Override
     public void load() {
         TableManager<Account> tableManager = new TableManager<Account>(tableView, NewRowStatus.ACTIVE,
-                new UnregistredAccount(0));
+                new UnregistredAccount(-1));
         tableManager.addColumn("Фамилия", String.class, account -> account.getName());
         tableManager.addColumn("Кафедра", String.class, account -> {
             if (account.getCathedraIndex() < 0)

@@ -26,7 +26,7 @@ public class FacultyPane extends PaneManager<Faculty> {
     @Override
     public void load() {
         TableManager<Faculty> tableManager = new TableManager<Faculty>(tableView, NewRowStatus.ACTIVE,
-                new UnregistredFaculty(0));
+                new UnregistredFaculty(-1));
         tableManager.addColumn("Номер", Integer.class, faculty -> faculty.getNumber());
         tableManager.addColumn("Декан", String.class, faculty -> {
             String deanName;
