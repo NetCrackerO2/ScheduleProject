@@ -60,9 +60,7 @@ public class FacultyPane extends PaneManager<Faculty> {
         String numberString = numberTextField.getText();
         int number = Objects.equals(numberString, "") ? 0 : Integer.parseInt(numberString);
         faculty.setNumber(number);
-
-        // TODO: ДОДЕЛАТЬ!!
-        faculty.setDeanAccountIndex(7);
+        faculty.setDeanAccountIndex(deanComboBox.getValue().getIndex());
 
         return faculty;
     }
@@ -74,7 +72,7 @@ public class FacultyPane extends PaneManager<Faculty> {
 
         if (object != null) {
             numberTextField.setText("" + object.getNumber());
-            this.updateComboBox(deanComboBox, object.getDeanAccountIndex(), defaultDean,
+            updateComboBox(deanComboBox, object.getDeanAccountIndex(), defaultDean,
                     MainForm.getMainForm().getAccountList());
         }
     }
