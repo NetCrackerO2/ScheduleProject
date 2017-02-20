@@ -18,6 +18,8 @@ public class GroupPane extends PaneManager<Group> {
     public TableView<Group> tableView;
 
     public TextField numberTextField;
+    public TextField professionCodeTextField;
+    public TextField receiptYearTextField;
     public ComboBox<Cathedra> cathedraComboBox;
     public Button acceptButton;
     public Button deleteButton;
@@ -116,10 +118,18 @@ public class GroupPane extends PaneManager<Group> {
         UnregistredGroup group = new UnregistredGroup(-1);
 
         String numberString = numberTextField.getText();
-        int number = Objects.equals(numberString, "") ? 0 : Integer.parseInt(numberString);
+        int number = Objects.equals(numberString, "") ? -1 : Integer.parseInt(numberString);
         group.setNumber(number);
 
         group.setCathedraIndex(cathedraComboBox.getSelectionModel().getSelectedItem().getIndex());
+
+        String professionCodeString = professionCodeTextField.getText();
+        int professionCode = Objects.equals(professionCodeString, "") ? -1 : Integer.parseInt(professionCodeString);
+        group.setProfessionCode(professionCode);
+
+        String receiptYearString = receiptYearTextField.getText();
+        int receiptYear = Objects.equals(receiptYearString, "") ? -1 : Integer.parseInt(receiptYearString);
+        group.setReceiptYear(receiptYear);
 
         return group;
     }
@@ -131,12 +141,17 @@ public class GroupPane extends PaneManager<Group> {
 
         if (object != null) {
             numberTextField.setText(Integer.toString(object.getNumber()));
+
             if (object.getCathedraIndex() == -1)
                 cathedraComboBox.getSelectionModel().select(-1);
             else
                 cathedraComboBox.getSelectionModel().select(cathedraComboBox.getItems().stream().filter(
                         cathedra -> cathedra.getIndex() == object.getCathedraIndex()
                 ).findFirst().get());
+
+            professionCodeTextField.setText(Integer.toString(object.getProfessionCode()));
+
+            receiptYearTextField.setText(Integer.toString(object.getReceiptYear()));
         }
     }
 }
