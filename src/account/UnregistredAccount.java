@@ -21,7 +21,7 @@ public class UnregistredAccount implements Account {
 
     @Override
     public int getIndex() {
-        return -1;
+        return index;
     }
 
     @Override

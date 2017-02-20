@@ -1,6 +1,6 @@
 package gui;
 
-import com.sun.istack.NotNull;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -25,8 +25,10 @@ class TableManager<T extends Entity> {
     private boolean isNewRowSelected;
     private T newObject;
     private OnSelectListener<? super T> onSelectListener; // Может пригодится
-    
-    interface OnSelectListener<T> extends ChangeListener<T>{}
+
+
+    interface OnSelectListener<T> extends ChangeListener<T> {
+    }
 
 
     /**
@@ -34,7 +36,7 @@ class TableManager<T extends Entity> {
      * @param newRowStatus Статус наличия строки добавления нового объекта
      * @param newObject    Если isNewRowActive == true, то должен содержать объект типа T, который будет выводиться в строке добавления. Иначе может быть = null
      */
-    TableManager(@NotNull TableView<T> tableView, NewRowStatus newRowStatus, T newObject) {
+    TableManager(TableView<T> tableView, NewRowStatus newRowStatus, T newObject) {
         this.tableView = tableView;
 
         this.isNewRowActive = newRowStatus == NewRowStatus.ACTIVE;
@@ -95,6 +97,10 @@ class TableManager<T extends Entity> {
         return tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
     }
 
+    void setSelectedIndex(int index) {
+        tableView.getSelectionModel().select(index);
+    }
+
     /**
      * Установка обработчика изменения выделенной строки
      */
@@ -107,7 +113,7 @@ class TableManager<T extends Entity> {
         });
     }
 
-    public boolean isNewRowSelected() {
+    boolean isNewRowSelected() {
         return isNewRowSelected;
     }
 }

@@ -2,15 +2,15 @@ package gui;
 
 
 import account.Account;
-import connection.MessageBuilder;
 import faculty.Faculty;
 import faculty.UnregistredFaculty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import mvc.Controller;
 import org.json.simple.JSONObject;
+
+import java.util.Objects;
 
 
 public class FacultyPane extends ContentPane {
@@ -19,6 +19,8 @@ public class FacultyPane extends ContentPane {
     public Button deleteButton;
     public ComboBox deanComboBox;
     public Button acceptButton;
+
+    private PaneManager<Faculty> paneManager;
     private TableManager<Faculty> tableManager;
 
     public FacultyPane() {
@@ -90,45 +92,26 @@ public class FacultyPane extends ContentPane {
         );
 
 
-        deleteButton.setOnMouseClicked(event -> {
-            if (tableView.getSelectionModel().getSelectedIndex() == -1) {
-                //TODO: уведомление о необходимости выбора удаляемого факультета
-                System.out.println("Выберите факультет для удаления.");
-                return;
-            }
+        paneManager = new PaneManager<>(tableManager, "FACULTY");
+        paneManager.setAcceptButton(acceptButton);
+        paneManager.setDeleteButton(deleteButton);
 
-            Faculty faculty = tableView.getSelectionModel().getSelectedItems().get(0);
-            MessageBuilder messageBuilder = new MessageBuilder();
-            messageBuilder.setConnectionIndex(0);
-            messageBuilder.put("type", "FACULTY_REMOVE");
-            messageBuilder.put("index", faculty.getIndex());
-            Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
-        });
+        paneManager.setBlaBlaObjectAction((nothing) -> {
+            UnregistredFaculty faculty = new UnregistredFaculty(-1);
 
+            String numberString = test.getText();
+            int number = Objects.equals(numberString, "") ? 0 : Integer.parseInt(numberString);
+            faculty.setNumber(number);
+            //TODO: ДОДЕЛАТЬ!!
+            faculty.setDeanAccountIndex(7);
 
-        acceptButton.setOnMouseClicked(event -> {
-            if (tableManager.isNewRowSelected()) {
-                Faculty faculty = new UnregistredFaculty(0);
-                faculty.setNumber(Integer.parseInt(test.getText()));
-                faculty.setDeanAccountIndex(7);
+            return faculty;
+        }, (faculty) -> {
+            test.setText(Integer.toString(faculty.getNumber()));
+            //TODO: ДОДЕЛАТЬ!!
+            deanComboBox.getItems().add(7);
 
-                MessageBuilder messageBuilder = new MessageBuilder();
-                messageBuilder.setConnectionIndex(0);
-                messageBuilder.put("type", "FACULTY_ADD");
-                messageBuilder.put("data", faculty.getJSONObject());
-                Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
-            } else {
-                Faculty selectedFaculty = tableManager.getSelectedItem();
-                Faculty faculty = new UnregistredFaculty(selectedFaculty.getIndex());
-                faculty.setNumber(Integer.parseInt(test.getText()));
-                faculty.setDeanAccountIndex(7);
-
-                MessageBuilder messageBuilder = new MessageBuilder();
-                messageBuilder.setConnectionIndex(0);
-                messageBuilder.put("type", "FACULTY_EDIT");
-                messageBuilder.put("data", faculty.getJSONObject());
-                Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
-            }
+            return null;
         });
     }
 
@@ -143,12 +126,6 @@ public class FacultyPane extends ContentPane {
 
     @Override
     public void update() {
-        final Faculty selected = tableManager.getSelectedItem();
-        tableManager.setItems(MainForm.getMainForm().getFacultyList());
-        if (selected != null
-                && MainForm.getMainForm().getFacultyList().stream().anyMatch(x -> x.getIndex() == selected.getIndex()))
-            showFacultyDetails(selected);
-        else
-            showFacultyDetails(null);
+        paneManager.setSource(MainForm.getMainForm().getFacultyList());
     }
 }
