@@ -53,4 +53,8 @@ public class UnregistredFaculty implements Faculty {
         this.deanAccountIndex = deanAccountIndex;
     }
 
+    @Override
+    public String toString() {
+        return getNumber() + "";
+    }
 }

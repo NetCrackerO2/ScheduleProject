@@ -79,4 +79,8 @@ public class UnregistredGroup implements Group {
         this.receiptYear = receiptYear;
     }
 
+    @Override
+    public String toString() {
+        return getNumber() + "";
+    }
 }

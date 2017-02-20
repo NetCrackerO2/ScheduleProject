@@ -65,5 +65,9 @@ public class UnregistredAccount implements Account {
     public void setCathedraIndex(int cathedraIndex) {
         this.cathedraIndex = cathedraIndex;
     }
-
+    
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

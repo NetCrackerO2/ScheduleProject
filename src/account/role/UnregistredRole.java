@@ -76,4 +76,8 @@ public class UnregistredRole implements Role {
         return new ArrayList<>(permissionList);
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

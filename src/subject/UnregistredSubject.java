@@ -53,4 +53,8 @@ public class UnregistredSubject implements Subject {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
