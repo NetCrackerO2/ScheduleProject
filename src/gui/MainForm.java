@@ -1,14 +1,16 @@
 package gui;
 
+
 import account.Account;
 import account.role.Role;
+import account.role.RoleAssignment;
 import cathedra.Cathedra;
 import connection.MessageBuilder;
 import faculty.Faculty;
+import group.Group;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import group.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import mvc.Controller;
@@ -16,6 +18,7 @@ import mvc.Controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainForm {
     private static MainForm mainForm;
@@ -25,12 +28,14 @@ public class MainForm {
 
     private List<Account> accountList;
     private List<Role> roleList;
+    private List<RoleAssignment> roleAssignmentList;
     private List<Cathedra> cathedraList;
     private List<Faculty> facultyList;
     private List<Group> groupList;
 
     private boolean accountsUpdated;
-    // private boolean rolesUpdated;
+    private boolean rolesUpdated;
+    private boolean roleAssignmentsUpdated;
     private boolean cathedrasUpdated;
     private boolean facultyesUpdated;
     private boolean groupsUpdated;
@@ -41,7 +46,8 @@ public class MainForm {
         mainForm = this;
 
         accountList = new ArrayList<>();
-        // roleList = new ArrayList<>();
+        roleList = new ArrayList<>();
+        roleAssignmentList = new ArrayList<>();
         cathedraList = new ArrayList<>();
         facultyList = new ArrayList<>();
         groupList = new ArrayList<>();
@@ -50,6 +56,7 @@ public class MainForm {
     public static MainForm getMainForm() {
         return mainForm;
     }
+
 
     public List<Account> getAccountList() {
         return accountList;
@@ -67,6 +74,17 @@ public class MainForm {
 
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
+        rolesUpdated = true;
+        updateContentPane();
+    }
+
+    public List<RoleAssignment> getRoleAssignmentList() {
+        return roleAssignmentList;
+    }
+
+    public void setRoleAssignmentList(List<RoleAssignment> roleAssignmentList) {
+        this.roleAssignmentList = roleAssignmentList;
+        roleAssignmentsUpdated = true;
         updateContentPane();
     }
 
@@ -100,9 +118,11 @@ public class MainForm {
         updateContentPane();
     }
 
+
     public void setCurrentContentPane(ContentPane currentContentPane) {
         this.currentContentPane = currentContentPane;
     }
+
 
     public void showFaculty() {
         showPane("Faculty");
@@ -124,6 +144,7 @@ public class MainForm {
         showPane("Role");
     }
 
+
     private void showPane(String string) {
         try {
             Node node = FXMLLoader.load(this.getClass().getResource("forms/" + string + ".fxml"));
@@ -135,9 +156,11 @@ public class MainForm {
         }
     }
 
+
     public void updateAllData() {
         accountsUpdated = false;
-        // rolesUpdated = false;
+        rolesUpdated = false;
+        roleAssignmentsUpdated = false;
         cathedrasUpdated = false;
         facultyesUpdated = false;
         groupsUpdated = false;
@@ -162,12 +185,16 @@ public class MainForm {
         messageBuilder.setConnectionIndex(0);
         messageBuilder.put("type", "GROUP_LIST");
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
-        //
-        // messageBuilder.initialize();
-        // messageBuilder.setConnectionIndex(0);
-        // messageBuilder.put("type", "ROLE_LIST");
-        // Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
 
+        /*messageBuilder.initialize();
+        messageBuilder.setConnectionIndex(0);
+        messageBuilder.put("type", "ROLE_LIST");
+        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());*/
+
+        messageBuilder.initialize();
+        messageBuilder.setConnectionIndex(0);
+        messageBuilder.put("type", "ROLE_ASSIGNMENT_LIST");
+        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
     }
 
     private void updateContentPane() {
@@ -175,15 +202,13 @@ public class MainForm {
             return;
 
         if (accountsUpdated
-                // && rolesUpdated
-                && cathedrasUpdated && facultyesUpdated && groupsUpdated)
+                //&& rolesUpdated
+                && roleAssignmentsUpdated
+                && cathedrasUpdated
+                && facultyesUpdated
+                && groupsUpdated)
             if (!Platform.isFxApplicationThread())
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        currentContentPane.update();
-                    }
-                });
+                Platform.runLater(() -> currentContentPane.update());
             else
                 currentContentPane.update();
     }

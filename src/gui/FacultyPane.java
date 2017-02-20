@@ -1,5 +1,6 @@
 package gui;
 
+
 import account.Account;
 import faculty.Faculty;
 import faculty.UnregistredFaculty;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import org.json.simple.JSONObject;
 
 import java.util.Objects;
+
 
 public class FacultyPane extends PaneManager<Faculty> {
     public TableView<Faculty> tableView;
@@ -24,7 +26,7 @@ public class FacultyPane extends PaneManager<Faculty> {
 
     @Override
     public void load() {
-        TableManager<Faculty> tableManager = new TableManager<Faculty>(tableView, NewRowStatus.ACTIVE, new Faculty() {
+        TableManager<Faculty> tableManager = new TableManager<>(tableView, NewRowStatus.ACTIVE, new Faculty() {
             @Override
             public int getIndex() {
                 return -1;
@@ -82,11 +84,14 @@ public class FacultyPane extends PaneManager<Faculty> {
     @Override
     protected Faculty onConfirm() {
         UnregistredFaculty faculty = new UnregistredFaculty(-1);
+
         String numberString = test.getText();
         int number = Objects.equals(numberString, "") ? 0 : Integer.parseInt(numberString);
         faculty.setNumber(number);
+
         // TODO: ДОДЕЛАТЬ!!
         faculty.setDeanAccountIndex(7);
+
         return faculty;
     }
 
@@ -94,6 +99,7 @@ public class FacultyPane extends PaneManager<Faculty> {
     protected void onShowDetails(Faculty object) {
         deanComboBox.getItems().clear();
         test.setText("");
+
         if (object != null) {
             test.setText("" + object.getNumber());
             deanComboBox.getItems().add(object.getDeanAccountIndex());

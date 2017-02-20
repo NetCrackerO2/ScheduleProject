@@ -1,5 +1,6 @@
 package gui;
 
+
 import connection.MessageBuilder;
 import javafx.scene.control.Button;
 import manager.Entity;
@@ -8,6 +9,7 @@ import org.json.simple.JSONObject;
 
 import java.util.List;
 import java.util.Optional;
+
 
 public abstract class PaneManager<T extends Entity> extends ContentPane {
     private String commandTitle;
@@ -20,13 +22,17 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
         this.commandTitle = commandTitle;
     }
 
+
     public void setTableManager(TableManager<T> tableManager) {
         this.tableManager = tableManager;
-        this.tableManager.setOnSelectListener((a, oldValud, newValue) -> {
-            onShowDetails(newValue);
-        });
+        this.tableManager.setOnSelectListener((a, oldValue, newValue) -> onShowDetails(newValue));
     }
 
+    /**
+     * Устанавливает обработчик изменения/добавления записи на кнопку
+     *
+     * @param acceptButton Объект кнопки "Применить"
+     */
     public void setAcceptButton(Button acceptButton) {
         this.acceptButton = acceptButton;
 
@@ -56,6 +62,11 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
         });
     }
 
+    /**
+     * Устанавливает обработчик удаления записи на кнопку
+     *
+     * @param deleteButton Объект кнопки "Удалить"
+     */
     public void setDeleteButton(Button deleteButton) {
         this.deleteButton = deleteButton;
 
@@ -72,15 +83,34 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
         });
     }
 
+    /**
+     * Создание объекта на основе значений полей формы
+     *
+     * @return Объект, проинициализированный значениями полей формы
+     * Индекс объекта не важен (лучше -1)
+     */
     protected abstract T onConfirm();
 
+    /**
+     * Вывод информации об объекте в поля формы
+     *
+     * @param object Объект, информация о котором будет выведена в поля формы
+     */
     protected abstract void onShowDetails(T object);
 
+    /**
+     * Устанавливает источник объектов для формы
+     *
+     * @param source
+     */
     public void setSource(List<T> source) {
         final T prevSelected = tableManager.getSelectedItem();
+
         tableManager.setItems(source);
+
         Optional<T> selected = source.stream()
                 .filter(x -> prevSelected != null && x.getIndex() == prevSelected.getIndex()).findAny();
+
         if (prevSelected != null && selected.isPresent()) {
             onShowDetails(selected.get());
             tableManager.setSelectedIndex(source.indexOf(selected.get()));
