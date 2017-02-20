@@ -88,18 +88,11 @@ public class AccountPane extends PaneManager<Account> {
         groupComboBox.getItems().clear();
         if (object != null) {
             nameField.setText(object.getName());
-            if (object.getCathedraIndex() >= 0)
-                cathedraComboBox.getItems().add(MainForm.getMainForm().getCathedraList().stream()
-                        .filter(x -> x.getIndex() == object.getCathedraIndex()).findFirst().get());
-            cathedraComboBox.getItems().add(defaultCathedra);
-            cathedraComboBox.getItems().addAll(MainForm.getMainForm().getCathedraList().stream()
-                    .filter(x -> x.getIndex() != object.getCathedraIndex()).collect(Collectors.toList()));
-            if (object.getCathedraIndex() >= 0)
-                groupComboBox.getItems().add(MainForm.getMainForm().getGroupList().stream()
-                        .filter(x -> x.getIndex() == object.getGroupIndex()).findFirst().get());
-            groupComboBox.getItems().add(defaultGroup);
-            groupComboBox.getItems().addAll(MainForm.getMainForm().getGroupList().stream()
-                    .filter(x -> x.getIndex() != object.getGroupIndex()).collect(Collectors.toList()));
+
+            this.updateComboBox(cathedraComboBox, object.getCathedraIndex(), defaultCathedra,
+                    MainForm.getMainForm().getCathedraList());
+            this.updateComboBox(groupComboBox, object.getGroupIndex(), defaultGroup,
+                    MainForm.getMainForm().getGroupList());
         }
     }
 }

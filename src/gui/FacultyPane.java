@@ -1,7 +1,7 @@
 package gui;
 
-
 import account.Account;
+import account.UnregistredAccount;
 import faculty.Faculty;
 import faculty.UnregistredFaculty;
 import javafx.scene.control.Button;
@@ -10,23 +10,23 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import java.util.Objects;
 
-
 public class FacultyPane extends PaneManager<Faculty> {
     public TableView<Faculty> tableView;
     public TextField numberTextField;
     public Button acceptButton;
     public Button deleteButton;
-    public ComboBox deanComboBox;
-
+    public ComboBox<Account> deanComboBox;
+    private Account defaultDean = new UnregistredAccount(-1);
 
     public FacultyPane() {
         super("FACULTY");
+        defaultDean.setName("Не задан");
     }
-
 
     @Override
     public void load() {
-        TableManager<Faculty> tableManager = new TableManager<Faculty>(tableView, NewRowStatus.ACTIVE, new UnregistredFaculty(0));
+        TableManager<Faculty> tableManager = new TableManager<Faculty>(tableView, NewRowStatus.ACTIVE,
+                new UnregistredFaculty(0));
         tableManager.addColumn("Номер", Integer.class, faculty -> faculty.getNumber());
         tableManager.addColumn("Декан", String.class, faculty -> {
             String deanName;
@@ -34,11 +34,11 @@ public class FacultyPane extends PaneManager<Faculty> {
             int deanAccountIndex = faculty.getDeanAccountIndex();
 
             if (deanAccountIndex == -1)
-                deanName = "Не задан";
+                deanName = defaultDean.toString();
             else {
                 deanAccount = MainForm.getMainForm().getAccountList().stream()
                         .filter(object -> object.getIndex() == deanAccountIndex).findFirst().get();
-                deanName = deanAccount.getName();
+                deanName = deanAccount.toString();
             }
 
             return deanName;
@@ -74,7 +74,8 @@ public class FacultyPane extends PaneManager<Faculty> {
 
         if (object != null) {
             numberTextField.setText("" + object.getNumber());
-            deanComboBox.getItems().add(object.getDeanAccountIndex());
+            this.updateComboBox(deanComboBox, object.getDeanAccountIndex(), defaultDean,
+                    MainForm.getMainForm().getAccountList());
         }
     }
 }
