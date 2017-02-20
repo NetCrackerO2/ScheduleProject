@@ -47,7 +47,7 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
             T object = onConfirm();
             if (object == null)
                 return;
-            JSONObject jsonObject = onConfirm().getJSONObject();
+            JSONObject jsonObject = object.getJSONObject();
             MessageBuilder messageBuilder = new MessageBuilder();
             messageBuilder.setConnectionIndex(0);
 
@@ -60,7 +60,7 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
             }
 
             messageBuilder.put("type", commandName);
-            messageBuilder.put("data", object);
+            messageBuilder.put("data", object.getJSONObject());
             Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
         });
     }
