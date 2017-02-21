@@ -33,14 +33,7 @@
             <Button fx:id="addButton" layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Применить" />
             <Label layoutX="23.0" layoutY="104.0" text="Кафедра" />
             <ComboBox fx:id="cathedraComboBox" layoutX="137.0" layoutY="100.0" prefWidth="150.0" />
-            <Label layoutX="23.0" layoutY="66.0" text="Пол" />
-            <RadioButton layoutX="136.0" layoutY="66.0" mnemonicParsing="false" text="Мужской">
-               <toggleGroup>
-                  <ToggleGroup fx:id="Пол" />
-               </toggleGroup></RadioButton>
-            <RadioButton layoutX="216.0" layoutY="66.0" mnemonicParsing="false" text="Женский" toggleGroup="$Пол" />
-            <Label layoutX="29.0" layoutY="249.0" text="Дата" />
-            <DatePicker layoutX="121.0" layoutY="245.0" />
+            
          </children>
       </Pane>
       <Pane prefHeight="200.0" prefWidth="200.0">
