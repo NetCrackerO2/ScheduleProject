@@ -18,6 +18,10 @@
         <TextField fx:id="numberTextField" layoutX="138.0" layoutY="23.0"/>
         <Label layoutX="24.0" layoutY="69.0" text="Кафедра"/>
         <ComboBox fx:id="cathedraComboBox" layoutX="137.0" layoutY="65.0" prefWidth="150.0"/>
+        <Label layoutX="24.0" layoutY="111.0" text="Cпециальность"/>
+        <TextField fx:id="professionCodeTextField" layoutX="138.0" layoutY="107.0"/>
+        <Label layoutX="24.0" layoutY="153.0" text="Год создания"/>
+        <TextField fx:id="receiptYearTextField" layoutX="138.0" layoutY="149.0"/>
         <Button fx:id="acceptButton" layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0"
                 prefWidth="80.0" text="Применить"/>
         <Button fx:id="deleteButton" layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0"
