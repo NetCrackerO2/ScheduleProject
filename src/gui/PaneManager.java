@@ -153,6 +153,9 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
     protected <T extends Entity> T selectOrDefault(List<T> data, int selectedIndex, T defaultObject) {
         if (selectedIndex == -1)
             return defaultObject;
-        return data.stream().filter(object -> object.getIndex() == selectedIndex).findFirst().get();
+        Optional<T> result = data.stream().filter(object -> object.getIndex() == selectedIndex).findFirst();
+        if (!result.isPresent())
+            return defaultObject;
+        return result.get();
     }
 }
