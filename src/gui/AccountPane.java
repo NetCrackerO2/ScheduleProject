@@ -1,12 +1,16 @@
 package gui;
 
+
 import account.Account;
 import account.UnregistredAccount;
 import cathedra.Cathedra;
 import cathedra.UnregistredCathedra;
 import group.Group;
 import group.UnregistredGroup;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 public class AccountPane extends PaneManager<Account> {
 
@@ -39,7 +43,7 @@ public class AccountPane extends PaneManager<Account> {
                     .filter(object -> object.getIndex() == account.getCathedraIndex()).findFirst().get().toString();
         });
         tableManager.addColumn("Группа", String.class, account -> {
-            if (account.getCathedraIndex() < 0)
+            if (account.getGroupIndex() < 0)
                 return defaultGroup.toString();
             return MainForm.getMainForm().getGroupList().stream()
                     .filter(object -> object.getIndex() == account.getGroupIndex()).findFirst().get().toString();
