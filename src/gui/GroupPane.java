@@ -2,98 +2,141 @@ package gui;
 
 
 import cathedra.Cathedra;
-import connection.MessageBuilder;
 import group.Group;
 import group.UnregistredGroup;
-import gui.ContentPane;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.scene.control.*;
-import javafx.util.Callback;
-import mvc.Controller;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
+import org.json.simple.JSONObject;
 
-public class GroupPane extends ContentPane {
+import java.util.Objects;
+
+
+public class GroupPane extends PaneManager<Group> {
     public TableView<Group> tableView;
-    public TableColumn<Group, Integer> numberGroupColumn;
-    public TableColumn<Group, Integer> cathedraNameColumn;
 
-    public TextField groupNumberField;
+    public TextField numberTextField;
     public ComboBox<Cathedra> cathedraComboBox;
-
-    public Button addButton;
+    public Button acceptButton;
     public Button deleteButton;
+
+    public GroupPane() {
+        super("GROUP");
+    }
 
     @Override
     public void load() {
-        addButton.setOnMouseClicked(event -> {
-            if (groupNumberField.getLength() == 0) {
-                //TODO: уведомление о необходимости ввести номер группы
-                System.out.println("Напишите номер новой группы");
-                return;
+        TableManager<Group> tableManager = new TableManager<>(tableView, NewRowStatus.ACTIVE, new Group() {
+            @Override
+            public int getIndex() {
+                return -1;
             }
 
-            if (cathedraComboBox.getValue() == null) {
-                //TODO: уведомление о необходимости выбрать кафедру
-                System.out.println("Выберите кафедру");
-                return;
+            @Override
+            public int getCathedraIndex() {
+                return -1;
             }
 
-            MessageBuilder messageBuilder = new MessageBuilder();
-            messageBuilder.setConnectionIndex(0);
-            messageBuilder.put("type", "CATHEDRA_ADD");
-            Group newGroup = new UnregistredGroup(0);
-            newGroup.setNumber(Integer.parseInt(groupNumberField.getText()));
-            newGroup.setCathedraIndex(cathedraComboBox.getValue().getIndex());
-            messageBuilder.put("data", newGroup.getJSONObject());
-            Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+            @Override
+            public void setCathedraIndex(int cathedraIndex) {
+            }
+
+            @Override
+            public int getNumber() {
+                return -1;
+            }
+
+            @Override
+            public void setNumber(int number) {
+            }
+
+            @Override
+            public int getProfessionCode() {
+                return -1;
+            }
+
+            @Override
+            public void setProfessionCode(int professionCode) {
+            }
+
+            @Override
+            public int getReceiptYear() {
+                return -1;
+            }
+
+            @Override
+            public void setReceiptYear(int year) {
+            }
+
+            @Override
+            public JSONObject getJSONObject() {
+                return null;
+            }
         });
+        tableManager.addColumn("Номер", Integer.class, group -> group.getNumber());
+        tableManager.addColumn("Кафедра", String.class, group -> {
+            int cathedraIndex = group.getCathedraIndex();
 
+            if (cathedraIndex == -1)
+                return "Не задана";
+            return MainForm.getMainForm().getCathedraList().stream().filter(
+                    cathedra -> cathedra.getIndex() == cathedraIndex
+            ).findFirst().get().getName();
+        });
+        tableManager.addColumn("Код профессии", Integer.class, group -> group.getProfessionCode());
+        tableManager.addColumn("Год создания", Integer.class, group -> group.getReceiptYear());
 
-        deleteButton.setOnMouseClicked(event -> {
-            if (tableView.getSelectionModel().getSelectedIndex() == -1) {
-                //TODO: уведомление о необходимости выбора удаляемой кафедры
-                System.out.println("Выберите группу для удаления.");
-                return;
+        setTableManager(tableManager);
+        setAcceptButton(acceptButton);
+        setDeleteButton(deleteButton);
+
+        cathedraComboBox.setConverter(new StringConverter<Cathedra>() {
+            @Override
+            public String toString(Cathedra object) {
+                return object.getName();
             }
-            Group group = tableView.getSelectionModel().getSelectedItems().get(0);
-            MessageBuilder messageBuilder = new MessageBuilder();
-            messageBuilder.setConnectionIndex(0);
-            messageBuilder.put("type", "GROUP_REMOVE");
-            messageBuilder.put("index", group.getIndex());
-            Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+
+            @Override
+            public Cathedra fromString(String string) {
+                return cathedraComboBox.getItems().stream().filter(cathedra -> cathedra.getName() == string).findFirst().get();
+            }
         });
     }
 
     @Override
     public void update() {
-        tableView.getItems().clear();
-        tableView.setItems(FXCollections.observableList(MainForm.getMainForm().getGroupList()));
+        setSource(MainForm.getMainForm().getGroupList());
+        cathedraComboBox.getItems().setAll(MainForm.getMainForm().getCathedraList());
+    }
 
-        numberGroupColumn.setCellValueFactory(cellData->new SimpleIntegerProperty(cellData.getValue().getNumber()).asObject());
-        //TODO: Вместо индекса кафедры выводить название
-        cathedraNameColumn.setCellValueFactory(cellData->new SimpleIntegerProperty(cellData.getValue().getCathedraIndex()).asObject());
+    @Override
+    protected Group onConfirm() {
+        UnregistredGroup group = new UnregistredGroup(-1);
 
-        cathedraComboBox.getItems().addAll(FXCollections.observableList(MainForm.getMainForm().getCathedraList()));
-        cathedraComboBox.setCellFactory(new Callback<ListView<Cathedra>, ListCell<Cathedra>>() {
+        String numberString = numberTextField.getText();
+        int number = Objects.equals(numberString, "") ? 0 : Integer.parseInt(numberString);
+        group.setNumber(number);
 
-            @Override
-            public ListCell<Cathedra> call(ListView<Cathedra> p) {
+        group.setCathedraIndex(cathedraComboBox.getSelectionModel().getSelectedItem().getIndex());
 
-                final ListCell<Cathedra> cell = new ListCell<Cathedra>() {
+        return group;
+    }
 
-                    @Override
-                    protected void updateItem(Cathedra cathedra, boolean bln) {
-                        super.updateItem(cathedra, bln);
+    @Override
+    protected void onShowDetails(Group object) {
+        numberTextField.setText("");
+        cathedraComboBox.getSelectionModel().select(-1);
 
-                        if (cathedra != null) {
-                            setText(cathedra.getName());
-                        } else {
-                            setText(null);
-                        }
-                    }
-                };
-                return cell;
-            }
-        });
+        if (object != null) {
+            numberTextField.setText(Integer.toString(object.getNumber()));
+            if (object.getCathedraIndex() == -1)
+                cathedraComboBox.getSelectionModel().select(-1);
+            else
+                cathedraComboBox.getSelectionModel().select(cathedraComboBox.getItems().stream().filter(
+                        cathedra -> cathedra.getIndex() == object.getCathedraIndex()
+                ).findFirst().get());
+        }
     }
 }

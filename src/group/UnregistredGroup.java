@@ -1,6 +1,8 @@
 package group;
 
+
 import org.json.simple.JSONObject;
+
 
 public class UnregistredGroup implements Group {
     private int index = -1;
@@ -44,7 +46,7 @@ public class UnregistredGroup implements Group {
 
     @Override
     public void setCathedraIndex(int cathedraIndex) {
-        cathedraIndex = cathedraIndex;
+        this.cathedraIndex = cathedraIndex;
     }
 
     @Override
@@ -54,7 +56,7 @@ public class UnregistredGroup implements Group {
 
     @Override
     public void setNumber(int number) {
-        number = number;
+        this.number = number;
     }
 
     @Override
@@ -64,7 +66,7 @@ public class UnregistredGroup implements Group {
 
     @Override
     public void setProfessionCode(int professionCode) {
-        professionCode = professionCode;
+        this.professionCode = professionCode;
     }
 
     @Override
@@ -73,8 +75,8 @@ public class UnregistredGroup implements Group {
     }
 
     @Override
-    public void setReceiptYear(int year) {
-        receiptYear = receiptYear;
+    public void setReceiptYear(int receiptYear) {
+        this.receiptYear = receiptYear;
     }
 
 }

@@ -58,6 +58,8 @@ public class Main extends Application {
             controller.addCommand(new FacultyRemoveCommand());
 
             controller.addCommand(new GroupAddCommand());
+            controller.addCommand(new GroupChangedCommand());
+            controller.addCommand(new GroupEditCommand());
             controller.addCommand(new GroupListCommand());
             controller.addCommand(new GroupRemoveCommand());
 

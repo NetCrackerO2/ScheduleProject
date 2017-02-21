@@ -15,14 +15,16 @@ import java.util.Objects;
 
 public class FacultyPane extends PaneManager<Faculty> {
     public TableView<Faculty> tableView;
-    public TextField test;
+    public TextField numberTextField;
+    public Button acceptButton;
     public Button deleteButton;
     public ComboBox deanComboBox;
-    public Button acceptButton;
+
 
     public FacultyPane() {
         super("FACULTY");
     }
+
 
     @Override
     public void load() {
@@ -85,7 +87,7 @@ public class FacultyPane extends PaneManager<Faculty> {
     protected Faculty onConfirm() {
         UnregistredFaculty faculty = new UnregistredFaculty(-1);
 
-        String numberString = test.getText();
+        String numberString = numberTextField.getText();
         int number = Objects.equals(numberString, "") ? 0 : Integer.parseInt(numberString);
         faculty.setNumber(number);
 
@@ -98,10 +100,10 @@ public class FacultyPane extends PaneManager<Faculty> {
     @Override
     protected void onShowDetails(Faculty object) {
         deanComboBox.getItems().clear();
-        test.setText("");
+        numberTextField.setText("");
 
         if (object != null) {
-            test.setText("" + object.getNumber());
+            numberTextField.setText("" + object.getNumber());
             deanComboBox.getItems().add(object.getDeanAccountIndex());
         }
     }

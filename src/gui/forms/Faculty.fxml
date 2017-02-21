@@ -15,7 +15,7 @@
     </rowConstraints>
     <Pane prefHeight="417.0" prefWidth="314.0" GridPane.columnIndex="1">
         <Label layoutX="24.0" layoutY="27.0" text="Номер факультета"/>
-        <TextField layoutX="138.0" layoutY="23.0" fx:id="test"/>
+        <TextField layoutX="138.0" layoutY="23.0" fx:id="numberTextField"/>
         <Label layoutX="24.0" layoutY="69.0" text="Декан"/>
         <ComboBox layoutX="137.0" layoutY="65.0" prefWidth="150.0" fx:id="deanComboBox"/>
         <Button layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0"
