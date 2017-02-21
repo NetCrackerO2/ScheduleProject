@@ -45,13 +45,7 @@
       </Pane>
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <TableView fx:id="tableView" layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0">
-               <columns>
-                  <TableColumn fx:id="nameColumn" prefWidth="72.0" text="Фамилия" />
-                  <TableColumn fx:id="genderColumn" prefWidth="59.0" text="Пол" />
-                  <TableColumn fx:id="cathedraColumn" prefWidth="75.0" text="Кафедра" />
-                  <TableColumn fx:id="groupColumn" prefWidth="93.0" text="Группа" />
-               </columns>
+            <TableView layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0" fx:id="tableView">
             </TableView>
          </children>
       </Pane>

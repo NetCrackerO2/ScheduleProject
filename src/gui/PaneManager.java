@@ -44,20 +44,23 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
             }
 
             String commandName = commandTitle;
-            JSONObject object = onConfirm().getJSONObject();
+            T object = onConfirm();
+            if (object == null)
+                return;
+            JSONObject jsonObject = object.getJSONObject();
             MessageBuilder messageBuilder = new MessageBuilder();
             messageBuilder.setConnectionIndex(0);
 
             if (tableManager.isNewRowSelected()) {
                 commandName += "_ADD";
             } else {
-                object.remove("index");
-                object.put("index", tableManager.getSelectedItem().getIndex());
+                jsonObject.remove("index");
+                jsonObject.put("index", tableManager.getSelectedItem().getIndex());
                 commandName += "_EDIT";
             }
 
             messageBuilder.put("type", commandName);
-            messageBuilder.put("data", object);
+            messageBuilder.put("data", jsonObject);
             Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
         });
     }
