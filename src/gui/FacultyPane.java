@@ -1,5 +1,6 @@
 package gui;
 
+
 import account.Account;
 import account.UnregistredAccount;
 import faculty.Faculty;
@@ -8,7 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+
 import java.util.Objects;
+
 
 public class FacultyPane extends PaneManager<Faculty> {
     public TableView<Faculty> tableView;
@@ -25,7 +28,7 @@ public class FacultyPane extends PaneManager<Faculty> {
 
     @Override
     public void load() {
-        TableManager<Faculty> tableManager = new TableManager<Faculty>(tableView, NewRowStatus.ACTIVE,
+        TableManager<Faculty> tableManager = new TableManager<>(tableView, NewRowStatus.ACTIVE,
                 new UnregistredFaculty(-1));
         tableManager.addColumn("Номер", Integer.class, faculty -> faculty.getNumber());
         tableManager.addColumn("Декан", String.class,

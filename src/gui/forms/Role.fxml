@@ -15,23 +15,14 @@
     <Pane prefHeight="417.0" prefWidth="314.0" GridPane.columnIndex="1">
         <Label layoutX="24.0" layoutY="27.0" text="Название роли"/>
         <TextField layoutX="138.0" layoutY="23.0" fx:id="nameTextField"/>
-        <Label layoutX="24.0" layoutY="78.0" text="Права"/>
-        <CheckBox layoutX="138.0" layoutY="78.0" mnemonicParsing="false" text="Факультеты"/>
-        <CheckBox layoutX="138.0" layoutY="110.0" mnemonicParsing="false" text="Кафедры"/>
-        <CheckBox layoutX="138.0" layoutY="143.0" mnemonicParsing="false" text="Группы"/>
-        <CheckBox layoutX="138.0" layoutY="175.0" mnemonicParsing="false" text="Аккаунты"/>
-        <CheckBox layoutX="138.0" layoutY="208.0" mnemonicParsing="false" text="Роли"/>
-        <Button layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0"
-                text="Удалить"/>
+        <Label layoutX="24.0" layoutY="63.0" text="Права"/>
+        <ListView layoutX="138.0" layoutY="63.0" prefHeight="210.0" prefWidth="180.0" fx:id="permissionListBox"/>
         <Button layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0"
-                text="Применить"/>
+                text="Применить" fx:id="acceptButton"/>
+        <Button layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0"
+                text="Удалить" fx:id="deleteButton"/>
     </Pane>
     <Pane prefHeight="200.0" prefWidth="200.0">
-        <TableView layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0">
-            <columns>
-                <TableColumn prefWidth="118.0" text="Название роли"/>
-                <TableColumn prefWidth="181.0" text="Права"/>
-            </columns>
-        </TableView>
+        <TableView layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0" fx:id="tableView"/>
     </Pane>
 </GridPane>

@@ -65,7 +65,12 @@ public class Main extends Application {
             controller.addCommand(new GroupListCommand());
             controller.addCommand(new GroupRemoveCommand());
 
+
+            controller.addCommand(new RoleAddCommand());
+            controller.addCommand(new RoleChangedCommand());
+            controller.addCommand(new RoleEditCommand());
             controller.addCommand(new RoleListCommand());
+            controller.addCommand(new RoleRemoveCommand());
 
             controller.addCommand(new RoleAssignmentListCommand());
             //////////////////////////////
