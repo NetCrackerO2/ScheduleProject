@@ -4,12 +4,15 @@ import account.Account;
 import account.UnregistredAccount;
 import cathedra.Cathedra;
 import cathedra.UnregistredCathedra;
+import connection.MessageBuilder;
 import group.Group;
 import group.UnregistredGroup;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import mvc.Controller;
 
 public class AccountPane extends PaneManager<Account> {
 
@@ -23,6 +26,9 @@ public class AccountPane extends PaneManager<Account> {
     public TextField nameField;
     public ComboBox<Cathedra> cathedraComboBox;
     public ComboBox<Group> groupComboBox;
+    public TextField searchNameField;
+    public TextField searchCathedraField;
+    public TextField searchGroupField;
 
     public Button addButton;
     public Button deleteButton;
@@ -48,6 +54,24 @@ public class AccountPane extends PaneManager<Account> {
         setTableManager(tableManager);
         setAcceptButton(addButton);
         setDeleteButton(deleteButton);
+        searchNameField.setOnKeyPressed(x -> {
+            if (x.getCode() == KeyCode.ENTER) {
+                MainForm.getMainForm().setSearchNameQuery(searchNameField.getText());
+                MainForm.getMainForm().refreshSearch();
+            }
+        });
+        searchCathedraField.setOnKeyPressed(x -> {
+            if (x.getCode() == KeyCode.ENTER) {
+                MainForm.getMainForm().setSearchCathedraQuery(searchCathedraField.getText());
+                MainForm.getMainForm().refreshSearch();
+            }
+        });
+        searchGroupField.setOnKeyPressed(x -> {
+            if (x.getCode() == KeyCode.ENTER) {
+                MainForm.getMainForm().setSearchGroupQuery(searchGroupField.getText());
+                MainForm.getMainForm().refreshSearch();
+            }
+        });
     }
 
     @Override
