@@ -30,14 +30,9 @@ public class GroupPane extends PaneManager<Group> {
     public void load() {
         TableManager<Group> tableManager = new TableManager<>(tableView, NewRowStatus.ACTIVE, new UnregistredGroup(-1));
         tableManager.addColumn("Номер", Integer.class, group -> group.getNumber());
-        tableManager.addColumn("Кафедра", String.class, group -> {
-            int cathedraIndex = group.getCathedraIndex();
-
-            if (cathedraIndex == -1)
-                return defaultCathedra.toString();
-            return MainForm.getMainForm().getCathedraList().stream()
-                    .filter(cathedra -> cathedra.getIndex() == cathedraIndex).findFirst().get().toString();
-        });
+        tableManager.addColumn("Кафедра", String.class,
+                x -> selectOrDefault(MainForm.getMainForm().getCathedraList(), x.getCathedraIndex(), defaultCathedra)
+                        .toString());
         tableManager.addColumn("Код профессии", Integer.class, group -> group.getProfessionCode());
         tableManager.addColumn("Год создания", Integer.class, group -> group.getReceiptYear());
 

@@ -28,21 +28,9 @@ public class FacultyPane extends PaneManager<Faculty> {
         TableManager<Faculty> tableManager = new TableManager<Faculty>(tableView, NewRowStatus.ACTIVE,
                 new UnregistredFaculty(-1));
         tableManager.addColumn("Номер", Integer.class, faculty -> faculty.getNumber());
-        tableManager.addColumn("Декан", String.class, faculty -> {
-            String deanName;
-            Account deanAccount;
-            int deanAccountIndex = faculty.getDeanAccountIndex();
-
-            if (deanAccountIndex == -1)
-                deanName = defaultDean.toString();
-            else {
-                deanAccount = MainForm.getMainForm().getAccountList().stream()
-                        .filter(object -> object.getIndex() == deanAccountIndex).findFirst().get();
-                deanName = deanAccount.toString();
-            }
-
-            return deanName;
-        });
+        tableManager.addColumn("Декан", String.class,
+                x -> selectOrDefault(MainForm.getMainForm().getAccountList(), x.getDeanAccountIndex(), defaultDean)
+                        .toString());
         setTableManager(tableManager);
         setAcceptButton(acceptButton);
         setDeleteButton(deleteButton);
