@@ -1,103 +1,88 @@
 package gui;
 
-
+import account.Account;
+import account.UnregistredAccount;
 import cathedra.Cathedra;
 import cathedra.UnregistredCathedra;
-import connection.MessageBuilder;
 import faculty.Faculty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
+import faculty.UnregistredFaculty;
 import javafx.scene.control.*;
-import javafx.util.Callback;
-import mvc.Controller;
 
-public class CathedraPane extends ContentPane {
+public class CathedraPane extends PaneManager<Cathedra> {
 
     public TableView<Cathedra> tableView;
     public TableColumn<Cathedra, String> cathedraNameColumn;
     public TableColumn<Cathedra, Integer> facultyNumberColumn;
     public ComboBox<Faculty> facultyComboBox;
+    public ComboBox<Account> headComboBox;
     public TextField nameCathedraField;
     public Button addButton;
     public Button deleteButton;
+    private Faculty defaultFaculty = new UnregistredFaculty(-1);
+    private Account defaultHead = new UnregistredAccount(-1);
 
     public CathedraPane() {
-        super();
+        super("CATHEDRA");
+        defaultFaculty.setNumber(-1);
+        defaultHead.setName("Не задано");
     }
 
     @Override
     public void update() {
-        tableView.getItems().clear();
-        tableView.setItems(FXCollections.observableList(MainForm.getMainForm().getCathedraList()));
-
-        facultyComboBox.getItems().addAll(FXCollections.observableArrayList(MainForm.getMainForm().getFacultyList()));
-        facultyComboBox.setCellFactory(new Callback<ListView<Faculty>, ListCell<Faculty>>() {
-            @Override
-            public ListCell<Faculty> call(ListView<Faculty> param) {
-
-                final ListCell<Faculty> cell = new ListCell<Faculty>() {
-
-                    @Override
-                    protected void updateItem(Faculty faculty, boolean bln) {
-                        super.updateItem(faculty, bln);
-
-                        if (faculty != null) {
-                            setText(Integer.toString(faculty.getNumber()));
-                        } else {
-                            setText(null);
-                        }
-                    }
-                };
-                return cell;
-            }
-        });
-
-        cathedraNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        //TODO: Вместо индекса факультета выводить номер
-        facultyNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getFacultyIndex()).asObject());
+        this.setSource(MainForm.getMainForm().getCathedraList());
     }
 
     @Override
     public void load() {
-        addButton.setOnMouseClicked(event -> {
-            if (nameCathedraField.getLength() == 0) {
-                //TODO: уведомление о необходимости ввести название кафедры
-                System.out.println("Напишите название новой кафедры");
-                return;
-            }
+        TableManager<Cathedra> tableManager = new TableManager<Cathedra>(tableView, NewRowStatus.ACTIVE,
+                new UnregistredCathedra(-1));
+        tableManager.addColumn("Название", String.class, x -> x.getName());
+        tableManager.addColumn("Факультет", String.class,
+                x -> selectOrDefault(MainForm.getMainForm().getFacultyList(), x.getFacultyIndex(), defaultFaculty)
+                        .toString());
+        tableManager.addColumn("Заведущий", String.class,
+                x -> selectOrDefault(MainForm.getMainForm().getAccountList(), x.getHeadAccountIndex(), defaultHead)
+                        .toString());
 
-            if (facultyComboBox.getValue() == null) {
-                //TODO: уведомление о необходимости выбрать факультет
-                System.out.println("Выберите факультет");
-                return;
-            }
+        setTableManager(tableManager);
+        this.setAcceptButton(addButton);
+        this.setDeleteButton(deleteButton);
+    }
 
-            MessageBuilder messageBuilder = new MessageBuilder();
-            messageBuilder.setConnectionIndex(0);
-            messageBuilder.put("type", "CATHEDRA_ADD");
-            Cathedra newCathedra = new UnregistredCathedra(0);
-            newCathedra.setName(nameCathedraField.getText());
-            newCathedra.setFacultyIndex(facultyComboBox.getValue().getIndex());
-            messageBuilder.put("data", newCathedra.getJSONObject());
-            Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
-        });
+    @Override
+    protected Cathedra onConfirm() {
+        if (nameCathedraField.getLength() == 0) {
+            System.out.println("Напишите название новой кафедры");
+            return null;
+        }
+        if (facultyComboBox.getValue() == null) {
+            System.out.println("Выберите факультет");
+            return null;
+        }
+        if (headComboBox.getValue() == null) {
+            System.out.println("Выберите заведущего");
+            return null;
+        }
+        UnregistredCathedra cathedra = new UnregistredCathedra(-1);
+        cathedra.setName(nameCathedraField.getText());
+        cathedra.setFacultyIndex(facultyComboBox.getValue().getIndex());
+        cathedra.setHeadAccountIndex(headComboBox.getValue().getIndex());
+        return cathedra;
+    }
 
+    @Override
+    protected void onShowDetails(Cathedra object) {
+        headComboBox.getItems().clear();
+        facultyComboBox.getItems().clear();
+        nameCathedraField.setText("");
 
-        deleteButton.setOnMouseClicked(event -> {
-            if (tableView.getSelectionModel().getSelectedIndex() == -1) {
-                //TODO: уведомление о необходимости выбора удаляемой кафедры
-                System.out.println("Выберите кафедру для удаления.");
-                return;
-            }
-            Cathedra cathedra = tableView.getSelectionModel().getSelectedItems().get(0);
-            MessageBuilder messageBuilder = new MessageBuilder();
-            messageBuilder.setConnectionIndex(0);
-            messageBuilder.put("type", "CATHEDRA_REMOVE");
-            messageBuilder.put("index", cathedra.getIndex());
-            Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
-        });
-
+        if (object != null) {
+            nameCathedraField.setText(object.getName());
+            updateComboBox(facultyComboBox, object.getFacultyIndex(), defaultFaculty,
+                    MainForm.getMainForm().getFacultyList());
+            updateComboBox(headComboBox, object.getHeadAccountIndex(), defaultHead,
+                    MainForm.getMainForm().getAccountList());
+        }
     }
 
 }
