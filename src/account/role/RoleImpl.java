@@ -31,7 +31,8 @@ public class RoleImpl implements Role {
      */
     @Override
     public void setName(String name) {
-        if (RoleManager.getInstance().getAllObjects().stream().anyMatch(role -> Objects.equals(role.getName(), name) && role != this))
+        if (RoleManager.getInstance().getAllObjects().stream()
+                .anyMatch(role -> Objects.equals(role.getName(), name) && role != this))
             throw new IllegalArgumentException("Роль с таким именем уже существует.");
 
         this.name = name;
@@ -101,7 +102,7 @@ public class RoleImpl implements Role {
 
         JSONArray jsonArray = new JSONArray();
         for (Permission permission : permissionList)
-            jsonArray.add(permission);
+            jsonArray.add(permission.name());
 
         jsonObject.put("permissionList", jsonArray);
 

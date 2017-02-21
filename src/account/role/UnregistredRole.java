@@ -1,6 +1,7 @@
 package account.role;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -18,8 +19,11 @@ public class UnregistredRole implements Role {
     public UnregistredRole(JSONObject jsonObject) {
         index = (int) (long) (Long) jsonObject.get("index");
         name = (String) jsonObject.get("name");
-        Permission[] perms = (Permission[])((JSONArray) jsonObject.get("permissionList")).toArray();
-        setPermissions(perms);
+        List<Permission> perms = new ArrayList<>();
+        ((JSONArray) jsonObject.get("permissionList")).stream().forEach(x -> {
+            perms.add(Permission.valueOf((String) x));
+        });
+        setPermissions(perms.toArray(new Permission[] {}));
     }
 
     @Override
@@ -36,7 +40,7 @@ public class UnregistredRole implements Role {
 
         JSONArray jsonArray = new JSONArray();
         for (Permission permission : permissionList)
-            jsonArray.add(permission);
+            jsonArray.add(permission.name());
 
         jsonObject.put("permissionList", jsonArray);
 
