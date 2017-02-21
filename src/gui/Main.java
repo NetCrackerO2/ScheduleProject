@@ -44,6 +44,8 @@ public class Main extends Application {
 
             ///// Команды контролера /////
             controller.addCommand(new AccountAddCommand());
+            controller.addCommand(new AccountChangedCommand());
+            controller.addCommand(new AccountEditCommand());
             controller.addCommand(new AccountListCommand());
             controller.addCommand(new AccountRemoveCommand());
 
