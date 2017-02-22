@@ -1,5 +1,6 @@
 package gui;
 
+
 import cathedra.Cathedra;
 import cathedra.UnregistredCathedra;
 import group.Group;
@@ -8,7 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+
 import java.util.Objects;
+
 
 public class GroupPane extends PaneManager<Group> {
     public TableView<Group> tableView;
@@ -33,7 +36,7 @@ public class GroupPane extends PaneManager<Group> {
         tableManager.addColumn("Кафедра", String.class,
                 x -> selectOrDefault(MainForm.getMainForm().getCathedraList(), x.getCathedraIndex(), defaultCathedra)
                         .toString());
-        tableManager.addColumn("Код профессии", Integer.class, group -> group.getProfessionCode());
+        tableManager.addColumn("Специальность", Integer.class, group -> group.getProfessionCode());
         tableManager.addColumn("Год создания", Integer.class, group -> group.getReceiptYear());
 
         setTableManager(tableManager);

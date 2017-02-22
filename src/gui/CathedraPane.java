@@ -1,5 +1,6 @@
 package gui;
 
+
 import account.Account;
 import account.UnregistredAccount;
 import cathedra.Cathedra;
@@ -7,6 +8,7 @@ import cathedra.UnregistredCathedra;
 import faculty.Faculty;
 import faculty.UnregistredFaculty;
 import javafx.scene.control.*;
+
 
 public class CathedraPane extends PaneManager<Cathedra> {
 
@@ -34,8 +36,10 @@ public class CathedraPane extends PaneManager<Cathedra> {
 
     @Override
     public void load() {
+        UnregistredCathedra newCathedra = new UnregistredCathedra(-1);
+        newCathedra.setName("Новая");
         TableManager<Cathedra> tableManager = new TableManager<Cathedra>(tableView, NewRowStatus.ACTIVE,
-                new UnregistredCathedra(-1));
+                newCathedra);
         tableManager.addColumn("Название", String.class, x -> x.getName());
         tableManager.addColumn("Факультет", String.class,
                 x -> selectOrDefault(MainForm.getMainForm().getFacultyList(), x.getFacultyIndex(), defaultFaculty)
