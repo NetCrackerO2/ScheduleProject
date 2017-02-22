@@ -144,8 +144,8 @@ public class MainForm {
         showPane("Role");
     }
 
-
     private void showPane(String string) {
+        clearSearch();
         try {
             Node node = FXMLLoader.load(this.getClass().getResource("forms/" + string + ".fxml"));
             this.framePane.getChildren().setAll(node);
@@ -171,10 +171,11 @@ public class MainForm {
         messageBuilder.put("type", "FACULTY_LIST");
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
 
-        messageBuilder.initialize();
-        messageBuilder.setConnectionIndex(0);
-        messageBuilder.put("type", "ACCOUNT_LIST");
-        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+        // messageBuilder.initialize();
+        // messageBuilder.setConnectionIndex(0);
+        // messageBuilder.put("type", "ACCOUNT_LIST");
+        // Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+        refreshSearch();
 
         messageBuilder.initialize();
         messageBuilder.setConnectionIndex(0);
@@ -211,5 +212,41 @@ public class MainForm {
                 Platform.runLater(() -> currentContentPane.update());
             else
                 currentContentPane.update();
+    }
+
+    private String searchNameQuery = "";
+    private String searchCathedraQuery = "";
+    private String searchGroupQuery = "";
+
+    public void refreshSearch() {
+        MessageBuilder messageBuilder = new MessageBuilder();
+        messageBuilder.initialize();
+        messageBuilder.setConnectionIndex(0);
+        messageBuilder.put("type", "ACCOUNT_LIST");
+        if (searchNameQuery.length() > 0)
+            messageBuilder.put("name", searchNameQuery);
+        if (searchCathedraQuery.length() > 0)
+            messageBuilder.put("cathedra", searchCathedraQuery);
+        if (searchGroupQuery.length() > 0)
+            messageBuilder.put("group", searchGroupQuery);
+        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
+    }
+
+    public void clearSearch() {
+        setSearchNameQuery("");
+        setSearchCathedraQuery("");
+        setSearchGroupQuery("");
+    }
+
+    public void setSearchNameQuery(String query) {
+        searchNameQuery = query;
+    }
+
+    public void setSearchCathedraQuery(String query) {
+        searchCathedraQuery = query;
+    }
+
+    public void setSearchGroupQuery(String query) {
+        searchGroupQuery = query;
     }
 }
