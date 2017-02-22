@@ -4,25 +4,22 @@ package gui;
 import account.role.Permission;
 import account.role.Role;
 import account.role.UnregistredRole;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxListCell;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class RolePane extends PaneManager<Role> {
     public TableView<Role> tableView;
     public TextField nameTextField;
-    public ListView<Permission> permissionListBox;
+    public ListView<Permission> permissionListView;
     public Button acceptButton;
     public Button deleteButton;
-    private Map<Permission, SimpleBooleanProperty> permissionMap;
+    private CheckListView<Permission, Role> checkListView;
 
     public RolePane() {
         super("ROLE");
@@ -30,15 +27,13 @@ public class RolePane extends PaneManager<Role> {
 
     @Override
     public void load() {
-        permissionMap = new HashMap<>();
-        Arrays.stream(Permission.values()).forEach(
-                permission -> permissionMap.put(permission, new SimpleBooleanProperty(false))
-        );
-
-        permissionListBox.setCellFactory(CheckBoxListCell.forListView(
-                item -> permissionMap.get(item))
-        );
-        permissionListBox.getItems().addAll(Permission.values());
+        checkListView = new CheckListView<Permission, Role>(permissionListView) {
+            @Override
+            public boolean getState(Permission key, Role object) {
+                return object != null && object.hasPermission(key);
+            }
+        };
+        checkListView.setSource(Arrays.stream(Permission.values()).collect(Collectors.toList()));
 
         UnregistredRole newRole = new UnregistredRole(-1);
         newRole.setName("Новая");
@@ -66,12 +61,7 @@ public class RolePane extends PaneManager<Role> {
         UnregistredRole role = new UnregistredRole(-1);
 
         role.setName(nameTextField.getText());
-        permissionMap.keySet().forEach(
-                permission -> {
-                    if (permissionMap.get(permission).getValue())
-                        role.addPermissions(permission);
-                }
-        );
+        role.addPermissions(checkListView.getCheckedItems().toArray(new Permission[]{}));
 
         return role;
     }
@@ -79,15 +69,10 @@ public class RolePane extends PaneManager<Role> {
     @Override
     protected void onShowDetails(Role object) {
         nameTextField.setText("");
-        permissionMap.keySet().forEach(
-                permission -> permissionMap.get(permission).setValue(false)
-        );
-
         if (object != null) {
             nameTextField.setText(object.toString());
-            permissionMap.keySet().forEach(
-                    permission -> permissionMap.get(permission).setValue(object.hasPermission(permission))
-            );
         }
+
+        checkListView.onShowDetails(object);
     }
 }

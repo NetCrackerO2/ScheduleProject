@@ -50,6 +50,8 @@ public class Main extends Application {
             controller.addCommand(new AccountRemoveCommand());
 
             controller.addCommand(new CathedraAddCommand());
+            controller.addCommand(new CathedraChangedCommand());
+            controller.addCommand(new CathedraEditCommand());
             controller.addCommand(new CathedraListCommand());
             controller.addCommand(new CathedraRemoveCommand());
 
@@ -64,7 +66,6 @@ public class Main extends Application {
             controller.addCommand(new GroupEditCommand());
             controller.addCommand(new GroupListCommand());
             controller.addCommand(new GroupRemoveCommand());
-
 
             controller.addCommand(new RoleAddCommand());
             controller.addCommand(new RoleChangedCommand());

@@ -1,5 +1,6 @@
 package gui;
 
+
 import account.Account;
 import account.UnregistredAccount;
 import cathedra.Cathedra;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+
 
 public class AccountPane extends PaneManager<Account> {
 
@@ -32,8 +34,10 @@ public class AccountPane extends PaneManager<Account> {
 
     @Override
     public void load() {
+        UnregistredAccount newAccount = new UnregistredAccount(-1);
+        newAccount.setName("Новый");
         TableManager<Account> tableManager = new TableManager<Account>(tableView, NewRowStatus.ACTIVE,
-                new UnregistredAccount(-1));
+                newAccount);
         tableManager.addColumn("Фамилия", String.class, account -> account.getName());
         tableManager.addColumn("Кафедра", String.class, account -> {
             if (account.getCathedraIndex() < 0)

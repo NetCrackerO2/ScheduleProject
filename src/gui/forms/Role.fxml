@@ -16,7 +16,7 @@
         <Label layoutX="24.0" layoutY="27.0" text="Название роли"/>
         <TextField layoutX="138.0" layoutY="23.0" fx:id="nameTextField"/>
         <Label layoutX="24.0" layoutY="63.0" text="Права"/>
-        <ListView layoutX="138.0" layoutY="63.0" prefHeight="210.0" prefWidth="180.0" fx:id="permissionListBox"/>
+        <ListView layoutX="138.0" layoutY="63.0" prefHeight="210.0" prefWidth="180.0" fx:id="permissionListView"/>
         <Button layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0"
                 text="Применить" fx:id="acceptButton"/>
         <Button layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0"
