@@ -1,6 +1,5 @@
 package gui;
 
-
 import account.Account;
 import account.UnregistredAccount;
 import cathedra.Cathedra;
@@ -42,12 +41,9 @@ public class AccountPane extends PaneManager<Account> {
             return MainForm.getMainForm().getCathedraList().stream()
                     .filter(object -> object.getIndex() == account.getCathedraIndex()).findFirst().get().toString();
         });
-        tableManager.addColumn("Группа", String.class, account -> {
-            if (account.getGroupIndex() < 0)
-                return defaultGroup.toString();
-            return MainForm.getMainForm().getGroupList().stream()
-                    .filter(object -> object.getIndex() == account.getGroupIndex()).findFirst().get().toString();
-        });
+        tableManager.addColumn("Группа", String.class,
+                x -> selectOrDefault(MainForm.getMainForm().getGroupList(), x.getGroupIndex(), defaultGroup)
+                        .toString());
 
         setTableManager(tableManager);
         setAcceptButton(addButton);

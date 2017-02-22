@@ -26,6 +26,8 @@
             <TextField fx:id="nameCathedraField" layoutX="138.0" layoutY="23.0" />
             <Label layoutX="24.0" layoutY="69.0" text="Факультет" />
             <ComboBox fx:id="facultyComboBox" layoutX="137.0" layoutY="65.0" prefWidth="150.0" />
+            <Label layoutX="24.0" layoutY="111.0" text="Заведущий" />
+            <ComboBox fx:id="headComboBox" layoutX="137.0" layoutY="111.0" prefWidth="150.0" />
             <Button fx:id="deleteButton" layoutX="199.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Удалить" />
             <Button fx:id="addButton" layoutX="66.0" layoutY="320.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="80.0" text="Применить" />
          </children>
@@ -33,10 +35,6 @@
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
             <TableView fx:id="tableView" layoutX="7.0" layoutY="7.0" prefHeight="350.0" prefWidth="300.0">
-               <columns>
-                  <TableColumn fx:id="cathedraNameColumn" prefWidth="118.0" text="Название кафедры" />
-                  <TableColumn fx:id="facultyNumberColumn" prefWidth="181.0" text="Факультет" />
-               </columns>
             </TableView>
          </children>
       </Pane>

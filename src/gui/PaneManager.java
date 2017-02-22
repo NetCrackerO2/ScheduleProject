@@ -125,6 +125,7 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
 
     /**
      * Заполняет комбобокс учитывая значение по умолчанию(не установленное)
+     * 
      * @param comboBox
      * @param selectedIndex
      * @param defaultObject
@@ -138,5 +139,23 @@ public abstract class PaneManager<T extends Entity> extends ContentPane {
         comboBox.getItems()
                 .addAll(data.stream().filter(x -> x.getIndex() != selectedIndex).collect(Collectors.toList()));
         comboBox.setValue(comboBox.getItems().get(0));
+    }
+
+    /**
+     * Выбор элемента если он существует в data, возвращает defaultObject в
+     * противном случае
+     * 
+     * @param data
+     * @param selectedIndex
+     * @param defaultObject
+     * @return
+     */
+    protected <T extends Entity> T selectOrDefault(List<T> data, int selectedIndex, T defaultObject) {
+        if (selectedIndex == -1)
+            return defaultObject;
+        Optional<T> result = data.stream().filter(object -> object.getIndex() == selectedIndex).findFirst();
+        if (!result.isPresent())
+            return defaultObject;
+        return result.get();
     }
 }
