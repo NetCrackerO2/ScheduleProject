@@ -186,10 +186,10 @@ public class MainForm {
         messageBuilder.put("type", "GROUP_LIST");
         Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
 
-        /*messageBuilder.initialize();
+        messageBuilder.initialize();
         messageBuilder.setConnectionIndex(0);
         messageBuilder.put("type", "ROLE_LIST");
-        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());*/
+        Controller.getController().getConnectionAssistant().sendMessage(messageBuilder.toMessage());
 
         messageBuilder.initialize();
         messageBuilder.setConnectionIndex(0);
@@ -202,7 +202,7 @@ public class MainForm {
             return;
 
         if (accountsUpdated
-                //&& rolesUpdated
+                && rolesUpdated
                 && roleAssignmentsUpdated
                 && cathedrasUpdated
                 && facultyesUpdated
